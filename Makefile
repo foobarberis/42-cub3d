@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/06/09 11:48:57 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/06/09 12:18:20 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,9 @@
 
 # Edit the $(NAME) and $(SRCS) variables as necessary.
 NAME		:=	cub3D
-SRCS		:=	main.c \
+SRCS		:=	main.c
 
-CC			:=	gcc
+CC			:=	cc
 RM			:=	rm
 
 SRCDIR		:=	src
@@ -26,17 +26,17 @@ INCDIR		:=	inc
 SYSINC		:=	/usr/include
 SYSLIB		:=	/usr/lib
 MLXDIR		:=	mlx_linux
-LFTDIR		:=	libft
+MLCDIR		:=	mlc
 
-INCFLAGS	:= -I$(INCDIR) -I$(SYSINC) -I$(MLXDIR) -I$(LFTDIR)/inc
-LIBFLAGS	:= -L$(MLXDIR) -L$(LFTDIR) -L$(SYSLIB) -lmlx_Linux -lft -lXext -lX11 -lm
+INCFLAGS	:= -I$(INCDIR) -I$(SYSINC) -I$(MLXDIR) -I$(MLCDIR)/inc
+# Was -lmlx_Linux
+LIBFLAGS	:= -L$(MLXDIR) -L$(MLCDIR) -L$(SYSLIB) -lmlx -lft -lXext -lX11 -lm
 # CFLAGS		:=	-Wall -Wextra -Werror -O3 -Ofast -march=native -ffast-math $(INCFLAGS)
 CFLAGS		:= -g3 -fPIE -Wall -Wextra -Wconversion -Wdouble-promotion -Wno-unused-parameter -Wno-unused-function -Wno-sign-conversion -fsanitize=undefined,address
-LDFLAGS		:=	$(CFLAGS)
 RMFLAGS		:=	-f
 
 # Edit the $(HEADERS) variable as necessary.
-HEADERS		:=	$(INCDIR)/fdf.h
+HEADERS		:=	$(INCDIR)/cub3d.h
 
 REMOVE		:=	$(RM) $(RMFLAGS)
 
@@ -51,11 +51,11 @@ all: libft mlx $(NAME)
 
 $(OBJECTS): $(HEADERS) Makefile
 
-$(NAME): $(OBJECTS) $(MLCDIR)/libft.a
-	$(CC) $(OBJECTS) $(INCFLAGS) $(LIBFLAGS) -o $(NAME)
+$(NAME): $(OBJECTS) $(MLCDIR)/libft.a $(MLXDIR)/libmlx.a
+	$(CC) $(OBJECTS) -fsanitize=address,undefined $(LIBFLAGS) -o $(NAME)
 
 libft:
-	make -C $(LFTDIR)
+	make -C $(MLCDIR)
 
 mlx:
 	make -C $(MLXDIR)
@@ -63,14 +63,14 @@ mlx:
 clean:
 	$(REMOVE) $(OBJECTS)
 	make -C $(MLXDIR) clean
-	make -C $(LFTDIR) clean
+	make -C $(MLCDIR) clean
 
 fclean: clean
 	$(REMOVE) $(NAME)
-	make -C $(LFTDIR) fclean
+	make -C $(MLCDIR) fclean
+	make -C $(MLXDIR) clean
 
-re: re: fclean
+re: fclean
 	$(MAKE) all
-
 
 .PHONY:	all clean fclean re libft mlx
