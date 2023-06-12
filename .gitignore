@@ -4,8 +4,12 @@
 !*/
 # Whitelist the file you're interested in.
 !*.c
+!*.cpp
 !*.h
+!*.hpp
 !*.txt
 !*.pdf
+!*.png
+!*.xpm
 !Makefile
 !.gitignore
