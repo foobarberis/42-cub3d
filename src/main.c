@@ -8,7 +8,21 @@
  * Setup the hooks.
  * Start game loop.
 */
-int main(int argc, char * argv[])
+int main(int argc, char **argv)
+{
+	t_data *d;
+
+	if (argc != 2)
+		return (f_dprintf(2, "Usage: ./cub3d map.cub\n"), EXIT_SUCCESS);
+	d = data_create(argv[1]);
+	if (!d)
+		return (EXIT_FAILURE);
+	setup_hooks(d);
+	mlx_loop(d->mlx->mlx);
+	return (EXIT_SUCCESS);
+}
+
+/* int main(int argc, char * argv[])
 {
 	t_data *d;
 
@@ -16,7 +30,7 @@ int main(int argc, char * argv[])
 
 	double time_curr_frame = 0;    // time of current frame
 	double time_prev_frame = 0; // time of previous frame
-	
+
 	// start the main loop
 	while (1)
 	{
@@ -47,9 +61,7 @@ int main(int argc, char * argv[])
 			int hit = 0; // was there a wall hit?
 			int side;    // was a NS or a EW wall hit?
 
-			/************/
-			/* RAYCAST */
-			/************/
+			// RAYCAST
 
 			// calculate step and initial sideDist
 			if (rayDirX < 0)
@@ -99,9 +111,8 @@ int main(int argc, char * argv[])
 			else
 				perpWallDist = (sideDistY - deltaDistY);
 
-			/***********/
-			/* DRAWING */
-			/***********/
+
+			// DRAWING
 
 			// Calculate height of line to draw on screen
 			int lineHeight = (int) (d->win_y / perpWallDist);
@@ -166,4 +177,4 @@ int main(int argc, char * argv[])
 		// speed modifiers
 		double moveSpeed = frameTime * 5.0; // the constant value is in squares/second
 		double rotSpeed = frameTime * 3.0; // the constant value is in radians/second
-}
+} */
