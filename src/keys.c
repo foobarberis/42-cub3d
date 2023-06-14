@@ -1,54 +1,54 @@
-#include "cub3D"
+#include "cub3d.h"
 
-static void rotate_right()
+static void rotate_right(t_data *d)
 {
 	// both camera direction and camera plane must be rotated
-	double oldDirX = dirX;
+/* 	double oldDirX = dirX;
 	dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
 	dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
 	double oldPlaneX = planeX;
 	planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
-	planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
+	planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed); */
 }
 
-static void rotate_left()
+static void rotate_left(t_data *d)
 {
 	// both camera direction and camera plane must be rotated
-	double oldDirX = dirX;
+/* 	double oldDirX = dirX;
 	dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
 	dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
 	double oldPlaneX = planeX;
 	planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
-	planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
+	planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed); */
 }
 
-static void move_forward()
+static void move_forward(t_data *d)
 {
-	if (worldMap[(int) (posX + dirX * moveSpeed)][(int) posY] == false)
+/* 	if (worldMap[(int) (posX + dirX * moveSpeed)][(int) posY] == false)
 		posX += dirX * moveSpeed;
 	if (worldMap[(int) posX][(int) (posY + dirY * moveSpeed)] == false)
-		posY += dirY * moveSpeed;
+		posY += dirY * moveSpeed; */
 }
 
-static void move_backward()
+static void move_backward(t_data *d)
 {
-	if (worldMap[(int) (posX - dirX * moveSpeed)][(int) posY] == false)
+/* 	if (worldMap[(int) (posX - dirX * moveSpeed)][(int) posY] == false)
 		posX -= dirX * moveSpeed;
 	if (worldMap[(int) posX][(int) (posY - dirY * moveSpeed)] == false)
-		posY -= dirY * moveSpeed;
+		posY -= dirY * moveSpeed; */
 }
 
-int fdf_hook_keypress(int key, t_data *env)
+int hook_keypress(t_data *d, int key)
 {
 	if (key == XK_Escape)
-		fdf_exit(env);
-	if (key == XK_Up)
-		move_forward();
-	if (key == XK_Down)
-		move_backward();
-	if (key == XK_Right)
-		rotate_right();
-	if (key == XK_Left)
-		rotate_left();
+		cub_exit(d, EXIT_SUCCESS);
+	else if (key == XK_Up)
+		move_forward(d);
+	else if (key == XK_Down)
+		move_backward(d);
+	else if (key == XK_Right)
+		rotate_right(d);
+	else if (key == XK_Left)
+		rotate_left(d);
 	return (0);
 }

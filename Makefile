@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/06/13 09:15:57 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/06/14 10:07:43 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@
 
 # Edit the $(NAME) and $(SRCS) variables as necessary.
 NAME		:=	cub3D
-SRCS		:=	main.c utils.c
+SRCS		:=	test.c create.c destroy.c utils.c parsing.c keys.c
 
 CC			:=	cc
 RM			:=	rm

@@ -33,6 +33,8 @@ int buffer[screenHeight][screenWidth];
  * Parse the map, if an error occured exit().
  * Malloc and initialize the t_cam struct.
  * Malloc and initialize the t_mlx struct (create mlx window etc.).
+ * Setup the hooks.
+ * Start game loop.
 */
 int main(int argc, char * argv[])
 {

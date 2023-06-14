@@ -5,7 +5,7 @@ t_data *data_create(char *file)
 	t_data	*d;
 
 	d = malloc(sizeof(t_data));
-	if (!p)
+	if (!d)
 		return (NULL);
 	d->map = map_create(file);
 	if (!d->map)

@@ -5,7 +5,7 @@
 # include "mlx.h"
 # include <math.h>
 # include <X11/X.h>			/* event masks */
-# include <X11/keysymdef.h>	/* keycodes */
+# include <X11/keysym.h>	/* keycodes */
 
 # define WINDOW_WIDTH	800
 # define WINDOW_HEIGHT	600
@@ -95,5 +95,10 @@ t_map		*map_create(char *file);
 void		data_destroy(t_data *d);
 void		mlx_destroy(t_mlx *mlx);
 void		map_destroy(t_map *map);
+int			cub_exit(t_data *d, int code);
+
+void		mlx_pixel_put_img(t_data *d, int x, int y, int color);
+int			hook_keypress(t_data *d, int key);
+void		setup_hooks(t_data *d);
 
 #endif
