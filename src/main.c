@@ -1,73 +1,4 @@
 #include "cub3d.h"
-#include <stdio.h>
-#include <stdbool.h>
-
-static t_camera *cub_cam_init()
-{
-	t_camera *cam;
-
-	cam = malloc(sizeof(t_camera));
-	if (!cam)
-		return (NULL);
-	cam->pos_x = 22.0;
-	cam->pos_y = 11.5;
-	cam->dir_x - 1.0;
-	cam->dir_y = 0.0;
-	cam->plane_x = 0.0;
-	cam->plane_y = 0.66;
-	return (cam);
-}
-
-static void	cub_free_if(t_data *env)
-{
-	if (env->win)
-		mlx_destroy_window(env->mlx, env->win);
-	if (env->img)
-/* 		mlx_destroy_image(env->mlx, env->img);
-	if (env->m)
-		matrix_destroy(env->m, env->ymap); */
-	mlx_destroy_display(env->mlx);
-	free(env->mlx);
-	env->win = NULL;
-	env->img = NULL;
-	env->addr = NULL;
-	// env->m = NULL;
-	env->mlx = NULL;
-	free(env);
-	env = NULL;
-}
-
-static void	cub_init_members(t_data *env)
-{
-	env->mlx = NULL;
-	env->win = NULL;
-	env->img = NULL;
-	env->addr = NULL;
-	env->bpp = 0;
-	env->llen = 0;
-	env->end = 0;
-	env->xwin = screenWidth;
-	env->ywin = screenHeight;
-}
-
-t_data	*cub_init(void)
-{
-	t_data	*p;
-
-	p = malloc(sizeof(t_data));
-	if (!p)
-		return (NULL);
-	cub_init_members(p);
-	p->mlx = mlx_init();
-	if (!(p->mlx))
-		return (free(p), NULL);
-	p->win = mlx_new_window(p->mlx, p->xwin, p->ywin, "cub3D");
-	p->img = mlx_new_image(p->mlx, p->xwin, p->ywin);
-	if (!(p->win) || !(p->img))
-		return (cub_free_if(p), NULL);
-	p->addr = mlx_get_data_addr(p->img, &(p->bpp), &(p->llen), &(p->end));
-	return (p);
-}
 
 int worldMap[mapWidth][mapHeight] = {
     {4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 7, 7, 7, 7, 7, 7, 7, 7},
@@ -97,34 +28,38 @@ int worldMap[mapWidth][mapHeight] = {
 
 int buffer[screenHeight][screenWidth];
 
+/*
+ * Malloc t_data struct.
+ * Parse the map, if an error occured exit().
+ * Malloc and initialize the t_cam struct.
+ * Malloc and initialize the t_mlx struct (create mlx window etc.).
+*/
 int main(int argc, char * argv[])
 {
-	t_data *env;
-	t_camera *cam;
+	t_data *d;
 
-	env = cub_init();
-	cam = cub_cam_init();
+	d = cub_init();
 
 	double time_curr_frame = 0;    // time of current frame
 	double time_prev_frame = 0; // time of previous frame
 
 	int tw, th;
-	env->tex[0] = mlx_xpm_file_to_image(env->mlx, "assets/eagle.xpm", &tw, &th);
-	env->tex[1] = mlx_xpm_file_to_image(env->mlx, "assets/redbrick.xpm", &tw, &th);
-	env->tex[2] = mlx_xpm_file_to_image(env->mlx, "assets/purplestone.xpm", &tw, &th);
-	env->tex[3] = mlx_xpm_file_to_image(env->mlx, "assets/greystone.xpm", &tw, &th);
-	env->tex[4] = mlx_xpm_file_to_image(env->mlx, "assets/bluestone.xpm", &tw, &th);
-	env->tex[5] = mlx_xpm_file_to_image(env->mlx, "assets/mossy.xpm", &tw, &th);
-	env->tex[6] = mlx_xpm_file_to_image(env->mlx, "assets/wood.xpm", &tw, &th);
-	env->tex[7] = mlx_xpm_file_to_image(env->mlx, "assets/colorstone.xpm", &tw, &th);
+	d->map->tex[0] = mlx_xpm_file_to_image(d->mlx, "assets/eagle.xpm", &tw, &th);
+	d->map->tex[1] = mlx_xpm_file_to_image(d->mlx, "assets/redbrick.xpm", &tw, &th);
+	d->map->tex[2] = mlx_xpm_file_to_image(d->mlx, "assets/purplestone.xpm", &tw, &th);
+	d->map->tex[3] = mlx_xpm_file_to_image(d->mlx, "assets/greystone.xpm", &tw, &th);
+	d->map->tex[4] = mlx_xpm_file_to_image(d->mlx, "assets/bluestone.xpm", &tw, &th);
+	d->map->tex[5] = mlx_xpm_file_to_image(d->mlx, "assets/mossy.xpm", &tw, &th);
+	d->map->tex[6] = mlx_xpm_file_to_image(d->mlx, "assets/wood.xpm", &tw, &th);
+	d->map->tex[7] = mlx_xpm_file_to_image(d->mlx, "assets/colorstone.xpm", &tw, &th);
 
 	// start the main loop
 	while (1)
 	{
-		for (int x = 0; x < env->xwin; x++)
+		for (int x = 0; x < d->win_x; x++)
 		{
 			// calculate ray position and direction
-			double cameraX = 2 * x / (double) env->xwin - 1; // x-coordinate in camera space
+			double cameraX = 2 * x / (double) d->win_x - 1; // x-coordinate in camera space
 			double rayDirX = dirX + planeX * cameraX;
 			double rayDirY = dirY + planeY * cameraX;
 
@@ -147,6 +82,10 @@ int main(int argc, char * argv[])
 
 			int hit = 0; // was there a wall hit?
 			int side;    // was a NS or a EW wall hit?
+
+			/************/
+			/* RAYCAST */
+			/************/
 
 			// calculate step and initial sideDist
 			if (rayDirX < 0)
@@ -196,18 +135,22 @@ int main(int argc, char * argv[])
 			else
 				perpWallDist = (sideDistY - deltaDistY);
 
+			/***********/
+			/* DRAWING */
+			/***********/
+
 			// Calculate height of line to draw on screen
-			int lineHeight = (int) (env->ywin / perpWallDist);
+			int lineHeight = (int) (d->win_y / perpWallDist);
 
 			int pitch = 100;
 
 			// calculate lowest and highest pixel to fill in current stripe
-			int drawStart = -lineHeight / 2 + env->ywin / 2 + pitch;
+			int drawStart = -lineHeight / 2 + d->win_y / 2 + pitch;
 			if (drawStart < 0)
 				drawStart = 0;
-			int drawEnd = lineHeight / 2 + env->ywin / 2 + pitch;
-			if (drawEnd >= env->ywin)
-				drawEnd = env->ywin - 1;
+			int drawEnd = lineHeight / 2 + d->win_y / 2 + pitch;
+			if (drawEnd >= d->win_y)
+				drawEnd = d->win_y - 1;
 
 			// texturing calculations
 			int texNum = worldMap[mapX][mapY] - 1; // 1 subtracted from it so that texture 0 can be used!
@@ -231,7 +174,7 @@ int main(int argc, char * argv[])
 			// How much to increase the texture coordinate per screen pixel
 			double step = 1.0 * texHeight / lineHeight;
 			// Starting texture coordinate
-			double texPos = (drawStart - pitch - env->ywin / 2 + lineHeight / 2) * step;
+			double texPos = (drawStart - pitch - d->win_y / 2 + lineHeight / 2) * step;
 			for (int y = drawStart; y < drawEnd; y++)
 			{
 				// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
@@ -246,8 +189,8 @@ int main(int argc, char * argv[])
 		}
 
 		drawBuffer(buffer[0]);
-		for (int y = 0; y < env->ywin; y++)
-			for (int x = 0; x < env->xwin; x++)
+		for (int y = 0; y < d->win_y; y++)
+			for (int x = 0; x < d->win_x; x++)
 				buffer[y][x] = 0; // clear the buffer instead of cls()
 		// timing for input and FPS counter
 		time_prev_frame = time_curr_frame;

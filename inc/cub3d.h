@@ -1,22 +1,19 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
-#include "mlc.h"
-#include "mlx.h"
-#include <X11/X.h>      /* event masks */
-#include <X11/keysym.h> /* keycodes */
-#include <math.h>
+# include "mlc.h"
+# include "mlx.h"
+# include <math.h>
+# include <X11/X.h>			/* event masks */
+# include <X11/keysymdef.h>	/* keycodes */
 
-#define WINDOW_WIDTH	800
-#define WINDOW_HEIGHT	600
-#define texWidth 64
-#define texHeight 64
-#define mapWidth 24
-#define mapHeight 24
+# define WINDOW_WIDTH	800
+# define WINDOW_HEIGHT	600
 
 typedef struct s_data   t_data;
+typedef struct s_mlx	t_mlx;
 typedef struct s_map    t_map;
-typedef struct s_camera t_camera;
+typedef struct s_cam	t_cam;
 
 enum e_direction
 {
@@ -28,6 +25,24 @@ enum e_direction
 
 struct s_data
 {
+	t_mlx	*mlx;
+	t_cam	*cam;
+	t_map	*map;
+};
+
+/*
+ * mlx		: pointer to the mlx context.
+ * win		: pointer to the mlx window.
+ * img		:
+ * addr		:
+ * bpp		: bits per pixel.
+ * llen		: line length.
+ * end		: endian type.
+ * win_w	: window width
+ * win_h 	: window height
+*/
+struct s_mlx
+{
 	void *mlx;
 	void *win;
 	void *img;
@@ -35,8 +50,8 @@ struct s_data
 	int   bpp;
 	int   llen;
 	int   end;
-	int   win_x;
-	int   win_y;
+	int	  win_w;
+	int	  win_h;
 };
 
 /*
@@ -45,7 +60,7 @@ struct s_data
  * dir_x : camera's x direction vector.
  * dir_y : camera's y direction vector.
 */
-struct s_camera
+struct s_cam
 {
 	double pos_x;
 	double pos_y;
@@ -56,7 +71,6 @@ struct s_camera
 };
 
 /*
- * file		: array containing the map in ASCII form.
  * map		: 2D array containing the map in int form.
  * map_x	: map's width.
  * map_y	: map's height.
@@ -66,13 +80,20 @@ struct s_camera
 */
 struct s_map
 {
-	char   *file;
 	int    **map;
-	int      map_x;
-	int      map_y;
+	int      map_w;
+	int      map_h;
 	uint32_t ceil;
 	uint32_t floor;
 	void    *tex[4];
 };
+
+t_data		*data_create(char *file);
+t_mlx		*mlx_create(void);
+t_cam		*cam_create(t_data *d);
+t_map		*map_create(char *file);
+void		data_destroy(t_data *d);
+void		mlx_destroy(t_mlx *mlx);
+void		map_destroy(t_map *map);
 
 #endif
