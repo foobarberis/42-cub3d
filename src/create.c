@@ -4,7 +4,7 @@ t_data *data_create(char *file)
 {
 	t_data	*d;
 
-	d = malloc(sizeof(t_data));
+	d = f_calloc(1, sizeof(t_data));
 	if (!d)
 		return (NULL);
 	d->map = map_create(file);
@@ -23,7 +23,7 @@ t_mlx *mlx_create(void)
 {
 	t_mlx *mlx;
 
-	mlx = malloc(sizeof(t_mlx));
+	mlx = f_calloc(1, sizeof(t_mlx));
 	if (!mlx)
 		return (NULL);
 	mlx->win_w = WINDOW_WIDTH;
@@ -44,7 +44,7 @@ t_cam *cam_create(t_data *d)
 {
 	t_cam *cam;
 
-	cam = malloc(sizeof(t_cam));
+	cam = f_calloc(1, sizeof(t_cam));
 	if (!cam)
 		return (NULL);
 	cam->pos_x = 22.0;
@@ -60,8 +60,10 @@ t_map *map_create(char *file)
 {
 	t_map *map;
 
-	map = malloc(sizeof(t_map));
+	map = f_calloc(1, sizeof(t_map));
 	if (!map)
 		return (NULL);
+	if (map_parsing(map, file))
+		return (free(map), NULL);
 	return (map);
 }

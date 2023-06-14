@@ -34,8 +34,6 @@ void map_destroy(t_map *map)
 			free(map->map[i++]);
 		free(map->map);
 	}
-	if (map->tex)
-		free(map->tex);
 	free(map);
 }
 

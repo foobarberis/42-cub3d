@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/03 16:59:04 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/05/13 16:57:04 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/14 13:33:59 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ size_t		f_strlen(const char *s);
 size_t		f_strnlen(const char *s, size_t n);
 char		*f_strnstr(const char *h, const char *n, size_t m);
 /* non-standard */
+char		*f_strchrnul(const char *s, int c);
 void		*f_memrchr(const void *s, int c, size_t n);
 
 /* STDLIB */

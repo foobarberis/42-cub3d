@@ -1,6 +1,8 @@
 #ifndef CUB3D_H
 #define CUB3D_H
 
+#include <stdio.h> /* DEBUG */
+
 # include "mlc.h"
 # include "mlx.h"
 # include <math.h>
@@ -17,7 +19,7 @@ typedef struct s_cam	t_cam;
 
 enum e_direction
 {
-	N,
+	N = 1,
 	S,
 	E,
 	W
@@ -96,6 +98,8 @@ void		data_destroy(t_data *d);
 void		mlx_destroy(t_mlx *mlx);
 void		map_destroy(t_map *map);
 int			cub_exit(t_data *d, int code);
+
+int map_parsing(t_map *map, char *file);
 
 void		mlx_pixel_put_img(t_data *d, int x, int y, int color);
 int			hook_keypress(t_data *d, int key);
