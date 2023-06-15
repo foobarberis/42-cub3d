@@ -11,6 +11,7 @@
 
 # define WINDOW_WIDTH	800
 # define WINDOW_HEIGHT	600
+# define FILL 'x'
 
 typedef struct s_data   t_data;
 typedef struct s_mlx	t_mlx;

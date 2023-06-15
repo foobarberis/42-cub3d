@@ -5,7 +5,7 @@
 *
 * Player is outside of the map.
 * No player is set.
-* Multiple players are set.
+* Multiple players are set. (save player coordinates, call get player pos starting at player coordinates and see if they change)
 * Map is not closed.
 * Map contains illegal characters.
 * Map is not after the header.
@@ -55,7 +55,7 @@ static char **map_split(char *s)
 	return (new);
 }
 
-int map_parsing(t_map *map, char *file)
+int map_parsing(t_data *d, char *file)
 {
 	char 	*map_1d;
 	char	**map_2d;

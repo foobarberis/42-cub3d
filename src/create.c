@@ -1,69 +1,49 @@
 #include "cub3d.h"
 
-t_data *data_create(char *file)
+t_data *data_create(void)
 {
 	t_data	*d;
 
 	d = f_calloc(1, sizeof(t_data));
 	if (!d)
 		return (NULL);
-	d->map = map_create(file);
-	if (!d->map)
-		return (data_destroy(d), NULL);
-	d->cam = cam_create(d);
-	if (!d->cam)
-		return (data_destroy(d), NULL);
-	d->mlx = mlx_create();
+	d->mlx = f_calloc(1, sizeof(t_mlx));
 	if (!d->mlx)
-		return (data_destroy(d), NULL);
+		return (free(d), NULL);
+	d->cam = f_calloc(1, sizeof(t_cam));
+	if (!d->cam)
+		return (free(d->mlx), free(d), NULL);
+	d->map = f_calloc(1, sizeof(t_map));
+	if (!d->map)
+		return (free(d->cam), free(d->mlx), free(d), NULL);
 	return (d);
 }
 
-t_mlx *mlx_create(void)
+t_data *data_init(char *file)
 {
-	t_mlx *mlx;
+	t_data	*d;
 
-	mlx = f_calloc(1, sizeof(t_mlx));
-	if (!mlx)
+	d = data_create();
+	if (!d)
 		return (NULL);
-	mlx->win_w = WINDOW_WIDTH;
-	mlx->win_h = WINDOW_HEIGHT;
-	mlx->mlx = mlx_init();
-	if (!(mlx->mlx))
-		return (free(mlx), NULL);
-	mlx->win = mlx_new_window(mlx->mlx, mlx->win_w, mlx->win_h, "cub3D");
-	mlx->img = mlx_new_image(mlx->mlx, mlx->win_w, mlx->win_h);
-	if (!(mlx->win) || !(mlx->img))
-		return (mlx_destroy(mlx), NULL);
-	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bpp, &mlx->llen, &mlx->end);
-	return (mlx);
+	if (mlx_setup(d))
+		return (data_destroy(d), NULL);
+	map_parsing(d);
+	return (d);
 }
 
-/* FIXME: Use values extracted from the map for pos and dir */
-t_cam *cam_create(t_data *d)
+int mlx_setup(t_data *d)
 {
-	t_cam *cam;
-
-	cam = f_calloc(1, sizeof(t_cam));
-	if (!cam)
-		return (NULL);
-	cam->pos_x = 22.0;
-	cam->pos_y = 11.5;
-	cam->dir_x = 1.0;
-	cam->dir_y = 0.0;
-	cam->plane_x = 0.0;
-	cam->plane_y = 0.66;
-	return (cam);
+	d->mlx->win_w = WINDOW_WIDTH;
+	d->mlx->win_h = WINDOW_HEIGHT;
+	d->mlx->mlx = mlx_init();
+	if (!(d->mlx->mlx))
+		return (free(d->mlx), 1);
+	d->mlx->win = mlx_new_window(d->mlx->mlx, d->mlx->win_w, d->mlx->win_h, "cub3D");
+	d->mlx->img = mlx_new_image(d->mlx->mlx, d->mlx->win_w, d->mlx->win_h);
+	if (!(d->mlx->win) || !(d->mlx->img))
+		return (mlx_destroy(d->mlx), 1);
+	d->mlx->addr = mlx_get_data_addr(d->mlx->img, &d->mlx->bpp, &d->mlx->llen, &d->mlx->end);
+	return (0);
 }
 
-t_map *map_create(char *file)
-{
-	t_map *map;
-
-	map = f_calloc(1, sizeof(t_map));
-	if (!map)
-		return (NULL);
-	if (map_parsing(map, file))
-		return (free(map), NULL);
-	return (map);
-}
