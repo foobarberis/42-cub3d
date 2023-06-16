@@ -33,7 +33,7 @@ int check_map(char **map)
 		while (map[i][j])
 		{
 			if (!islegal(map[i][j]))
-				return (f_dprintf(2, "cub3d: line %d: map contains forbidden character (`%c') lines\n", i + 1, map[i][j]), 1);
+				return (f_dprintf(2, "cub3d: line %d: map contains forbidden character (`%c')\n", i + 1, map[i][j]), 1);
 			j++;
 		}
 		i++;
@@ -82,16 +82,17 @@ int parse_map(t_data *d, char **map)
 	int y;
 	int error;
 
-	error = 0;
 	x = 0;
 	y = 0;
+	error = 0;
 	if (check_map(map))
 		return (1);
 	get_player_pos(map, &x, &y);
 	if (x == -1)
 		return (f_dprintf(2, "cub3d: player not found\n"), 1);
 	get_player_dir(map[x][y], &d->cam->dir_x, &d->cam->dir_y);
-	check_mult_player(map, x, y);
+	if (map_has_mult_player(map, x, y))
+		return (f_dprintf(2, "cub3d: multiple players found\n"), 1);
 	dfs(map, x, y, &error);
 	if (error)
 		return (f_dprintf(2, "cub3d: map is not closed\n"), 1);
@@ -103,11 +104,5 @@ int parse_map(t_data *d, char **map)
 	ascii_to_int(d->map->map, map, d->map->map_w);
 	d->cam->pos_x = (double)x;
 	d->cam->pos_y = (double)y;
-	for (int i = 0; i < d->map->map_h; i++)
-	{
-		for (int j = 0; j < d->map->map_w; j++)
-			printf("%d", d->map->map[i][j]);
-		printf("\n");
-	}
 	return (0);
 }

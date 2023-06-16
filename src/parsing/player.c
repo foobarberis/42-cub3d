@@ -44,7 +44,7 @@ void get_player_dir(char c, double *dx, double *dy)
 	}
 }
 
-int check_mult_player(char **map, int x, int y)
+int map_has_mult_player(char **map, int x, int y)
 {
 	int nx;
 	int ny;
@@ -54,6 +54,6 @@ int check_mult_player(char **map, int x, int y)
 	map[x][y] = FILL;
 	get_player_pos(map, &nx, &ny);
 	if (nx == -1)
-		return (1);
-	return (0);
+		return (0);
+	return (1);
 }
