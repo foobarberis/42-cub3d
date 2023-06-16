@@ -8,6 +8,8 @@ void data_destroy(t_data *d)
 		mlx_destroy(d->mlx);
 	if (d->map)
 		map_destroy(d->map);
+	if (d->cam)
+		free(d->cam);
 	free(d);
 }
 
@@ -35,6 +37,16 @@ void map_destroy(t_map *map)
 		free(map->map);
 	}
 	free(map);
+}
+
+void matrix_destroy(int **m, int h)
+{
+	int i;
+
+	i = 0;
+	while (i < h)
+		free(m[i++]);
+	free(m);
 }
 
 int	cub_exit(t_data *d, int code)

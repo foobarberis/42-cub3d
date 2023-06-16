@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-t_data *data_create(void)
+static t_data *data_create(void)
 {
 	t_data	*d;
 
@@ -19,20 +19,7 @@ t_data *data_create(void)
 	return (d);
 }
 
-t_data *data_init(char *file)
-{
-	t_data	*d;
-
-	d = data_create();
-	if (!d)
-		return (NULL);
-	if (mlx_setup(d))
-		return (data_destroy(d), NULL);
-	map_parsing(d);
-	return (d);
-}
-
-int mlx_setup(t_data *d)
+static int mlx_setup(t_data *d)
 {
 	d->mlx->win_w = WINDOW_WIDTH;
 	d->mlx->win_h = WINDOW_HEIGHT;
@@ -47,3 +34,34 @@ int mlx_setup(t_data *d)
 	return (0);
 }
 
+int **matrix_create(int w, int h)
+{
+	int i;
+	int **new;
+
+	i = 0;
+	new = f_calloc(h, sizeof(int *));
+	if (!new)
+		return (NULL);
+	while (i < h)
+	{
+		new[i] = f_calloc(w, sizeof(int *));
+		if (!new[i])
+			matrix_destroy(new, i);
+		i++;
+	}
+	return (new);
+}
+
+t_data *data_init(char *file)
+{
+	t_data	*d;
+
+	d = data_create();
+	if (!d)
+		return (NULL);
+	if (mlx_setup(d))
+		return (data_destroy(d), NULL);
+	parsing(d, file);
+	return (d);
+}

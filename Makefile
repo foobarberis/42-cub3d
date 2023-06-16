@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/06/14 13:48:48 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/06/16 09:46:33 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,9 @@ SRCS		:=	create.c \
 				destroy.c \
 				keys.c \
 				parsing/parsing.c \
+				parsing/map.c \
+				parsing/player.c \
+				parsing/parsing_utils.c \
 				main.c \
 				utils.c \
 

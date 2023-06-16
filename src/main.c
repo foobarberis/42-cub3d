@@ -14,11 +14,13 @@ int main(int argc, char **argv)
 
 	if (argc != 2)
 		return (f_dprintf(2, "Usage: ./cub3d map.cub\n"), EXIT_SUCCESS);
-	d = data_create(argv[1]);
+	d = data_init(argv[1]);
 	if (!d)
 		return (EXIT_FAILURE);
-	setup_hooks(d);
-	mlx_loop(d->mlx->mlx);
+	// setup_hooks(d);
+	// mlx_loop(d->mlx->mlx);
+	printf("DEBUG\npos_x = %lf\npos_y = %lf\ndir_x = %lf\ndir_y = %lf\n", d->cam->pos_x, d->cam->pos_y, d->cam->dir_x, d->cam->dir_y);
+	cub_exit(d, EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }
 

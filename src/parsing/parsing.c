@@ -55,7 +55,7 @@ static char **map_split(char *s)
 	return (new);
 }
 
-int map_parsing(t_data *d, char *file)
+int parsing(t_data *d, char *file)
 {
 	char 	*map_1d;
 	char	**map_2d;
@@ -64,6 +64,9 @@ int map_parsing(t_data *d, char *file)
 	if (!map_1d)
 		return (1);
 	map_2d = map_split(map_1d);
+	// parse_header(d, map_2d);
+	if (parse_map(d, map_2d))
+		cub_exit(d, EXIT_SUCCESS);
 	free(map_1d);
 	free(map_2d);
 	return (0);
