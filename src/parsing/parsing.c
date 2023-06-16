@@ -5,7 +5,7 @@
 *
 * Player is outside of the map.
 * No player is set.
-* Multiple players are set. (save player coordinates, call get player pos starting at player coordinates and see if they change)
+* Multiple players are set.
 * Map is not closed.
 * Map contains illegal characters.
 * Map is not after the header.

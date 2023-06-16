@@ -1,13 +1,17 @@
 #include "cub3d.h"
 
-/*
- * Malloc t_data struct.
- * Parse the map, if an error occured exit().
- * Malloc and initialize the t_cam struct.
- * Malloc and initialize the t_mlx struct (create mlx window etc.).
- * Setup the hooks.
- * Start game loop.
-*/
+static void print_debug_info(t_data *d)
+{
+	printf("DEBUG\npos_x = %lf\npos_y = %lf\ndir_x = %lf\ndir_y = %lf\n\n",
+	       d->cam->pos_x, d->cam->pos_y, d->cam->dir_x, d->cam->dir_y);
+	for (int i = 0; i < d->map->map_h; i++)
+	{
+		for (int j = 0; j < d->map->map_w; j++)
+			printf("%d", d->map->map[i][j]);
+		printf("\n");
+	}
+}
+
 int main(int argc, char **argv)
 {
 	t_data *d;
@@ -17,16 +21,9 @@ int main(int argc, char **argv)
 	d = data_init(argv[1]);
 	if (!d)
 		return (EXIT_FAILURE);
-	// setup_hooks(d);
-	// mlx_loop(d->mlx->mlx);
-	printf("DEBUG\npos_x = %lf\npos_y = %lf\ndir_x = %lf\ndir_y = %lf\n\n",
-	       d->cam->pos_x, d->cam->pos_y, d->cam->dir_x, d->cam->dir_y);
-	for (int i = 0; i < d->map->map_h; i++)
-	{
-		for (int j = 0; j < d->map->map_w; j++)
-			printf("%d", d->map->map[i][j]);
-		printf("\n");
-	}
+	print_debug_info(d);
+	setup_hooks(d);
+	mlx_loop(d->mlx->mlx);
 	cub_exit(d, EXIT_SUCCESS);
 	return (EXIT_SUCCESS);
 }
