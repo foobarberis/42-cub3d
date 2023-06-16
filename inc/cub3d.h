@@ -91,27 +91,29 @@ struct s_map
 	void    *tex[4];
 };
 
-t_data		*data_init(char *file);
-int **matrix_create(int w, int h);
-void matrix_destroy(int **m, int h);
-void		data_destroy(t_data *d);
-void		mlx_destroy(t_mlx *mlx);
-void		map_destroy(t_map *map);
-int			cub_exit(t_data *d, int code);
+t_data	*data_init(char *file);
+int		**matrix_create(int w, int h);
+void	matrix_destroy(int **m, int h);
+void	data_destroy(t_data *d);
+void	mlx_destroy(t_mlx *mlx);
+void	map_destroy(t_map *map);
+int		cub_exit(t_data *d, int code);
 
-int parsing(t_data *d, char *file);
-int parse_map(t_data *d, char **map);
+int		parsing(t_data *d, char *file);
+int		parse_map(t_data *d, char **map);
+int		parse_header(t_data *d, char **map);
 
-int islegal(int c);
-int get_map_width(char **map);
-int get_map_height(char **map);
+int		islegal(int c);
+int		get_map_width(char **map);
+int		get_map_height(char **map);
 
-void get_player_pos(char **map, int *x, int *y);
-void get_player_dir(char c, double *dx, double *dy);
-int map_has_mult_player(char **map, int x, int y);
+void	get_player_pos(char **map, int *x, int *y);
+void	get_player_dir(char c, double *dx, double *dy);
+int		map_has_multiple_players(char **map, int x, int y);
 
-void		mlx_pixel_put_img(t_data *d, int x, int y, int color);
-int			hook_keypress(t_data *d, int key);
-void		setup_hooks(t_data *d);
+void	mlx_pixel_put_img(t_data *d, int x, int y, int color);
+int		hook_keypress(t_data *d, int key);
+void	setup_hooks(t_data *d);
 
 #endif
+

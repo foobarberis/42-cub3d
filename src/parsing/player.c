@@ -44,7 +44,7 @@ void get_player_dir(char c, double *dx, double *dy)
 	}
 }
 
-int map_has_mult_player(char **map, int x, int y)
+int map_has_multiple_players(char **map, int x, int y)
 {
 	int nx;
 	int ny;

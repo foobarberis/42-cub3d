@@ -20,7 +20,7 @@ int rgb_check_overflow(char *s, int len)
 	while (1)
 	{
 		i = 0;
-		l = f_strlen(s);
+		l = (int)f_strlen(s);
 		if (l > 3 || l < 1)
 			return (f_dprintf(2, "cub3d: %s: RGB value is not in range 0-255\n"), 1);
 		color = f_atoi(s);
@@ -34,6 +34,7 @@ int rgb_check_overflow(char *s, int len)
 			i++;
 		s += i;
 	}
+	return (0);
 }
 
 int check_color(char *s)
@@ -44,7 +45,7 @@ int check_color(char *s)
 
 	i = 0;
 	c = 0;
-	len = f_strlen(s);
+	len = (int)f_strlen(s);
 	while (i < len)
 	{
 		if (s[i] == ',')

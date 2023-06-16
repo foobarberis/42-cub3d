@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/06/16 09:46:33 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/06/16 12:28:56 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,12 +18,14 @@ NAME		:=	cub3D
 SRCS		:=	create.c \
 				destroy.c \
 				keys.c \
-				parsing/parsing.c \
-				parsing/map.c \
-				parsing/player.c \
-				parsing/parsing_utils.c \
 				main.c \
-				utils.c \
+				parsing/header.c \
+				parsing/map.c \
+				parsing/parsing.c \
+				parsing/parsing_utils.c \
+				parsing/player.c \
+				parsing/rgb.c \
+				utils.c
 
 CC			:=	cc
 RM			:=	rm
