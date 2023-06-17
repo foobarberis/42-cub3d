@@ -33,81 +33,73 @@ static int	count_lines(char *s)
 	return (lines);
 }
 
-static char **map_split(char *s)
+/* returns 1 if the line qualifies to be the beginning of the map */
+static int locate_map(char *s)
+{
+	while (f_isspace(*s))
+		s++;
+	if (*s == '0' || *s == '1')
+		return (1);
+	else if (((*s == 'N' || *s == 'S') && *(s + 1) != 'O') || (*s == 'E' && *(s + 1) != 'A') || (*s == 'W' && *(s + 1) != 'E'))
+			return (1);
+	return (0);
+}
+
+static void map_split(char *s, char **map, char **head)
 {
 	int		i;
+	int		j;
+	int		map_found;
 	char	*p;
-	char	**new;
 
 	i = 0;
+	j = 0;
 	p = s;
-	new = f_calloc(count_lines(s) + 1, sizeof(char *));
-	if (!new)
-		return (NULL);
+	map_found = 0;
 	while (*p && *s)
 	{
 		p = f_strchrnul(p, '\n');
 		if (*p)
 			*p++ = '\0';
-		new[i++] = s;
+		if (!map_found)
+			map_found = locate_map(s);
+		if (map_found)
+			map[i++] = s;
+		else
+			head[j++] = s;
 		s = p;
 	}
-	return (new);
-}
-
-static int locate_map(char **map)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	while (map[i])
-	{
-		while (f_isspace(map[i][j]))
-			j++;
-		if (map[i][j] == '0' || map[i][j] == '1')
-			return (i);
-		if (((map[i][j] == 'N' || map[i][j] == 'S') && map[i][j + 1] != 'O')
-			|| (map[i][j] == 'E' && map[i][j + 1] != 'A')
-			|| (map[i][j] == 'W' && map[i][j + 1] != 'E'))
-		return (i);
-		i++;
-	}
-	return (-1);
-}
-
-/* FIXME: Maybe add return value in case locate_map return -1 */
-static void remove_header(char **map)
-{
-	int i;
-	int j;
-
-	j = 0;
-	i = locate_map(map);
-	if (i == -1)
-		return;
-	while (map[i])
-		map[j++] = map[i++];
 }
 
 int parsing(t_data *d, char *file)
 {
 	char 	*map_1d;
-	char	**map_2d;
+	char	**map;
+	char	**header;
 
 	map_1d = f_file_to_array(file);
 	if (!map_1d)
 		return (1);
-	map_2d = map_split(map_1d);
-	// parse_header(d, map_2d);
-	remove_header(map_2d);
-	for (int i = 0; map_2d[i]; i++)
-		printf("%s\n", map_2d[i]);
-	// map_only(map);
-	if (parse_map(d, map_2d))
+	map = f_calloc(count_lines(map_1d) + 1, sizeof(char *));
+	if (!map)
+		return (free(map_1d), 1);
+	header = f_calloc(count_lines(map_1d) + 1, sizeof(char *));
+	if (!header)
+		return (free(map_1d), free(map), 1);
+
+	map_split(map_1d, map, header);
+
+	for (int i = 0; header[i]; i++)
+		printf("h :: %s\n", header[i]);
+/* 	for (int i = 0; map[i]; i++)
+		printf("%s\n", map[i]); */
+
+	if (parse_header(d, header))
+		cub_exit(d, EXIT_SUCCESS);
+	if (parse_map(d, map))
 		cub_exit(d, EXIT_SUCCESS);
 	free(map_1d);
-	free(map_2d);
+	free(map);
+	free(header);
 	return (0);
 }

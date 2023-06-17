@@ -25,11 +25,11 @@ static int mlx_setup(t_data *d)
 	d->mlx->win_h = WINDOW_HEIGHT;
 	d->mlx->mlx = mlx_init();
 	if (!(d->mlx->mlx))
-		return (free(d->mlx), 1);
+		return (1);
 	d->mlx->win = mlx_new_window(d->mlx->mlx, d->mlx->win_w, d->mlx->win_h, "cub3D");
 	d->mlx->img = mlx_new_image(d->mlx->mlx, d->mlx->win_w, d->mlx->win_h);
 	if (!(d->mlx->win) || !(d->mlx->img))
-		return (mlx_destroy(d->mlx), 1);
+		return (1);
 	d->mlx->addr = mlx_get_data_addr(d->mlx->img, &d->mlx->bpp, &d->mlx->llen, &d->mlx->end);
 	return (0);
 }
