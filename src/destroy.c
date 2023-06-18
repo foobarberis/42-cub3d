@@ -3,11 +3,11 @@
 void data_destroy(t_data *d)
 {
 	if (!d)
-		return ;
+		return;
+	if (d->map)
+		map_destroy(d, d->map);
 	if (d->mlx)
 		mlx_destroy(d->mlx);
-	if (d->map)
-		map_destroy(d->map);
 	if (d->cam)
 		free(d->cam);
 	free(d);
@@ -25,7 +25,7 @@ void mlx_destroy(t_mlx *mlx)
 	free(mlx);
 }
 
-void map_destroy(t_map *map)
+void map_destroy(t_data *d, t_map *map)
 {
 	int i;
 
@@ -36,6 +36,10 @@ void map_destroy(t_map *map)
 			free(map->map[i++]);
 		free(map->map);
 	}
+	i = 0;
+	while (i < 4)
+		if (map->tex[i])
+			mlx_destroy_image(d->mlx->mlx, map->tex[i++]);
 	free(map);
 }
 

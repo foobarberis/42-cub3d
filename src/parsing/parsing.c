@@ -86,14 +86,7 @@ int parsing(t_data *d, char *file)
 	header = f_calloc(count_lines(map_1d) + 1, sizeof(char *));
 	if (!header)
 		return (free(map_1d), free(map), 1);
-
 	map_split(map_1d, map, header);
-
-	for (int i = 0; header[i]; i++)
-		printf("h :: %s\n", header[i]);
-/* 	for (int i = 0; map[i]; i++)
-		printf("%s\n", map[i]); */
-
 	if (parse_header(d, header))
 		cub_exit(d, EXIT_SUCCESS);
 	if (parse_map(d, map))

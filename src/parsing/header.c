@@ -5,8 +5,6 @@ static void remove_white_space(char *s)
 	int i;
 	int j;
 
-	if (!*s)
-		return;
 	i = (int)f_strlen(s) - 1;
 	j = 0;
 	while (f_isspace(s[i]))
@@ -25,59 +23,50 @@ static void remove_white_space(char *s)
 	s[j] = '\0';
 }
 
-/* FIXME: Add f_strncmp to mlc */
-int f_strncmp(const char *_l, const char *_r, size_t n)
+static int extract_texture(t_data *d, void **tex, char *s)
 {
-	const unsigned char *l=(void *)_l, *r=(void *)_r;
-	if (!n--) return 0;
-	for (; *l && *r && n && *l == *r ; l++, r++, n--);
-	return *l - *r;
-}
+	int w;
+	int h;
 
-static int parse_texture(t_data *d, char *s)
-{
-	// check if id is valid
-	// check if corresponding texture exists already
-	// transform xpm to img, check return val for NULL
-}
-
-/* FIXME: Handle "NO\t" instead of just "NO " */
-static int grep_textures(t_data *d, char *s)
-{
-	int	width;
-	int	height;
-
-	if (!f_strncmp(s, "NO ", 3))
-		d->map->tex[N] = mlx_xpm_file_to_image(d->mlx->mlx, &s[2], &width, &height);
-	else if (!f_strncmp(s, "SO ", 3))
-		d->map->tex[S] = mlx_xpm_file_to_image(d->mlx->mlx, &s[2], &width, &height);
-	else if (!f_strncmp(s, "WE ", 3))
-		d->map->tex[W] = mlx_xpm_file_to_image(d->mlx->mlx, &s[2], &width, &height);
-	else if (!f_strncmp(s, "EA ", 3))
-		d->map->tex[E] = mlx_xpm_file_to_image(d->mlx->mlx, &s[2], &width, &height);
-	else if (!f_strncmp(s, "F", 2))
-		parse_color(&s[2])
-	else if (!f_strncmp(s, "C ", 2))
-	else
-		return (f_dprintf(2, "cub3d: unrecognized identifier\n"), 1);
+	if (*tex)
+		return (f_dprintf(2, "cub3d: duplicate identifier\n"), 1);
+	*tex = mlx_xpm_file_to_image(d->mlx->mlx, s, &w, &h);
+	if (!*tex)
+		return (f_dprintf(2, "cub3d: %s: texture could not be loaded\n", s), 1);
 	return (0);
-
 }
 
-int parse_header(t_data *d, char **header)
+static int parse_header_line(t_data *d, char *s)
 {
-	int i;
+	if (f_strlen(s) < 4) /* smallest possible line if e.g `NO a' */
+		return (1);
+	if (*s == 'N' && *(s + 1) == 'O' && f_isspace(*(s + 2)))
+		return (extract_texture(d, &d->map->tex[N], s + 3));
+	else if (*s == 'S' && *(s + 1) == 'O' && f_isspace(*(s + 2)))
+		return (extract_texture(d, &d->map->tex[S], s + 3));
+	else if (*s == 'E' && *(s + 1) == 'A' && f_isspace(*(s + 2)))
+		return (extract_texture(d, &d->map->tex[E], s + 3));
+	else if (*s == 'W' && *(s + 1) == 'E' && f_isspace(*(s + 2)))
+		return (extract_texture(d, &d->map->tex[W], s + 3));
+	else if (*s == 'F' && f_isspace(*(s + 1)))
+		return (parse_color(s + 2, &d->map->floor));
+	else if (*s == 'C' && f_isspace(*(s + 1)))
+		return (parse_color(s + 2, &d->map->ceil));
+	else
+		return (f_dprintf(2, "cub3d: %s: unrecognized identifier\n", s), 1);
+}
 
-	i = 0;
-	while (header[i])
+int parse_header(t_data *d, char **head)
+{
+	while (*head)
 	{
-		if (header[i][0])
+		if (**head)
 		{
-			remove_white_space(header[i]);
-			grep_textures(d, header[i]);
+			remove_white_space(*head);
+			if (parse_header_line(d, *head))
+				return (1);
 		}
-		printf("DEBUG :: %s\n", header[i]);
-		i++;
+		head++;
 	}
-	return 0;
+	return (0);
 }

@@ -20,7 +20,7 @@ typedef struct s_cam	t_cam;
 
 enum e_direction
 {
-	N = 1,
+	N = 0,
 	S,
 	E,
 	W
@@ -96,7 +96,7 @@ int		**matrix_create(int w, int h);
 void	matrix_destroy(int **m, int h);
 void	data_destroy(t_data *d);
 void	mlx_destroy(t_mlx *mlx);
-void	map_destroy(t_map *map);
+void	map_destroy(t_data *d, t_map *map);
 int		cub_exit(t_data *d, int code);
 
 int		parsing(t_data *d, char *file);
@@ -106,6 +106,8 @@ int		parse_header(t_data *d, char **map);
 int		islegal(int c);
 int		get_map_width(char **map);
 int		get_map_height(char **map);
+
+int parse_color(char *s, uint32_t *color);
 
 void	get_player_pos(char **map, int *x, int *y);
 void	get_player_dir(char c, double *dx, double *dy);
