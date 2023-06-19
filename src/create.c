@@ -65,6 +65,10 @@ t_data *data_init(char *file)
 		return (NULL);
 	if (mlx_setup(d))
 		return (data_destroy(d), NULL);
+	d->cam->plane_x = 0.00;
+	d->cam->plane_y = 0.66;
+	d->cam->mospeed = 1.0;
+	d->cam->rospeed = 1.0;
 	parsing(d, file);
 	return (d);
 }

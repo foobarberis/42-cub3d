@@ -65,6 +65,5 @@ void ray_init(t_data *d, t_ray *r, int x)
 	r->ddist_x = (r->dir_x == 0) ? INFINITY : fabs(1 / r->dir_x);
 	r->ddist_y = (r->dir_y == 0) ? INFINITY : fabs(1 / r->dir_y);
 	r->hit = 0; // was there a wall hit?
-	r->side;    // was a NS or a EW wall hit?
 	compute_step(r, d->cam->pos_x, d->cam->pos_y);
 }

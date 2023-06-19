@@ -1,41 +1,42 @@
 #include "cub3d.h"
+#include <stdbool.h>
 
 static void rotate_right(t_data *d)
 {
 	// both camera direction and camera plane must be rotated
-/* 	double oldDirX = dirX;
-	dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
-	dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
-	double oldPlaneX = planeX;
-	planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
-	planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed); */
+	double oldDirX = d->cam->dir_x;
+	d->cam->dir_x = d->cam->dir_x * cos(-d->cam->rospeed) - d->cam->dir_y * sin(-d->cam->rospeed);
+	d->cam->dir_y = oldDirX * sin(-d->cam->rospeed) + d->cam->dir_y * cos(-d->cam->rospeed);
+	double oldPlaneX = d->cam->plane_x;
+	d->cam->plane_x = d->cam->plane_x * cos(-d->cam->rospeed) - d->cam->plane_y * sin(-d->cam->rospeed);
+	d->cam->plane_y = oldPlaneX * sin(-d->cam->rospeed) + d->cam->plane_y * cos(-d->cam->rospeed);
 }
 
 static void rotate_left(t_data *d)
 {
 	// both camera direction and camera plane must be rotated
-/* 	double oldDirX = dirX;
-	dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
-	dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
-	double oldPlaneX = planeX;
-	planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
-	planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed); */
+	double oldDirX = d->cam->dir_x;
+	d->cam->dir_x = d->cam->dir_x * cos(d->cam->rospeed) - d->cam->dir_y * sin(d->cam->rospeed);
+	d->cam->dir_y = oldDirX * sin(d->cam->rospeed) + d->cam->dir_y * cos(d->cam->rospeed);
+	double oldPlaneX = d->cam->plane_x;
+	d->cam->plane_x = d->cam->plane_x * cos(d->cam->rospeed) - d->cam->plane_y * sin(d->cam->rospeed);
+	d->cam->plane_y = oldPlaneX * sin(d->cam->rospeed) + d->cam->plane_y * cos(d->cam->rospeed);
 }
 
 static void move_forward(t_data *d)
 {
-/* 	if (worldMap[(int) (posX + dirX * moveSpeed)][(int) posY] == false)
-		posX += dirX * moveSpeed;
-	if (worldMap[(int) posX][(int) (posY + dirY * moveSpeed)] == false)
-		posY += dirY * moveSpeed; */
+	if (d->map->map[(int) (d->cam->pos_x + d->cam->dir_x * d->cam->mospeed)][(int) d->cam->pos_y] == false)
+		d->cam->pos_x += d->cam->dir_x * d->cam->mospeed;
+	if (d->map->map[(int) d->cam->pos_x][(int) (d->cam->pos_y + d->cam->dir_y * d->cam->mospeed)] == false)
+		d->cam->pos_y += d->cam->dir_y * d->cam->mospeed;
 }
 
 static void move_backward(t_data *d)
 {
-/* 	if (worldMap[(int) (posX - dirX * moveSpeed)][(int) posY] == false)
-		posX -= dirX * moveSpeed;
-	if (worldMap[(int) posX][(int) (posY - dirY * moveSpeed)] == false)
-		posY -= dirY * moveSpeed; */
+	if (d->map->map[(int) (d->cam->pos_x - d->cam->dir_x * d->cam->mospeed)][(int) d->cam->pos_y] == false)
+		d->cam->pos_x -= d->cam->dir_x * d->cam->mospeed;
+	if (d->map->map[(int) d->cam->pos_x][(int) (d->cam->pos_y - d->cam->dir_y * d->cam->mospeed)] == false)
+		d->cam->pos_y -= d->cam->dir_y * d->cam->mospeed;
 }
 
 int hook_keypress(t_data *d, int key)

@@ -33,6 +33,7 @@ struct s_data
 	t_mlx	*mlx;
 	t_cam	*cam;
 	t_map	*map;
+	t_ray	*ray;
 };
 
 /*
@@ -71,6 +72,8 @@ struct s_cam
 	double pos_y;
 	double dir_x;
 	double dir_y;
+	double mospeed;
+	double rospeed;
 	double plane_x;
 	double plane_y;
 };
