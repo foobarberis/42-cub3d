@@ -115,7 +115,7 @@ int		islegal(int c);
 int		get_map_width(char **map);
 int		get_map_height(char **map);
 
-int parse_color(char *s, uint32_t *color);
+int		parse_color(char *s, uint32_t *color);
 
 void	get_player_pos(char **map, int *x, int *y);
 void	get_player_dir(char c, double *dx, double *dy);
