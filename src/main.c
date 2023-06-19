@@ -14,10 +14,10 @@ static void print_debug_info(t_data *d)
 	}
 	printf("\n--- TEXTURES ---\n");
 	printf("floor: %X, ceiling: %X\n", d->map->floor, d->map->ceil);
-	printf("north texture: %p\n", d->map->tex[N]);
-	printf("south texture: %p\n", d->map->tex[S]);
-	printf("east texture: %p\n", d->map->tex[E]);
-	printf("west texture: %p\n", d->map->tex[W]);
+	printf("north : %p, %d, %d\n", d->map->tex[N], d->map->tex[N].w, d->map->tex[N].h);
+	printf("south : %p, %d, %d\n", d->map->tex[S], d->map->tex[S].w, d->map->tex[S].h);
+	printf("east : %p, %d, %d\n", d->map->tex[E], d->map->tex[E].w, d->map->tex[E].h);
+	printf("west : %p, %d, %d\n", d->map->tex[W], d->map->tex[W].w, d->map->tex[W].h);
 }
 
 int main(int argc, char **argv)
@@ -31,8 +31,9 @@ int main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	print_debug_info(d);
 	setup_hooks(d);
-	mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->map->tex[N], 0, 0);
-	mlx_loop(d->mlx->mlx);
+	cub_exit(d, 0);
+	// mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->map->tex[N], 0, 0);
+	// mlx_loop(d->mlx->mlx);
 	return (EXIT_SUCCESS);
 }
 

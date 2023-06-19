@@ -37,13 +37,16 @@ void map_destroy(t_data *d, t_map *map)
 		free(map->map);
 	}
 	i = 0;
-	while (i < 4)
+	if (map->tex)
 	{
-		if (map->tex[i])
-			mlx_destroy_image(d->mlx->mlx, map->tex[i]);
-		i++;
+		while (i < 4)
+		{
+			if (map->tex[i].t)
+				mlx_destroy_image(d->mlx->mlx, map->tex[i].t);
+			i++;
+		}
+		free(map->tex);
 	}
-
 	free(map);
 }
 

@@ -2,16 +2,15 @@
 
 static uint32_t rgb_extract_color(char *color)
 {
-	uint8_t r;
-	uint8_t g;
-	uint8_t b;
+	uint32_t r;
 
-	r = (uint8_t)f_atoi(color);
+	r = 0;
+	r = r | (uint8_t)f_atoi(color);
 	color = f_strchr(color, ',') + 1;
-	g = (uint8_t)f_atoi(color);
+	r = (r << 8) | (uint8_t)f_atoi(color);
 	color = f_strchr(color, ',') + 1;
-	b = (uint8_t)f_atoi(color);
-	return ((r << 16) | (g << 8) | b);
+	r = (r << 8) | (uint8_t)f_atoi(color);
+	return (r);
 }
 
 static int rgb_has_forbidden_char(char *s)

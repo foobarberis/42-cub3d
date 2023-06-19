@@ -16,6 +16,9 @@ static t_data *data_create(void)
 	d->map = f_calloc(1, sizeof(t_map));
 	if (!d->map)
 		return (free(d->cam), free(d->mlx), free(d), NULL);
+	d->map->tex = f_calloc(4, sizeof(t_tex));
+		if (!d->map->tex)
+		return (free(d->cam), free(d->mlx), free(d->map), free(d), NULL);
 	return (d);
 }
 

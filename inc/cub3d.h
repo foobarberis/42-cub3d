@@ -16,11 +16,12 @@
 typedef struct s_data   t_data;
 typedef struct s_mlx	t_mlx;
 typedef struct s_map    t_map;
+typedef struct s_tex	t_tex;
 typedef struct s_cam	t_cam;
 
 enum e_direction
 {
-	N = 0,
+	N,
 	S,
 	E,
 	W
@@ -88,7 +89,14 @@ struct s_map
 	int      map_h;
 	uint32_t ceil;
 	uint32_t floor;
-	void    *tex[4];
+	t_tex    *tex;
+};
+
+struct s_tex
+{
+	void	*t;
+	int		w;
+	int		h;
 };
 
 t_data	*data_init(char *file);

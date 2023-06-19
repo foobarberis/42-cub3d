@@ -23,15 +23,12 @@ static void remove_white_space(char *s)
 	s[j] = '\0';
 }
 
-static int extract_texture(t_data *d, void **tex, char *s)
+static int extract_texture(t_data *d, t_tex *tex, char *s)
 {
-	int w;
-	int h;
-
-	if (*tex)
+	if (tex->t)
 		return (f_dprintf(2, "cub3d: duplicate identifier\n"), 1);
-	*tex = mlx_xpm_file_to_image(d->mlx->mlx, s, &w, &h);
-	if (!*tex)
+	tex->t = mlx_xpm_file_to_image(d->mlx->mlx, s, &tex->w, &tex->h);
+	if (!tex->t)
 		return (f_dprintf(2, "cub3d: %s: texture could not be loaded\n", s), 1);
 	return (0);
 }
