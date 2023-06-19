@@ -32,16 +32,25 @@ int main(int argc, char **argv)
 	print_debug_info(d);
 	setup_hooks(d);
 	cub_exit(d, 0);
-	// mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->map->tex[N], 0, 0);
 	// mlx_loop(d->mlx->mlx);
 	return (EXIT_SUCCESS);
 }
 
-/* int main(int argc, char * argv[])
+int main(int argc, char * argv[])
 {
+	t_ray r;
 	t_data *d;
 
-	d = cub_init();
+	if (argc != 2)
+		return (f_dprintf(2, "Usage: ./cub3d map.cub\n"), EXIT_SUCCESS);
+	d = data_init(argv[1]);
+	if (!d)
+		return (EXIT_FAILURE);
+	print_debug_info(d);
+	setup_hooks(d);
+	cub_exit(d, 0);
+	// mlx_loop(d->mlx->mlx);
+	return (EXIT_SUCCESS);
 
 	double time_curr_frame = 0;    // time of current frame
 	double time_prev_frame = 0; // time of previous frame
@@ -49,86 +58,12 @@ int main(int argc, char **argv)
 	// start the main loop
 	while (1)
 	{
-		for (int x = 0; x < d->win_x; x++)
+		for (int x = 0; x < d->mlx->win_w; x++)
 		{
-			// calculate ray position and direction
-			double cameraX = 2 * x / (double) d->win_x - 1; // x-coordinate in camera space
-			double rayDirX = dirX + planeX * cameraX;
-			double rayDirY = dirY + planeY * cameraX;
-
-			// which box of the map we're in
-			int mapX = (int)posX;
-			int mapY = (int)posY;
-
-			// length of ray from current position to next x or y-side
-			double sideDistX;
-			double sideDistY;
-
-			// length of ray from one x or y-side to next x or y-side
-			double deltaDistX = (rayDirX == 0) ? 1e30 : fabs(1 / rayDirX);
-			double deltaDistY = (rayDirY == 0) ? 1e30 : fabs(1 / rayDirY);
-			double perpWallDist;
-
-			// what direction to step in x or y-direction (either +1 or -1)
-			int stepX;
-			int stepY;
-
-			int hit = 0; // was there a wall hit?
-			int side;    // was a NS or a EW wall hit?
-
-			// RAYCAST
-
-			// calculate step and initial sideDist
-			if (rayDirX < 0)
-			{
-				stepX = -1;
-				sideDistX = (posX - mapX) * deltaDistX;
-			}
-			else
-			{
-				stepX = 1;
-				sideDistX = (mapX + 1.0 - posX) * deltaDistX;
-			}
-			if (rayDirY < 0)
-			{
-				stepY = -1;
-				sideDistY = (posY - mapY) * deltaDistY;
-			}
-			else
-			{
-				stepY = 1;
-				sideDistY = (mapY + 1.0 - posY) * deltaDistY;
-			}
-			// perform DDA
-			while (hit == 0)
-			{
-				// jump to next map square, either in x-direction, or in y-direction
-				if (sideDistX < sideDistY)
-				{
-					sideDistX += deltaDistX;
-					mapX += stepX;
-					side = 0;
-				}
-				else
-				{
-					sideDistY += deltaDistY;
-					mapY += stepY;
-					side = 1;
-				}
-				// Check if ray has hit a wall
-				if (worldMap[mapX][mapY] > 0)
-					hit = 1;
-			}
-
-			// Calculate distance of perpendicular ray (Euclidean distance would give fisheye effect!)
-			if (side == 0)
-				perpWallDist = (sideDistX - deltaDistX);
-			else
-				perpWallDist = (sideDistY - deltaDistY);
-
+			ray_init(d, &r, x);
+			dda(d, r)
 
 			// DRAWING
-
 			// Calculate height of line to draw on screen
 			int lineHeight = (int) (d->win_y / perpWallDist);
 
@@ -192,4 +127,4 @@ int main(int argc, char **argv)
 		// speed modifiers
 		double moveSpeed = frameTime * 5.0; // the constant value is in squares/second
 		double rotSpeed = frameTime * 3.0; // the constant value is in radians/second
-} */
+}

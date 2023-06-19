@@ -18,6 +18,7 @@ typedef struct s_mlx	t_mlx;
 typedef struct s_map    t_map;
 typedef struct s_tex	t_tex;
 typedef struct s_cam	t_cam;
+typedef struct s_ray	t_ray;
 
 enum e_direction
 {
@@ -80,7 +81,7 @@ struct s_cam
  * map_y	: map's height.
  * ceil		: ceiling color.
  * floor	: floor color.
- * tex		: array of pointers to the N, S, E, W textures.
+ * tex		: array of struct to the N, S, E, W textures.
 */
 struct s_map
 {
@@ -97,6 +98,32 @@ struct s_tex
 	void	*t;
 	int		w;
 	int		h;
+};
+
+
+struct s_ray
+{
+	// which box of the map we're in
+	int map_x;
+	int map_y;
+	// calculate ray position and direction
+	double cam_x;
+	double dir_x;
+	double dir_y;
+	// length of ray from current position to next x or y-side
+	double sdist_x;
+	double sdist_y;
+	// length of ray from one x or y-side to next x or y-side
+	double ddist_x;
+	double ddist_y;
+	double perp_wall_dist;
+
+	// what direction to step in x or y-direction (either +1 or -1)
+	int step_x;
+	int step_y;
+
+	int hit; // was there a wall hit?
+	int side;    // was a NS or a EW wall hit?
 };
 
 t_data	*data_init(char *file);
@@ -124,6 +151,10 @@ int		map_has_multiple_players(char **map, int x, int y);
 void	mlx_pixel_put_img(t_data *d, int x, int y, int color);
 int		hook_keypress(t_data *d, int key);
 void	setup_hooks(t_data *d);
+
+
+void ray_init(t_data *d, t_ray *r, int x);
+void dda(t_data *d, t_ray *r);
 
 #endif
 

@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/06/16 12:28:56 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/06/19 13:12:34 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS		:=	create.c \
 				parsing/parsing_utils.c \
 				parsing/player.c \
 				parsing/rgb.c \
+				gfx/ray.c \
 				utils.c
 
 CC			:=	cc
