@@ -2,6 +2,7 @@
 
 static int draw_frame(t_data *d)
 {
+	move(d);
 	for (int x = 0; x < d->mlx->win_w; x++)
 	{
 		ray_init(d, d->ray, x);

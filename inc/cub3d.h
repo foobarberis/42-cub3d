@@ -28,6 +28,16 @@ enum e_direction
 	W
 };
 
+enum e_key
+{
+	K_W,
+	K_S,
+	K_A,
+	K_D,
+	K_L,
+	K_R
+};
+
 struct s_data
 {
 	t_mlx	*mlx;
@@ -68,6 +78,7 @@ struct s_mlx
 */
 struct s_cam
 {
+	int key[6];
 	double pos_x;
 	double pos_y;
 	double dir_x;
@@ -154,7 +165,8 @@ int		map_has_multiple_players(char **map, int x, int y);
 void	mlx_pixel_put_img(t_data *d, int x, int y, int color);
 int hook_keypress(int key, t_data *d);
 void	setup_hooks(t_data *d);
-
+int hook_keypress_release(int key, t_data *d);
+int move(t_data *d);
 
 void ray_init(t_data *d, t_ray *r, int x);
 void dda(t_data *d, t_ray *r);
