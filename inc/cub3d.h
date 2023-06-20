@@ -152,7 +152,7 @@ void	get_player_dir(char c, double *dx, double *dy);
 int		map_has_multiple_players(char **map, int x, int y);
 
 void	mlx_pixel_put_img(t_data *d, int x, int y, int color);
-int		hook_keypress(t_data *d, int key);
+int hook_keypress(int key, t_data *d);
 void	setup_hooks(t_data *d);
 
 

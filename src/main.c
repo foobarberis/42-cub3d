@@ -49,13 +49,17 @@ static int draw_frame(t_data *d)
 			int texY = (int) texPos & (d->map->tex[N].h - 1);
 			texPos += step;
 			// int32_t color = d->map->tex[N][d->map->tex[N].h * texY + texX];
-			// int32_t *test = d->map->tex[N].t + rand() % 10; //+ (d->map->tex[N].h * texY + texX);
-			int32_t color = d->map->ceil;
+			// int32_t *test = d->map->tex[N].t + 1; // rand() % 10; //+ (d->map->tex[N].h * texY + texX);
+			int32_t color = 0;
 			// make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
 			//	if (d->ray->side == 1)
 			//	color = (color >> 1) & 8355711;
 			mlx_pixel_put_img(d, x, y, color);
 		}
+		for (int y = 0; y < drawStart; y++)
+			mlx_pixel_put_img(d, x, y, d->map->ceil);
+		for (int y = d->mlx->win_h; y > drawEnd; y--)
+			mlx_pixel_put_img(d, x, y, d->map->floor);
 	}
 	mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->mlx->img, 0, 0);
 /* 	for (int y = 0; y < d->mlx->win_h; y++)
@@ -85,7 +89,6 @@ static void print_debug_info(t_data *d)
 
 int main(int argc, char * argv[])
 {
-	/// t_ray r;
 	t_data *d;
 
 	if (argc != 2)
@@ -95,12 +98,8 @@ int main(int argc, char * argv[])
 		return (EXIT_FAILURE);
 	d->ray = malloc(1 * sizeof(t_ray));
 	print_debug_info(d);
-	setup_hooks(d);
-	// mlx_pixel_put_img(d, 5, 5, d->map->ceil);
-	// mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->mlx->img, 0, 0);
-	// mlx_loop(d->mlx->mlx);
-	// start the main loop
 	mlx_loop_hook(d->mlx->mlx, draw_frame, d);
+	setup_hooks(d);
 	mlx_loop(d->mlx->mlx);
-
+	return (0);
 }

@@ -67,8 +67,8 @@ t_data *data_init(char *file)
 		return (data_destroy(d), NULL);
 	d->cam->plane_x = 0.00;
 	d->cam->plane_y = 0.66;
-	d->cam->mospeed = 1.0;
-	d->cam->rospeed = 1.0;
+	d->cam->mospeed = 0.66;
+	d->cam->rospeed = 0.33;
 	parsing(d, file);
 	return (d);
 }

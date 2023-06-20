@@ -39,17 +39,34 @@ static void move_backward(t_data *d)
 		d->cam->pos_y -= d->cam->dir_y * d->cam->mospeed;
 }
 
-int hook_keypress(t_data *d, int key)
+static void move_left(t_data *d)
 {
+	if (d->map->map[(int) (d->cam->pos_x - d->cam->dir_x * d->cam->mospeed)][(int) d->cam->pos_y] == false)
+		d->cam->pos_x -= d->cam->dir_x * d->cam->mospeed;
+	if (d->map->map[(int) d->cam->pos_x][(int) (d->cam->pos_y - d->cam->dir_y * d->cam->mospeed)] == false)
+		d->cam->pos_y -= d->cam->dir_y * d->cam->mospeed;
+}
+
+static void move_right(t_data *d)
+{
+	if (d->map->map[(int) (d->cam->pos_x - d->cam->dir_x * d->cam->mospeed)][(int) d->cam->pos_y] == false)
+		d->cam->pos_x -= d->cam->dir_x * d->cam->mospeed;
+	if (d->map->map[(int) d->cam->pos_x][(int) (d->cam->pos_y - d->cam->dir_y * d->cam->mospeed)] == false)
+		d->cam->pos_y -= d->cam->dir_y * d->cam->mospeed;
+}
+
+int hook_keypress(int key, t_data *d)
+{
+	printf("key: %d\n", key);
 	if (key == XK_Escape)
 		cub_exit(d, EXIT_SUCCESS);
 	else if (key == XK_Up)
 		move_forward(d);
 	else if (key == XK_Down)
 		move_backward(d);
-	else if (key == XK_Right)
-		rotate_right(d);
 	else if (key == XK_Left)
+		rotate_right(d);
+	else if (key == XK_Right)
 		rotate_left(d);
 	return (0);
 }
