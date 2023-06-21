@@ -26,9 +26,9 @@ static void move_left(t_data *d)
 
 static void move_right(t_data *d)
 {
-	if (d->map->map[(int) (d->cam->pos_x - d->cam->plane_x * d->cam->mospeed)][(int) d->cam->pos_y] == 0)
+	if (d->map->map[(int) (d->cam->pos_x + d->cam->plane_x * d->cam->mospeed)][(int) d->cam->pos_y] == 0)
 		d->cam->pos_x += d->cam->plane_x * d->cam->mospeed;
-	if (d->map->map[(int) d->cam->pos_x][(int) (d->cam->pos_y - d->cam->plane_y * d->cam->mospeed)] == 0)
+	if (d->map->map[(int) d->cam->pos_x][(int) (d->cam->pos_y + d->cam->plane_y * d->cam->mospeed)] == 0)
 		d->cam->pos_y += d->cam->plane_y * d->cam->mospeed;
 }
 
