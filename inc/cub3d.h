@@ -54,7 +54,6 @@ struct s_data
 	t_mlx	*mlx;
 	t_cam	*cam;
 	t_map	*map;
-	t_ray	*ray;
 };
 
 /*
@@ -204,7 +203,7 @@ void	rotate_right(t_data *d);
 void raycast(t_data *d, t_ray *r, int x);
 
 int		draw_frame(t_data *d);
-void	draw_pixel(t_data *d, t_pix *p, int x);
+void draw_pixel(t_data *d, t_pix *p, t_ray *r, int x);
 void	mlx_pixel_put_img(t_data *d, int x, int y, int color);
 
 #endif

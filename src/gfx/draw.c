@@ -1,6 +1,6 @@
 #include "cub3d.h"
 
-void draw_pixel(t_data *d, t_pix *p, int x)
+void draw_pixel(t_data *d, t_pix *p, t_ray *r, int x)
 {
 	int y;
 
@@ -13,8 +13,8 @@ void draw_pixel(t_data *d, t_pix *p, int x)
 		// int32_t *test = (int32_t *)(d->map->tex[p->tex_n].addr + (d->map->tex[p->tex_n].h * p->tex_y + p->tex_x * d->map->tex[p->tex_n].llen));
 		p->color = d->map->tex[p->tex_n].addr[d->map->tex[p->tex_n].h * p->tex_y + p->tex_x];
 		// make p->color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
-		if (d->ray->side == 1)
-			p->color = (p->color >> 1) & 8355711;
+		if (r->side == 1)
+			p->color = (p->color >> 1) & 0x7F7F7F;
 		mlx_pixel_put_img(d, x, y, p->color);
 		y++;
 	}
@@ -28,16 +28,17 @@ void draw_pixel(t_data *d, t_pix *p, int x)
 
 int draw_frame(t_data *d)
 {
+	t_ray r;
 	t_pix p;
 
 	move(d);
 	for (int x = 0; x < d->mlx->win_w; x++)
 	{
-		raycast(d, d->ray, x);
+		raycast(d, &r, x);
 
 		// Calculate height of line to draw on screen
 		p.pitch = 100;
-		p.line_h = (int) (d->mlx->win_h / d->ray->perp_wall_dist);
+		p.line_h = (int) (d->mlx->win_h / r.perp_wall_dist);
 
 		// calculate lowest and highest pixel to fill in current stripe
 		p.draw_start = -p.line_h / 2 + d->mlx->win_h / 2 + p.pitch;
@@ -48,20 +49,20 @@ int draw_frame(t_data *d)
 			p.draw_end = d->mlx->win_h - 1;
 
 		// texturing calculations
-		p.tex_n = d->map->map[d->ray->map_x][d->ray->map_y] - 1; // 1 subtracted from it so that texture 0 can be used!
+		p.tex_n = d->map->map[r.map_x][r.map_y] - 1; // 1 subtracted from it so that texture 0 can be used!
 
 		// where exactly the wall was hit
-		if (d->ray->side == 0)
-			p.wall_x = d->cam->pos_x + d->ray->perp_wall_dist * d->ray->dir_x;
+		if (r.side == 0)
+			p.wall_x = d->cam->pos_x + r.perp_wall_dist * r.dir_x;
 		else
-			p.wall_x = d->cam->pos_y + d->ray->perp_wall_dist * d->ray->dir_y;
+			p.wall_x = d->cam->pos_y + r.perp_wall_dist * r.dir_y;
 		p.wall_x -= floor((p.wall_x));
 
 		// x coordinate on the texture
 		p.tex_x = (int) (p.wall_x * (double) d->map->tex[N].w);
-		if (d->ray->side == 0 && d->ray->dir_x > 0)
+		if (r.side == 0 && r.dir_x > 0)
 			p.tex_x = d->map->tex[N].w - p.tex_x - 1;
-		if (d->ray->side == 1 && d->ray->dir_y < 0)
+		if (r.side == 1 && r.dir_y < 0)
 			p.tex_x = d->map->tex[N].w - p.tex_x - 1;
 
 		// TODO: an integer-only bresenham or DDA like algorithm could make the texture coordinate p.stepping faster
@@ -69,7 +70,7 @@ int draw_frame(t_data *d)
 		p.step = 1.0 * d->map->tex[N].h / p.line_h;
 		// Starting texture coordinate
 		p.tex_pos = (p.draw_start - p.pitch - d->mlx->win_h / 2 + p.line_h / 2) * p.step;
-		draw_pixel(d, &p, x);
+		draw_pixel(d, &p, &r, x);
 	}
 	mlx_clear_window(d->mlx->mlx, d->mlx->win);
 	mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->mlx->img, 0, 0);

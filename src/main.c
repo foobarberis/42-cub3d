@@ -29,7 +29,6 @@ int main(int argc, char * argv[])
 	d = data_init(argv[1]);
 	if (!d)
 		return (EXIT_FAILURE);
-	d->ray = malloc(1 * sizeof(t_ray));
 	print_debug_info(d);
 	mlx_loop_hook(d->mlx->mlx, draw_frame, d);
 	setup_hooks(d);
