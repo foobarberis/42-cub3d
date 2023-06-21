@@ -1,5 +1,10 @@
 #include "cub3d.h"
 
+/*
+* From : https://tronche.com/gui/x/xlib/utilities/manipulating-images.html
+* "The first byte of the first line of plane n must be located at the
+* address (data + (n * height * bytes_per_line))."
+*/
 void	mlx_pixel_put_img(t_data *d, int x, int y, int color)
 {
 	char	*dst;

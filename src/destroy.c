@@ -62,7 +62,6 @@ void matrix_destroy(int **m, int h)
 
 int	cub_exit(t_data *d, int code)
 {
-	// mlx_loop_end(mlx->mlx);
 	data_destroy(d);
 	exit(code);
 	return (0);

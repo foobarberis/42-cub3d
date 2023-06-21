@@ -128,7 +128,6 @@ struct s_tex
 	int   end;
 };
 
-
 struct s_ray
 {
 	// which box of the map we're in
@@ -200,10 +199,9 @@ int		move(t_data *d);
 void	rotate_left(t_data *d);
 void	rotate_right(t_data *d);
 
-void raycast(t_data *d, t_ray *r, int x);
+void	raycast(t_data *d, t_ray *r, int x);
 
 int		draw_frame(t_data *d);
-void draw_pixel(t_data *d, t_pix *p, t_ray *r, int x);
 void	mlx_pixel_put_img(t_data *d, int x, int y, int color);
 
 #endif
