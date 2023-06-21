@@ -10,8 +10,8 @@ void draw_pixel(t_data *d, t_pix *p, int x)
 		// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
 		p->tex_y = (int) p->tex_pos & (d->map->tex[p->tex_n].h - 1);
 		p->tex_pos += p->step;
-		int32_t *test = (int32_t *)(d->map->tex[p->tex_n].addr + (d->map->tex[p->tex_n].h * p->tex_y + p->tex_x * d->map->tex[p->tex_n].llen));
-		p->color = *test;
+		// int32_t *test = (int32_t *)(d->map->tex[p->tex_n].addr + (d->map->tex[p->tex_n].h * p->tex_y + p->tex_x * d->map->tex[p->tex_n].llen));
+		p->color = d->map->tex[p->tex_n].addr[d->map->tex[p->tex_n].h * p->tex_y + p->tex_x];
 		// make p->color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
 		if (d->ray->side == 1)
 			p->color = (p->color >> 1) & 8355711;
@@ -33,8 +33,7 @@ int draw_frame(t_data *d)
 	move(d);
 	for (int x = 0; x < d->mlx->win_w; x++)
 	{
-		ray_init(d, d->ray, x);
-		dda(d, d->ray);
+		raycast(d, d->ray, x);
 
 		// Calculate height of line to draw on screen
 		p.pitch = 100;
@@ -70,8 +69,9 @@ int draw_frame(t_data *d)
 		p.step = 1.0 * d->map->tex[N].h / p.line_h;
 		// Starting texture coordinate
 		p.tex_pos = (p.draw_start - p.pitch - d->mlx->win_h / 2 + p.line_h / 2) * p.step;
-	draw_pixel(d, &p, x);
+		draw_pixel(d, &p, x);
 	}
+	mlx_clear_window(d->mlx->mlx, d->mlx->win);
 	mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->mlx->img, 0, 0);
 	return (0);
 }

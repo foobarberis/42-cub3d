@@ -201,8 +201,7 @@ int		move(t_data *d);
 void	rotate_left(t_data *d);
 void	rotate_right(t_data *d);
 
-void	dda(t_data *d, t_ray *r);
-void	ray_init(t_data *d, t_ray *r, int x);
+void raycast(t_data *d, t_ray *r, int x);
 
 int		draw_frame(t_data *d);
 void	draw_pixel(t_data *d, t_pix *p, int x);

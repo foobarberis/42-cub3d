@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/06/21 11:35:32 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/06/21 13:32:09 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 NAME		:=	cub3D
 SRCS		:=	create.c \
 				destroy.c \
-				gfx/ray.c \
+				gfx/raycast.c \
 				gfx/draw.c \
 				hook.c \
 				main.c \
