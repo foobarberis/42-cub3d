@@ -30,6 +30,7 @@ static int extract_texture(t_data *d, t_tex *tex, char *s)
 	tex->t = mlx_xpm_file_to_image(d->mlx->mlx, s, &tex->w, &tex->h);
 	if (!tex->t)
 		return (f_dprintf(2, "cub3d: %s: texture could not be loaded\n", s), 1);
+	tex->addr = mlx_get_data_addr(tex->t, &tex->bpp, &tex->llen, &tex->end);
 	return (0);
 }
 

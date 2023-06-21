@@ -9,8 +9,8 @@
 # include <X11/X.h>			/* event masks */
 # include <X11/keysym.h>	/* keycodes */
 
-# define WINDOW_WIDTH	800
-# define WINDOW_HEIGHT	600
+# define WINDOW_WIDTH	1920
+# define WINDOW_HEIGHT	1080
 # define FILL 'x'
 
 typedef struct s_data   t_data;
@@ -19,6 +19,7 @@ typedef struct s_map    t_map;
 typedef struct s_tex	t_tex;
 typedef struct s_cam	t_cam;
 typedef struct s_ray	t_ray;
+typedef struct s_pix	t_pix;
 
 enum e_direction
 {
@@ -36,6 +37,16 @@ enum e_key
 	K_D,
 	K_L,
 	K_R
+};
+
+enum e_movement
+{
+	UP,
+	DOWN,
+	LEFT,
+	RIGHT,
+	ROT_L,
+	ROT_R
 };
 
 struct s_data
@@ -112,6 +123,10 @@ struct s_tex
 	void	*t;
 	int		w;
 	int		h;
+	char *addr;
+	int   bpp;
+	int   llen;
+	int   end;
 };
 
 
@@ -140,6 +155,21 @@ struct s_ray
 	int side;    // was a NS or a EW wall hit?
 };
 
+struct s_pix
+{
+	int32_t color;
+	int line_h;
+	int pitch;
+	int draw_start;
+	int draw_end;
+	int tex_n;
+	int tex_y;
+	int tex_x;
+	double wall_x;
+	double step;
+	double tex_pos;
+};
+
 t_data	*data_init(char *file);
 int		**matrix_create(int w, int h);
 void	matrix_destroy(int **m, int h);
@@ -162,14 +192,21 @@ void	get_player_pos(char **map, int *x, int *y);
 void	get_player_dir(char c, double *dx, double *dy);
 int		map_has_multiple_players(char **map, int x, int y);
 
-void	mlx_pixel_put_img(t_data *d, int x, int y, int color);
-int hook_keypress(int key, t_data *d);
-void	setup_hooks(t_data *d);
-int hook_keypress_release(int key, t_data *d);
-int move(t_data *d);
 
-void ray_init(t_data *d, t_ray *r, int x);
-void dda(t_data *d, t_ray *r);
+void	setup_hooks(t_data *d);
+int 	hook_keypress(int key, t_data *d);
+int 	hook_keypress_release(int key, t_data *d);
+
+int		move(t_data *d);
+void	rotate_left(t_data *d);
+void	rotate_right(t_data *d);
+
+void	dda(t_data *d, t_ray *r);
+void	ray_init(t_data *d, t_ray *r, int x);
+
+int		draw_frame(t_data *d);
+void	draw_pixel(t_data *d, t_pix *p, int x);
+void	mlx_pixel_put_img(t_data *d, int x, int y, int color);
 
 #endif
 

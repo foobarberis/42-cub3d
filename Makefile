@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/06/19 13:12:34 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/06/21 11:35:32 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,15 +17,18 @@
 NAME		:=	cub3D
 SRCS		:=	create.c \
 				destroy.c \
-				keys.c \
+				gfx/ray.c \
+				gfx/draw.c \
+				hook.c \
 				main.c \
-				parsing/header.c \
+				move.c \
+				parsing/rgb.c \
 				parsing/map.c \
-				parsing/parsing.c \
+				parsing/header.c \
 				parsing/parsing_utils.c \
 				parsing/player.c \
-				parsing/rgb.c \
-				gfx/ray.c \
+				parsing/parsing.c \
+				rot.c \
 				utils.c
 
 CC			:=	cc

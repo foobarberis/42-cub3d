@@ -12,7 +12,6 @@ void	setup_hooks(t_data *d)
 {
 	mlx_hook(d->mlx->win, 2, 1L << 0, hook_keypress, d);
 	mlx_hook(d->mlx->win, 3, 2L << 0, hook_keypress_release, d);
-	// mlx_key_hook(d->mlx->win, hook_keypress, d);
 	mlx_hook(d->mlx->win, DestroyNotify, NoEventMask, cub_exit, d);
-	// mlx_hook(env->win, Expose, ExposureMask, map_draw, env);
+	mlx_hook(d->mlx->win, Expose, ExposureMask, draw_frame, d);
 }

@@ -70,12 +70,6 @@ void ascii_to_int(int **mat, char **map, int nrows)
 	}
 }
 
-/*
- * Check map for forbidden characters and empty lines
- * Check if player exists, extract player position and direction and check if there is only one player
- * Check if the map is closed
- * Convert the map to int, replacing remaining 0 and spaces with 1
-*/
 int parse_map(t_data *d, char **map)
 {
 	int x;
