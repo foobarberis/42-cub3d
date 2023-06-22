@@ -25,22 +25,22 @@ void get_player_dir(char c, double *dx, double *dy)
 	if (c == 'N')
 	{
 		*dx = 1.0;
-		*dy = 0.0;
+		*dy = 1.0;
 	}
 	else if (c == 'S')
 	{
 		*dx = -1.0;
-		*dy = 0.0;
+		*dy = -1.0;
 	}
 	else if (c == 'E')
 	{
-		*dx = 0.0;
-		*dy = -1.0;
+		*dx = 1.0;
+		*dy = 0.0;
 	}
 	else if (c == 'W')
 	{
-		*dx = 0.0;
-		*dy = 1.0;
+		*dx = -1.0;
+		*dy = 0.0;
 	}
 }
 
