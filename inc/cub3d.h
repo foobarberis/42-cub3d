@@ -9,8 +9,8 @@
 # include <X11/X.h>			/* event masks */
 # include <X11/keysym.h>	/* keycodes */
 
-# define WINDOW_WIDTH	1920
-# define WINDOW_HEIGHT	1080
+# define WINDOW_WIDTH	800
+# define WINDOW_HEIGHT	600
 # define FILL 'x'
 
 typedef struct s_data   t_data;
@@ -134,7 +134,6 @@ struct s_ray
 	int map_x;
 	int map_y;
 	// calculate ray position and direction
-	double cam_x;
 	double dir_x;
 	double dir_y;
 	// length of ray from current position to next x or y-side
@@ -149,7 +148,6 @@ struct s_ray
 	int step_x;
 	int step_y;
 
-	int hit; // was there a wall hit?
 	int side;    // was a NS or a EW wall hit?
 };
 

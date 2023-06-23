@@ -26,7 +26,10 @@ static void init_step(t_ray *r, double pos_x, double pos_y)
 
 static void dda(t_data *d, t_ray *r)
 {
-	while (!r->hit)
+	int hit;
+
+	hit = 0;
+	while (!hit)
 	{
 		if (r->sdist_x < r->sdist_y)
 		{
@@ -41,7 +44,7 @@ static void dda(t_data *d, t_ray *r)
 			r->side = 1;
 		}
 		if (d->map->map[r->map_x][r->map_y] > 0)
-			r->hit = 1;
+			hit = 1;
 	}
 	if (!r->side)
 		r->perp_wall_dist = (r->sdist_x - r->ddist_x);
@@ -51,10 +54,11 @@ static void dda(t_data *d, t_ray *r)
 
 void raycast(t_data *d, t_ray *r, int x)
 {
-	r->hit = 0;
-	r->cam_x = 2 * x / (double) d->mlx->win_w - 1;
-	r->dir_x = d->cam->dir_x + d->cam->plane_x * r->cam_x;
-	r->dir_y = d->cam->dir_y + d->cam->plane_y * r->cam_x;
+	double cam_x;
+
+	cam_x = 2 * x / (double) d->mlx->win_w - 1;
+	r->dir_x = d->cam->dir_x + d->cam->plane_x * cam_x;
+	r->dir_y = d->cam->dir_y + d->cam->plane_y * cam_x;
 	r->map_x = (int) d->cam->pos_x;
 	r->map_y = (int) d->cam->pos_y;
 	if (!r->dir_x)

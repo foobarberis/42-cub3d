@@ -14,7 +14,7 @@ static void print_debug_info(t_data *d)
 	}
 	printf("\n--- TEXTURES ---\n");
 	printf("floor: %X, ceiling: %X\n", d->map->floor, d->map->ceil);
-	printf("north : %p, %d, %d\n", d->map->tex[N].t, d->map->tex[N].w, d->map->tex[N].h);
+	printf("north : %p, %d, %d, bpp: %d, llen: %d\n", d->map->tex[N].t, d->map->tex[N].w, d->map->tex[N].h, d->map->tex[N].bpp, d->map->tex[N].llen);
 	printf("south : %p, %d, %d\n", d->map->tex[S].t, d->map->tex[S].w, d->map->tex[S].h);
 	printf("east : %p, %d, %d\n", d->map->tex[E].t, d->map->tex[E].w, d->map->tex[E].h);
 	printf("west : %p, %d, %d\n", d->map->tex[W].t, d->map->tex[W].w, d->map->tex[W].h);

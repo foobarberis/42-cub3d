@@ -5,11 +5,12 @@
 * "The first byte of the first line of plane n must be located at the
 * address (data + (n * height * bytes_per_line))."
 */
+// 	dst = d->mlx->addr + (y * d->mlx->llen + x * (d->mlx->bpp / 8));
 void	mlx_pixel_put_img(t_data *d, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = d->mlx->addr + (y * d->mlx->llen + x * (d->mlx->bpp / 8));
+	dst = d->mlx->addr + (y * d->mlx->llen + (x << 2));
 	*(unsigned int *)dst = color;
 }
 

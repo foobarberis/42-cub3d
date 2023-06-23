@@ -9,9 +9,9 @@ static void draw_pixel(t_data *d, t_pix *p, t_ray *r, int x)
 	{
 		p->tex_y = (int) p->tex_pos & (d->map->tex[p->tex_n].h - 1);
 		p->tex_pos += p->step;
-		p->color = d->map->tex[p->tex_n].addr[(4 * d->map->tex[p->tex_n].w * p->tex_y) + (4 * p->tex_x)];
-/* 		if (r->side == 1)
-			p->color = (p->color >> 1) & 0x7F7F7F; */
+		p->color = d->map->tex[p->tex_n].addr[p->tex_y * d->map->tex[p->tex_n].llen + (p->tex_x << 2)];
+		if (r->side == 1)
+			p->color = (p->color >> 1) & 0x7F7F7F;
 		mlx_pixel_put_img(d, x, y, p->color);
 		y++;
 	}
@@ -34,15 +34,13 @@ static void compute_texture(t_data *d, t_pix *p, t_ray *r, int x)
 	if (p->draw_end >= d->mlx->win_h)
 		p->draw_end = d->mlx->win_h - 1;
 	p->tex_n = d->map->map[r->map_x][r->map_y] - 1;
-	if (r->side == 0)
-		p->wall_x = d->cam->pos_x + r->perp_wall_dist * r->dir_x;
-	else
+	if (!r->side) /* setting this to 1 fixes texture wtf */
 		p->wall_x = d->cam->pos_y + r->perp_wall_dist * r->dir_y;
-	p->wall_x -= floor((p->wall_x));
+	else
+		p->wall_x = d->cam->pos_x + r->perp_wall_dist * r->dir_x;
+	p->wall_x -= floor(p->wall_x);
 	p->tex_x = (int) (p->wall_x * (double) d->map->tex[p->tex_n].w);
-	if (r->side == 0 && r->dir_x > 0)
-		p->tex_x = d->map->tex[p->tex_n].w - p->tex_x - 1;
-	if (r->side == 1 && r->dir_y < 0)
+	if ((!r->side && r->dir_x > 0) || (r->side && r->dir_y < 0))
 		p->tex_x = d->map->tex[p->tex_n].w - p->tex_x - 1;
 	p->step = 1.0 * d->map->tex[N].h / p->line_h;
 	p->tex_pos = (p->draw_start - p->pitch - d->mlx->win_h / 2 + p->line_h / 2) * p->step;
@@ -56,6 +54,7 @@ int draw_frame(t_data *d)
 
 	x = 0;
 	move(d);
+	printf("%f, %f, %f, %f\n", d->cam->pos_x, d->cam->pos_y, d->cam->dir_x, d->cam->dir_y);
 	while (x < d->mlx->win_w)
 	{
 		raycast(d, &r, x);
