@@ -1,5 +1,16 @@
 #include "cub3d.h"
 
+static uint32_t get_color(char *addr)
+{
+	uint32_t color;
+
+	color = 0;
+	color = color | addr[2];
+	color = (color << 8) | addr[1];
+	color = (color << 8) | addr[0];
+	return (color);
+}
+
 static void draw_pixel(t_data *d, t_pix *p, t_ray *r, int x)
 {
 	int y;
@@ -9,7 +20,7 @@ static void draw_pixel(t_data *d, t_pix *p, t_ray *r, int x)
 	{
 		p->tex_y = (int) p->tex_pos & (d->map->tex[p->tex_n].h - 1);
 		p->tex_pos += p->step;
-		p->color = d->map->tex[p->tex_n].addr[p->tex_y * d->map->tex[p->tex_n].llen + (p->tex_x << 2)];
+		p->color = get_color(d->map->tex[p->tex_n].addr + (p->tex_y * d->map->tex[p->tex_n].llen + (p->tex_x << 2)));
 		if (r->side == 1)
 			p->color = (p->color >> 1) & 0x7F7F7F;
 		mlx_pixel_put_img(d, x, y, p->color);

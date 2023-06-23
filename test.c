@@ -17,11 +17,22 @@ struct s_img
 	int   end;
 };
 
+static uint32_t get_color(char *addr)
+{
+	uint32_t color;
+
+	color = 0;
+	color = color | addr[2];
+	color = (color << 8) | addr[1];
+	color = (color << 8) | addr[0];
+	return (color);
+}
+
 void	mlx_pixel_put_img(char *addr, int llen, int bpp, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = addr + (y * llen + x * (bpp / 8));
+	dst = addr + (y * llen + (x << 2));
 	*(unsigned int *)dst = color;
 }
 
@@ -44,7 +55,11 @@ int	main(void)
 	printf("tex :: w: %d, h: %d, bpp: %d, llen: %d, end: %d\n", tex.w, tex.h, tex.bpp, tex.llen, tex.end);
 	for (int y = 0; y < tex.h; y++)
 		for (int x = 0; x < tex.w; x++)
-			mlx_pixel_put_img(img.addr, img.llen, img.bpp, x, y, (int32_t)tex.addr[y * tex.llen + x * (tex.bpp / 8)]);
+		{
+			// printf("%d, %d, %d\n", tex.addr[y * tex.llen + (x << 2)], tex.addr[y * tex.llen + (x << 2) + 1], tex.addr[y * tex.llen + (x << 2) + 2]);
+			// mlx_pixel_put_img(img.addr, img.llen, img.bpp, x, y, tex.addr[y * tex.llen + (x << 2)]);
+			mlx_pixel_put_img(img.addr, img.llen, img.bpp, x, y, get_color(tex.addr + (y * tex.llen + (x << 2))));
+		}
 	mlx_put_image_to_window(mlx, win, img.img, 0, 0);
 	mlx_loop(mlx);
 }
