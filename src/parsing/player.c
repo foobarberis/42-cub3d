@@ -1,15 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   player.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/26 13:27:25 by mbarberi          #+#    #+#             */
+/*   Updated: 2023/06/26 13:27:49 by mbarberi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void get_player_pos(char **map, int *x, int *y)
+void	get_player_pos(char **map, int *x, int *y)
 {
 	while (map[*x])
 	{
-		while (map[*x][*y] && map[*x][*y] != 'N' && map[*x][*y] != 'S' && map[*x][*y] != 'E' && map[*x][*y] != 'W')
+		while (map[*x][*y] && map[*x][*y] != 'N'
+			&& map[*x][*y] != 'S' && map[*x][*y] != 'E' && map[*x][*y] != 'W')
 			*y += 1;
 		if (!map[*x][*y])
 			*y = 0;
 		else
-			break;
+			break ;
 		*x += 1;
 	}
 	if (!map[*x])
@@ -23,7 +36,7 @@ void get_player_pos(char **map, int *x, int *y)
 /* FIXME: if dx == -1.0 the rotation control are reversed */
 /* FIXME: Find better formula */
 /* FIXME: Norme */
-void get_player_dir(t_cam *cam, char c)
+void	get_player_dir(t_cam *cam, char c)
 {
 	cam->mospeed = 0.015; // (double)(WINDOW_HEIGHT * WINDOW_WIDTH) / 6400000.00;
 	cam->rospeed = 0.015; // (double)(WINDOW_HEIGHT * WINDOW_WIDTH) / 6400000.00;
@@ -59,10 +72,10 @@ void get_player_dir(t_cam *cam, char c)
 	}
 }
 
-int map_has_multiple_players(char **map, int x, int y)
+int	map_has_multiple_players(char **map, int x, int y)
 {
-	int nx;
-	int ny;
+	int	nx;
+	int	ny;
 
 	nx = x;
 	ny = y;

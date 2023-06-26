@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   create.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/26 13:28:50 by mbarberi          #+#    #+#             */
+/*   Updated: 2023/06/26 13:29:34 by mbarberi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-static t_data *data_create(void)
+static t_data	*data_create(void)
 {
 	t_data	*d;
 
@@ -17,30 +29,32 @@ static t_data *data_create(void)
 	if (!d->map)
 		return (free(d->cam), free(d->mlx), free(d), NULL);
 	d->map->tex = f_calloc(4, sizeof(t_tex));
-		if (!d->map->tex)
+	if (!d->map->tex)
 		return (free(d->cam), free(d->mlx), free(d->map), free(d), NULL);
 	return (d);
 }
 
-static int mlx_setup(t_data *d)
+static int	mlx_setup(t_data *d)
 {
 	d->mlx->win_w = WINDOW_WIDTH;
 	d->mlx->win_h = WINDOW_HEIGHT;
 	d->mlx->mlx = mlx_init();
 	if (!(d->mlx->mlx))
 		return (1);
-	d->mlx->win = mlx_new_window(d->mlx->mlx, d->mlx->win_w, d->mlx->win_h, "cub3D");
+	d->mlx->win = mlx_new_window(d->mlx->mlx, d->mlx->win_w,
+			d->mlx->win_h, "cub3D");
 	d->mlx->img = mlx_new_image(d->mlx->mlx, d->mlx->win_w, d->mlx->win_h);
 	if (!(d->mlx->win) || !(d->mlx->img))
 		return (1);
-	d->mlx->addr = mlx_get_data_addr(d->mlx->img, &d->mlx->bpp, &d->mlx->llen, &d->mlx->end);
+	d->mlx->addr = mlx_get_data_addr(d->mlx->img, &d->mlx->bpp,
+			&d->mlx->llen, &d->mlx->end);
 	return (0);
 }
 
-int **matrix_create(int w, int h)
+int	**matrix_create(int w, int h)
 {
-	int i;
-	int **new;
+	int	i;
+	int	**new;
 
 	i = 0;
 	new = f_calloc(h, sizeof(int *));
@@ -56,7 +70,7 @@ int **matrix_create(int w, int h)
 	return (new);
 }
 
-t_data *data_init(char *file)
+t_data	*data_init(char *file)
 {
 	t_data	*d;
 

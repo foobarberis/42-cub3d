@@ -1,7 +1,19 @@
-#ifndef CUB3D_H
-#define CUB3D_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/26 13:19:48 by mbarberi          #+#    #+#             */
+/*   Updated: 2023/06/26 13:28:29 by mbarberi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <stdio.h> /* DEBUG */
+#ifndef CUB3D_H
+# define CUB3D_H
+
+# include <stdio.h> /* DEBUG */
 
 # include "mlc.h"
 # include "mlx.h"
@@ -12,10 +24,16 @@
 # define WINDOW_WIDTH	800
 # define WINDOW_HEIGHT	600
 # define FILL 'x'
+# define ERR_FORBID "cub3d: line %d: map contains forbidden character (`%c')\n"
+# define ERR_EMPTY "cub3d: line %d: map contains empty lines\n"
+# define ERR_DUPID "cub3d: duplicate identifier\n"
+# define ERR_TEX "cub3d: %s: texture could not be loaded\n"
+# define ERR_UNREC_ID "cub3d: %s: unrecognized identifier\n"
+# define ERR_RGB_RANGE "cub3d: %s: RGB value is not in range 0-255\n"
 
-typedef struct s_data   t_data;
+typedef struct s_data	t_data;
 typedef struct s_mlx	t_mlx;
-typedef struct s_map    t_map;
+typedef struct s_map	t_map;
 typedef struct s_tex	t_tex;
 typedef struct s_cam	t_cam;
 typedef struct s_ray	t_ray;
@@ -69,15 +87,15 @@ struct s_data
 */
 struct s_mlx
 {
-	void *mlx;
-	void *win;
-	void *img;
-	char *addr;
-	int   bpp;
-	int   llen;
-	int   end;
-	int	  win_w;
-	int	  win_h;
+	void	*mlx;
+	void	*win;
+	void	*img;
+	char	*addr;
+	int		bpp;
+	int		llen;
+	int		end;
+	int		win_w;
+	int		win_h;
 };
 
 /*
@@ -88,15 +106,15 @@ struct s_mlx
 */
 struct s_cam
 {
-	int key[6];
-	double pos_x;
-	double pos_y;
-	double dir_x;
-	double dir_y;
-	double mospeed;
-	double rospeed;
-	double plane_x;
-	double plane_y;
+	int		key[6];
+	double	pos_x;
+	double	pos_y;
+	double	dir_x;
+	double	dir_y;
+	double	mospeed;
+	double	rospeed;
+	double	plane_x;
+	double	plane_y;
 };
 
 /*
@@ -109,12 +127,12 @@ struct s_cam
 */
 struct s_map
 {
-	int    **map;
-	int      map_w;
-	int      map_h;
-	uint32_t ceil;
-	uint32_t floor;
-	t_tex    *tex;
+	int			**map;
+	int			map_w;
+	int			map_h;
+	uint32_t	ceil;
+	uint32_t	floor;
+	t_tex		*tex;
 };
 
 struct s_tex
@@ -122,49 +140,43 @@ struct s_tex
 	void	*t;
 	int		w;
 	int		h;
-	char *addr;
-	int   bpp;
-	int   llen;
-	int   end;
+	char	*addr;
+	int		bpp;
+	int		llen;
+	int		end;
 };
 
 struct s_ray
 {
-	// which box of the map we're in
-	int map_x;
-	int map_y;
-	// calculate ray position and direction
-	double dir_x;
-	double dir_y;
-	// length of ray from current position to next x or y-side
-	double sdist_x;
-	double sdist_y;
-	// length of ray from one x or y-side to next x or y-side
-	double ddist_x;
-	double ddist_y;
-	double perp_wall_dist;
+	int		tex_n;
+	int		side;
+	int		step_x;
+	int		step_y;
+	int		map_x;
+	int		map_y;
+	double	dir_x;
+	double	dir_y;
+	double	sdist_x;
+	double	sdist_y;
+	double	ddist_x;
+	double	ddist_y;
+	double	perp_wall_dist;
 
-	// what direction to step in x or y-direction (either +1 or -1)
-	int step_x;
-	int step_y;
-
-	int side;    // was a NS or a EW wall hit?
-	int n;
 };
 
 struct s_pix
 {
-	int32_t color;
-	int line_h;
-	int pitch;
-	int draw_start;
-	int draw_end;
-	int tex_n;
-	int tex_y;
-	int tex_x;
-	double wall_x;
-	double step;
-	double tex_pos;
+	int32_t		color;
+	int			line_h;
+	int			pitch;
+	int			draw_start;
+	int			draw_end;
+	int			tex_n;
+	int			tex_y;
+	int			tex_x;
+	double		wall_x;
+	double		step;
+	double		tex_pos;
 };
 
 t_data	*data_init(char *file);
@@ -189,10 +201,9 @@ void	get_player_pos(char **map, int *x, int *y);
 void	get_player_dir(t_cam *cam, char c);
 int		map_has_multiple_players(char **map, int x, int y);
 
-
 void	setup_hooks(t_data *d);
-int 	hook_keypress(int key, t_data *d);
-int 	hook_keypress_release(int key, t_data *d);
+int		hook_keypress(int key, t_data *d);
+int		hook_keypress_release(int key, t_data *d);
 
 int		move(t_data *d);
 void	rotate_left(t_data *d);

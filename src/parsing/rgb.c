@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rgb.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/26 13:27:52 by mbarberi          #+#    #+#             */
+/*   Updated: 2023/06/26 13:28:38 by mbarberi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-static uint32_t rgb_extract_color(char *color)
+static uint32_t	rgb_extract_color(char *color)
 {
-	uint32_t r;
+	uint32_t	r;
 
 	r = 0;
 	r = r | (uint8_t)f_atoi(color);
@@ -13,7 +25,7 @@ static uint32_t rgb_extract_color(char *color)
 	return (r);
 }
 
-static int rgb_has_forbidden_char(char *s)
+static int	rgb_has_forbidden_char(char *s)
 {
 	while (*s)
 	{
@@ -24,21 +36,21 @@ static int rgb_has_forbidden_char(char *s)
 	return (0);
 }
 
-static int rgb_check_overflow(char *s, int len)
+static int	rgb_check_overflow(char *s, int len)
 {
-	int l;
-	char *p;
+	int		l;
+	char	*p;
 
 	p = s;
 	while (1)
 	{
 		l = (int)f_strlen(s);
 		if (l < 1 || l > 3 || f_atoi(s) > 255)
-			return (f_dprintf(2, "cub3d: %s: RGB value is not in range 0-255\n"), 1);
+			return (f_dprintf(2, ERR_RGB_RANGE), 1);
 		while (*s)
 			s++;
 		if ((int)(s - p) >= len)
-			break;
+			break ;
 		else
 			*s = ',';
 		s += 1;
@@ -47,11 +59,11 @@ static int rgb_check_overflow(char *s, int len)
 }
 
 /* check if the line represents a valid RGB value converts it to int if it is.*/
-int parse_color(char *s, uint32_t *color)
+int	parse_color(char *s, uint32_t *color)
 {
-	int i;
-	int c;
-	int len;
+	int	i;
+	int	c;
+	int	len;
 
 	i = 0;
 	c = 0;

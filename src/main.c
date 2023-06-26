@@ -1,5 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/26 13:30:07 by mbarberi          #+#    #+#             */
+/*   Updated: 2023/06/26 13:30:28 by mbarberi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
+/* FIXME: Remove this */
 static void print_debug_info(t_data *d)
 {
 	printf("--- PLAYER ---\n");
@@ -20,9 +33,9 @@ static void print_debug_info(t_data *d)
 	printf("west : %p, %d, %d\n", d->map->tex[W].t, d->map->tex[W].w, d->map->tex[W].h);
 }
 
-int main(int argc, char * argv[])
+int	main(int argc, char *argv[])
 {
-	t_data *d;
+	t_data	*d;
 
 	if (argc != 2)
 		return (f_dprintf(2, "Usage: ./cub3d map.cub\n"), EXIT_SUCCESS);

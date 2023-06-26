@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycast.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/26 13:12:32 by mbarberi          #+#    #+#             */
+/*   Updated: 2023/06/26 13:25:58 by mbarberi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-static void init_step(t_data *d, t_ray *r)
+static void	init_step(t_data *d, t_ray *r)
 {
 	if (r->dir_x < 0)
 	{
@@ -24,28 +36,28 @@ static void init_step(t_data *d, t_ray *r)
 	}
 }
 
-static void pick_texture(t_ray *r)
+static void	pick_texture(t_ray *r)
 {
-	r->n = 0;
+	r->tex_n = 0;
 	if (r->side)
 	{
 		if (r->step_y > 0)
-			r->n = N;
+			r->tex_n = N;
 		else if (r->step_y < 0)
-			r->n = S;
+			r->tex_n = S;
 	}
 	else if (!r->side)
 	{
 		if (r->step_x > 0)
-			r->n = E;
+			r->tex_n = E;
 		else if (r->step_x < 0)
-			r->n = W;
+			r->tex_n = W;
 	}
 }
 
-static void dda(t_data *d, t_ray *r)
+static void	dda(t_data *d, t_ray *r)
 {
-	int hit;
+	int	hit;
 
 	hit = 0;
 	while (!hit)
@@ -72,9 +84,9 @@ static void dda(t_data *d, t_ray *r)
 	pick_texture(r);
 }
 
-void raycast(t_data *d, t_ray *r, int x)
+void	raycast(t_data *d, t_ray *r, int x)
 {
-	double cam_x;
+	double	cam_x;
 
 	cam_x = 2 * x / (double) d->mlx->win_w - 1;
 	r->dir_x = d->cam->dir_x + d->cam->plane_x * cam_x;
@@ -92,4 +104,3 @@ void raycast(t_data *d, t_ray *r, int x)
 	init_step(d, r);
 	dda(d, r);
 }
-

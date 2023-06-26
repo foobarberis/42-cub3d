@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hook.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/26 13:29:57 by mbarberi          #+#    #+#             */
+/*   Updated: 2023/06/26 13:30:01 by mbarberi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-int hook_keypress_release(int key, t_data *d)
+int	hook_keypress_release(int key, t_data *d)
 {
 	if (key == XK_w)
 		d->cam->key[K_W] = 0;
@@ -17,7 +29,7 @@ int hook_keypress_release(int key, t_data *d)
 	return (0);
 }
 
-int hook_keypress(int key, t_data *d)
+int	hook_keypress(int key, t_data *d)
 {
 	if (key == XK_Escape)
 		cub_exit(d, EXIT_SUCCESS);

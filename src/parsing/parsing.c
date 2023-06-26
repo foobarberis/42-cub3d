@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/26 13:26:41 by mbarberi          #+#    #+#             */
+/*   Updated: 2023/06/26 13:27:19 by mbarberi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
 /*
@@ -34,18 +46,19 @@ static int	count_lines(char *s)
 }
 
 /* returns 1 if the line qualifies to be the beginning of the map */
-static int locate_map(char *s)
+static int	locate_map(char *s)
 {
 	while (f_isspace(*s))
 		s++;
 	if (*s == '0' || *s == '1')
 		return (1);
-	else if (((*s == 'N' || *s == 'S') && *(s + 1) != 'O') || (*s == 'E' && *(s + 1) != 'A') || (*s == 'W' && *(s + 1) != 'E'))
-			return (1);
+	else if (((*s == 'N' || *s == 'S') && *(s + 1) != 'O')
+		|| (*s == 'E' && *(s + 1) != 'A') || (*s == 'W' && *(s + 1) != 'E'))
+		return (1);
 	return (0);
 }
 
-static void map_split(char *s, char **map, char **head)
+static void	map_split(char *s, char **map, char **head)
 {
 	int		i;
 	int		j;
@@ -71,9 +84,9 @@ static void map_split(char *s, char **map, char **head)
 	}
 }
 
-int parsing(t_data *d, char *file)
+int	parsing(t_data *d, char *file)
 {
-	char 	*map_1d;
+	char	*map_1d;
 	char	**map;
 	char	**header;
 
