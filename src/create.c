@@ -66,8 +66,8 @@ t_data *data_init(char *file)
 	if (mlx_setup(d))
 		return (data_destroy(d), NULL);
 	/* FIXME: Find better formula */
-	d->cam->mospeed = (double)(WINDOW_HEIGHT * WINDOW_WIDTH) / 6400000.00; // 0.075;
-	d->cam->rospeed = (double)(WINDOW_HEIGHT * WINDOW_WIDTH) / 6400000.00; // 0.075;
+	d->cam->mospeed = 0.015; // (double)(WINDOW_HEIGHT * WINDOW_WIDTH) / 6400000.00;
+	d->cam->rospeed = 0.015; // (double)(WINDOW_HEIGHT * WINDOW_WIDTH) / 6400000.00;
 	parsing(d, file);
 	return (d);
 }

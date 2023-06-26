@@ -1,6 +1,5 @@
 #include "cub3d.h"
 
-/* FIXME: Make shorter */
 static uint32_t get_color(char *addr)
 {
 	uint32_t color;
@@ -35,8 +34,9 @@ static void draw_pixel(t_data *d, t_pix *p, t_ray *r, int x)
 		mlx_pixel_put_img(d, x, y--, d->map->floor);
 }
 
-/* FIXME: Move pitch var out of pix struct ?*/
-static void compute_texture(t_data *d, t_pix *p, t_ray *r, int x)
+/* FIXME: Move pitch var out of pix struct ? */
+/* FIXME: Refactor this in smaller functions ? */
+static void compute_texture(t_data *d, t_pix *p, t_ray *r)
 {
 	p->pitch = 100;
 	p->line_h = (int) (d->mlx->win_h / r->perp_wall_dist);
@@ -46,7 +46,8 @@ static void compute_texture(t_data *d, t_pix *p, t_ray *r, int x)
 	p->draw_end = p->line_h / 2 + d->mlx->win_h / 2 + p->pitch;
 	if (p->draw_end >= d->mlx->win_h)
 		p->draw_end = d->mlx->win_h - 1;
-	p->tex_n = d->map->map[r->map_x][r->map_y] - 1;
+	// p->tex_n = d->map->map[r->map_x][r->map_y] - 1;
+	p->tex_n = r->n;
 	if (!r->side)
 		p->wall_x = d->cam->pos_y + r->perp_wall_dist * r->dir_y;
 	else
@@ -67,17 +68,13 @@ int draw_frame(t_data *d)
 
 	x = 0;
 	move(d);
-	// printf("%f, %f, %f, %f\n", d->cam->pos_x, d->cam->pos_y, d->cam->dir_x, d->cam->dir_y);
 	while (x < d->mlx->win_w)
 	{
 		raycast(d, &r, x);
-		compute_texture(d, &p, &r, x);
+		compute_texture(d, &p, &r);
 		draw_pixel(d, &p, &r, x);
-		// printf("pos_x = %lf\npos_y = %lf\ndir_x = %lf\ndir_y = %lf\n\n", d->cam->pos_x, d->cam->pos_y, d->cam->dir_x, d->cam->dir_y);
-		// printf("x = %d, ppwd = %lf, side = %d, sdistx = %lf, sdisty = %lf, ddistx = %lf, ddisty = %lf, line height: %d\n", x, r.perp_wall_dist, r.side, r.sdist_x, r.sdist_y, r.ddist_x, r.ddist_y, p.line_h);
 		x++;
 	}
-	// printf("\n");
 	mlx_clear_window(d->mlx->mlx, d->mlx->win);
 	mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->mlx->img, 0, 0);
 	return (0);

@@ -24,6 +24,25 @@ static void init_step(t_data *d, t_ray *r)
 	}
 }
 
+static void pick_texture(t_ray *r)
+{
+	r->n = 0;
+	if (r->side)
+	{
+		if (r->step_y > 0)
+			r->n = N;
+		else if (r->step_y < 0)
+			r->n = S;
+	}
+	else if (!r->side)
+	{
+		if (r->step_x > 0)
+			r->n = E;
+		else if (r->step_x < 0)
+			r->n = W;
+	}
+}
+
 static void dda(t_data *d, t_ray *r)
 {
 	int hit;
@@ -50,6 +69,7 @@ static void dda(t_data *d, t_ray *r)
 		r->perp_wall_dist = (r->sdist_x - r->ddist_x);
 	else
 		r->perp_wall_dist = (r->sdist_y - r->ddist_y);
+	pick_texture(r);
 }
 
 void raycast(t_data *d, t_ray *r, int x)
@@ -73,26 +93,3 @@ void raycast(t_data *d, t_ray *r, int x)
 	dda(d, r);
 }
 
-/* static void init_step(t_data *d, t_ray *r)
-{
-	if (r->dir_x < 0)
-	{
-		r->step_x = -1;
-		r->sdist_x = (d->cam->pos_x - r->map_x) * r->ddist_x;
-	}
-	else
-	{
-		r->step_x = 1;
-		r->sdist_x = (r->map_x + 1.0 - d->cam->pos_x) * r->ddist_x;
-	}
-	if (r->dir_x < 0)
-	{
-		r->step_y = -1;
-		r->sdist_y = (d->cam->pos_y - r->map_y) * r->ddist_y;
-	}
-	else
-	{
-		r->step_y = 1;
-		r->sdist_y = (r->map_y + 1.0 - d->cam->pos_y) * r->ddist_y;
-	}
-} */

@@ -149,6 +149,7 @@ struct s_ray
 	int step_y;
 
 	int side;    // was a NS or a EW wall hit?
+	int n;
 };
 
 struct s_pix
