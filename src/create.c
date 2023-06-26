@@ -16,6 +16,9 @@ static t_data *data_create(void)
 	d->map = f_calloc(1, sizeof(t_map));
 	if (!d->map)
 		return (free(d->cam), free(d->mlx), free(d), NULL);
+	d->mini = f_calloc(1, sizeof(t_mini));
+	if (!d->mini)
+		return (free(d->map), free(d->cam), free(d->mlx), free(d), NULL);
 	d->map->tex = f_calloc(4, sizeof(t_tex));
 		if (!d->map->tex)
 		return (free(d->cam), free(d->mlx), free(d->map), free(d), NULL);
@@ -34,6 +37,22 @@ static int mlx_setup(t_data *d)
 	if (!(d->mlx->win) || !(d->mlx->img))
 		return (1);
 	d->mlx->addr = mlx_get_data_addr(d->mlx->img, &d->mlx->bpp, &d->mlx->llen, &d->mlx->end);
+	return (0);
+}
+
+static int minimap_setup(t_data *d)
+{
+	d->mini->mlx = f_calloc(1, sizeof(t_mlx));
+	if (!d->mini->mlx)
+		return (free(d), NULL);
+	d->mini->mlx->mlx = d->mlx->mlx;
+	d->mini->mlx->win = d->mlx->win;
+	d->mini->mlx->win_w = WINDOW_WIDTH / R_MAP;
+	d->mini->mlx->win_h = WINDOW_HEIGHT / R_MAP;
+	d->mini->mlx->img = mlx_new_image(d->mini->mlx->mlx, d->mini->mlx->win_w, d->mini->mlx->win_h);
+	if (!(d->mini->mlx->win) || !(d->mini->mlx->img))
+		return (1);
+	d->mini->mlx->addr = mlx_get_data_addr(d->mini->mlx->img, &d->mini->mlx->bpp, &d->mini->mlx->llen, &d->mini->mlx->end);
 	return (0);
 }
 
@@ -65,10 +84,13 @@ t_data *data_init(char *file)
 		return (NULL);
 	if (mlx_setup(d))
 		return (data_destroy(d), NULL);
+	if (minimap_setup(d))
+		return (data_destroy(d), NULL);
 	d->cam->plane_x = 0.00;
 	d->cam->plane_y = 0.66; /* 0.66 */
 	d->cam->mospeed = 0.075;
 	d->cam->rospeed = 0.075;
 	parsing(d, file);
+	mini_map(d);
 	return (d);
 }

@@ -1,5 +1,26 @@
 #include "cub3d.h"
 
+static int	cardinals(t_ray *r)
+{
+	int	cardinal;
+
+	if (r->side == 0)
+	{
+		if (r->step_x > 0)
+			cardinal = N;
+		else
+			cardinal = S;
+	}
+	else
+	{
+		if (r->step_y > 0)
+			cardinal = E;
+		else
+			cardinal = W;
+	}
+	return (cardinal);
+}
+
 static uint32_t get_color(char *addr)
 {
 	uint32_t color;
@@ -44,7 +65,7 @@ static void compute_texture(t_data *d, t_pix *p, t_ray *r, int x)
 	p->draw_end = p->line_h / 2 + d->mlx->win_h / 2 + p->pitch;
 	if (p->draw_end >= d->mlx->win_h)
 		p->draw_end = d->mlx->win_h - 1;
-	p->tex_n = d->map->map[r->map_x][r->map_y] - 1;
+	p->tex_n = cardinals(r); //d->map->map[r->map_x][r->map_y] - 1;
 	if (!r->side) /* setting this to 1 fixes texture wtf */
 		p->wall_x = d->cam->pos_y + r->perp_wall_dist * r->dir_y;
 	else
@@ -75,5 +96,6 @@ int draw_frame(t_data *d)
 	}
 	mlx_clear_window(d->mlx->mlx, d->mlx->win);
 	mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->mlx->img, 0, 0);
+	mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->mini->mlx->img, 0, 0);
 	return (0);
 }

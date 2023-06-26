@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
+#    By: vburton <vburton@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/06/21 13:32:09 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/06/26 13:30:57 by vburton          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS		:=	create.c \
 				parsing/parsing_utils.c \
 				parsing/player.c \
 				parsing/parsing.c \
+				minimap/minimap.c \
 				rot.c \
 				utils.c
 
