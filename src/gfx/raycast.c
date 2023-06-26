@@ -1,26 +1,26 @@
 #include "cub3d.h"
 
-static void init_step(t_ray *r, double pos_x, double pos_y)
+static void init_step(t_data *d, t_ray *r)
 {
 	if (r->dir_x < 0)
 	{
 		r->step_x = -1;
-		r->sdist_x = (pos_x - r->map_x) * r->ddist_x;
+		r->sdist_x = (d->cam->pos_x - r->map_x) * r->ddist_x;
 	}
 	else
 	{
 		r->step_x = 1;
-		r->sdist_x = (r->map_x + 1.0 - pos_x) * r->ddist_x;
+		r->sdist_x = (r->map_x + 1.0 - d->cam->pos_x) * r->ddist_x;
 	}
-	if (r->dir_x < 0)
+	if (r->dir_y < 0)
 	{
 		r->step_y = -1;
-		r->sdist_y = (pos_y - r->map_y) * r->ddist_y;
+		r->sdist_y = (d->cam->pos_y - r->map_y) * r->ddist_y;
 	}
 	else
 	{
 		r->step_y = 1;
-		r->sdist_y = (r->map_y + 1.0 - pos_y) * r->ddist_y;
+		r->sdist_y = (r->map_y + 1.0 - d->cam->pos_y) * r->ddist_y;
 	}
 }
 
@@ -69,6 +69,30 @@ void raycast(t_data *d, t_ray *r, int x)
 		r->ddist_y = INFINITY;
 	else
 		r->ddist_y = fabs(1 / r->dir_y);
-	init_step(r, d->cam->pos_x, d->cam->pos_y);
+	init_step(d, r);
 	dda(d, r);
 }
+
+/* static void init_step(t_data *d, t_ray *r)
+{
+	if (r->dir_x < 0)
+	{
+		r->step_x = -1;
+		r->sdist_x = (d->cam->pos_x - r->map_x) * r->ddist_x;
+	}
+	else
+	{
+		r->step_x = 1;
+		r->sdist_x = (r->map_x + 1.0 - d->cam->pos_x) * r->ddist_x;
+	}
+	if (r->dir_x < 0)
+	{
+		r->step_y = -1;
+		r->sdist_y = (d->cam->pos_y - r->map_y) * r->ddist_y;
+	}
+	else
+	{
+		r->step_y = 1;
+		r->sdist_y = (r->map_y + 1.0 - d->cam->pos_y) * r->ddist_y;
+	}
+} */

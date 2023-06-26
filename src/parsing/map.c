@@ -84,7 +84,7 @@ int parse_map(t_data *d, char **map)
 	get_player_pos(map, &x, &y);
 	if (x == -1)
 		return (f_dprintf(2, "cub3d: player not found\n"), 1);
-	get_player_dir(map[x][y], &d->cam->dir_x, &d->cam->dir_y);
+	get_player_dir(d->cam, map[x][y]);
 	if (map_has_multiple_players(map, x, y))
 		return (f_dprintf(2, "cub3d: multiple players found\n"), 1);
 	dfs(map, x, y, &error);

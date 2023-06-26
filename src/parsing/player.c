@@ -20,27 +20,36 @@ void get_player_pos(char **map, int *x, int *y)
 }
 
 /* FIXME: Check if values are correct */
-void get_player_dir(char c, double *dx, double *dy)
+/* FIXME: if dx == -1.0 the rotation control are reversed */
+void get_player_dir(t_cam *cam, char c)
 {
 	if (c == 'N')
 	{
-		*dx = 1.0;
-		*dy = 1.0;
+		cam->dir_x = 0.0;
+		cam->dir_y = 1.0;
+		cam->plane_x = 0.5;
+		cam->plane_y = 0.0;
 	}
 	else if (c == 'S')
 	{
-		*dx = -1.0;
-		*dy = -1.0;
+		cam->dir_x = 0.0;
+		cam->dir_y = -1.0;
+		cam->plane_x = 0.5;
+		cam->plane_y = 0.0;
 	}
 	else if (c == 'E')
 	{
-		*dx = 1.0;
-		*dy = 0.0;
+		cam->dir_x = 1.0;
+		cam->dir_y = 0.0;
+		cam->plane_x = 0.0;
+		cam->plane_y = 0.5;
 	}
 	else if (c == 'W')
 	{
-		*dx = -1.0;
-		*dy = 0.0;
+		cam->dir_x = -1.0;
+		cam->dir_y = 0.0;
+		cam->plane_x = 0.0;
+		cam->plane_y = 0.5;
 	}
 }
 

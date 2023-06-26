@@ -59,8 +59,8 @@ struct s_data
 /*
  * mlx		: pointer to the mlx context.
  * win		: pointer to the mlx window.
- * img		:
- * addr		:
+ * img		: pointer to image (XImage)
+ * addr		: address of the image
  * bpp		: bits per pixel.
  * llen		: line length.
  * end		: endian type.
@@ -185,7 +185,7 @@ int		get_map_height(char **map);
 int		parse_color(char *s, uint32_t *color);
 
 void	get_player_pos(char **map, int *x, int *y);
-void	get_player_dir(char c, double *dx, double *dy);
+void	get_player_dir(t_cam *cam, char c);
 int		map_has_multiple_players(char **map, int x, int y);
 
 
