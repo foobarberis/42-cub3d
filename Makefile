@@ -6,7 +6,7 @@
 #    By: vburton <vburton@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/06/26 13:30:57 by vburton          ###   ########.fr        #
+#    Updated: 2023/06/26 12:29:49 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ all: libft mlx $(NAME)
 $(OBJECTS): $(HEADERS) Makefile
 
 $(NAME): $(OBJECTS) $(MLCDIR)/libft.a $(MLXDIR)/libmlx.a
-	$(CC) $(OBJECTS) -fsanitize=address,undefined $(LIBFLAGS) -o $(NAME)
+	$(CC) $(OBJECTS) -fsanitize=undefined,address $(LIBFLAGS) -o $(NAME)
 
 libft:
 	make -C $(MLCDIR)

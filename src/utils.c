@@ -1,11 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/26 13:32:52 by mbarberi          #+#    #+#             */
+/*   Updated: 2023/06/26 13:32:53 by mbarberi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-/*
-* From : https://tronche.com/gui/x/xlib/utilities/manipulating-images.html
-* "The first byte of the first line of plane n must be located at the
-* address (data + (n * height * bytes_per_line))."
-*/
-// 	dst = d->mlx->addr + (y * d->mlx->llen + x * (d->mlx->bpp / 8));
 void	mlx_pixel_put_img(t_data *d, int x, int y, int color)
 {
 	char	*dst;

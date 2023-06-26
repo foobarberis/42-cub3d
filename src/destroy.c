@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   destroy.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/26 13:29:38 by mbarberi          #+#    #+#             */
+/*   Updated: 2023/06/26 13:29:52 by mbarberi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void data_destroy(t_data *d)
+void	data_destroy(t_data *d)
 {
 	if (!d)
-		return;
+		return ;
 	if (d->map)
 		map_destroy(d, d->map);
 	if (d->mlx)
@@ -13,7 +25,7 @@ void data_destroy(t_data *d)
 	free(d);
 }
 
-void mlx_destroy(t_mlx *mlx)
+void	mlx_destroy(t_mlx *mlx)
 {
 	mlx_loop_end(mlx->mlx);
 	if (mlx->win)
@@ -25,9 +37,9 @@ void mlx_destroy(t_mlx *mlx)
 	free(mlx);
 }
 
-void map_destroy(t_data *d, t_map *map)
+void	map_destroy(t_data *d, t_map *map)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (map->map)
@@ -50,9 +62,9 @@ void map_destroy(t_data *d, t_map *map)
 	free(map);
 }
 
-void matrix_destroy(int **m, int h)
+void	matrix_destroy(int **m, int h)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < h)

@@ -1,16 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/26 13:13:23 by mbarberi          #+#    #+#             */
+/*   Updated: 2023/06/26 13:23:52 by mbarberi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-void dfs(char **m, int x, int y, int *error)
+static void	dfs(char **m, int x, int y, int *error)
 {
 	m[x][y] = FILL;
-	/* FIXME: Find a better solution to not compute length each time */
 	if (x <= 0 || y <= 0 ||!m[x][y + 1] || x >= get_map_height(m))
 		*error = 1;
 	if (*error)
-		return;
-	if (y < (int)f_strlen(m[x - 1]) && m[x - 1][y] != '1' && m[x - 1][y] != FILL)
+		return ;
+	if (y < (int)f_strlen(m[x - 1])
+		&& m[x - 1][y] != '1' && m[x - 1][y] != FILL)
 		dfs(m, x - 1, y, error);
-	if (y < (int)f_strlen(m[x + 1]) && m[x + 1][y] != '1' && m[x + 1][y] != FILL)
+	if (y < (int)f_strlen(m[x + 1])
+		&& m[x + 1][y] != '1' && m[x + 1][y] != FILL)
 		dfs(m, x + 1, y, error);
 	if (m[x][y - 1] != '1' && m[x][y - 1] != FILL)
 		dfs(m, x, y - 1, error);
@@ -18,22 +31,21 @@ void dfs(char **m, int x, int y, int *error)
 		dfs(m, x, y + 1, error);
 }
 
-/* check for empty lines or forbidden chars, returns 1 in case of error */
-int check_map(char **map)
+static int	check_map(char **map)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (map[i])
 	{
 		j = 0;
 		if (!map[i][j])
-			return (f_dprintf(2, "cub3d: line %d: map contains empty lines\n", i + 1), 1);
+			return (f_dprintf(2, ERR_EMPTY, i + 1), 1);
 		while (map[i][j])
 		{
 			if (!islegal(map[i][j]))
-				return (f_dprintf(2, "cub3d: line %d: map contains forbidden character (`%c')\n", i + 1, map[i][j]), 1);
+				return (f_dprintf(2, ERR_FORBID, i + 1, map[i][j]), 1);
 			j++;
 		}
 		i++;
@@ -41,10 +53,10 @@ int check_map(char **map)
 	return (0);
 }
 
-void ascii_to_int(int **mat, char **map, int nrows)
+static void	ascii_to_int(int **mat, char **map, int nrows)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
 	while (map[i])
@@ -70,11 +82,11 @@ void ascii_to_int(int **mat, char **map, int nrows)
 	}
 }
 
-int parse_map(t_data *d, char **map)
+int	parse_map(t_data *d, char **map)
 {
-	int x;
-	int y;
-	int error;
+	int	x;
+	int	y;
+	int	error;
 
 	x = 0;
 	y = 0;
@@ -84,7 +96,7 @@ int parse_map(t_data *d, char **map)
 	get_player_pos(map, &x, &y);
 	if (x == -1)
 		return (f_dprintf(2, "cub3d: player not found\n"), 1);
-	get_player_dir(map[x][y], &d->cam->dir_x, &d->cam->dir_y);
+	get_player_dir(d->cam, map[x][y]);
 	if (map_has_multiple_players(map, x, y))
 		return (f_dprintf(2, "cub3d: multiple players found\n"), 1);
 	dfs(map, x, y, &error);

@@ -1,7 +1,7 @@
-NO assets/eagle.xpm
+NO assets/mossy.xpm
 SO assets/greystone.xpm
-EA assets/mossy.xpm
-WE assets/purplestone.xpm
+EA assets/eagle.xpm
+WE assets/redbrick.xpm
 
 F 192,192,192
 C 64,64,64
