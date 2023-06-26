@@ -29,7 +29,7 @@ int main(int argc, char * argv[])
 	d = data_init(argv[1]);
 	if (!d)
 		return (EXIT_FAILURE);
-	print_debug_info(d);
+	// print_debug_info(d);
 	mlx_loop_hook(d->mlx->mlx, draw_frame, d);
 	setup_hooks(d);
 	mlx_loop(d->mlx->mlx);

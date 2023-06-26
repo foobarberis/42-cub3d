@@ -86,7 +86,7 @@ int draw_frame(t_data *d)
 
 	x = 0;
 	move(d);
-	printf("%f, %f, %f, %f\n", d->cam->pos_x, d->cam->pos_y, d->cam->dir_x, d->cam->dir_y);
+	// printf("%f, %f, %f, %f\n", d->cam->pos_x, d->cam->pos_y, d->cam->dir_x, d->cam->dir_y);
 	while (x < d->mlx->win_w)
 	{
 		raycast(d, &r, x);
