@@ -29,6 +29,7 @@ SRCS		:=	create.c \
 				parsing/player.c \
 				parsing/parsing.c \
 				minimap/minimap.c \
+				minimap/print_player.c \
 				rot.c \
 				utils.c
 

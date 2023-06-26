@@ -19,8 +19,11 @@ static t_data *data_create(void)
 	d->mini = f_calloc(1, sizeof(t_mini));
 	if (!d->mini)
 		return (free(d->map), free(d->cam), free(d->mlx), free(d), NULL);
+	d->player = f_calloc(1, sizeof(t_player));
+	if (!d->mini)
+		return (free(d->mini), free(d->map), free(d->cam), free(d->mlx), free(d), NULL);
 	d->map->tex = f_calloc(4, sizeof(t_tex));
-		if (!d->map->tex)
+	if (!d->map->tex)
 		return (free(d->cam), free(d->mlx), free(d->map), free(d), NULL);
 	return (d);
 }
@@ -56,6 +59,22 @@ static int minimap_setup(t_data *d)
 	return (0);
 }
 
+static int player_setup(t_data *d)
+{
+	d->player->mlx = f_calloc(1, sizeof(t_mlx));
+	if (!d->player->mlx)
+		return (free(d), NULL);
+	d->player->mlx->mlx = d->mlx->mlx;
+	d->player->mlx->win = d->mlx->win;
+	d->player->mlx->win_w = 5;
+	d->player->mlx->win_h = 5;
+	d->player->mlx->img = mlx_new_image(d->player->mlx->mlx, d->player->mlx->win_w, d->player->mlx->win_h);
+	if (!(d->player->mlx->win) || !(d->player->mlx->img))
+		return (1);
+	d->player->mlx->addr = mlx_get_data_addr(d->player->mlx->img, &d->player->mlx->bpp, &d->player->mlx->llen, &d->player->mlx->end);
+	return (0);
+}
+
 int **matrix_create(int w, int h)
 {
 	int i;
@@ -85,6 +104,8 @@ t_data *data_init(char *file)
 	if (mlx_setup(d))
 		return (data_destroy(d), NULL);
 	if (minimap_setup(d))
+		return (data_destroy(d), NULL);
+	if (player_setup(d))
 		return (data_destroy(d), NULL);
 	d->cam->plane_x = 0.00;
 	d->cam->plane_y = 0.66; /* 0.66 */

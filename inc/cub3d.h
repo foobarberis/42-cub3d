@@ -22,6 +22,7 @@ typedef struct s_cam	t_cam;
 typedef struct s_ray	t_ray;
 typedef struct s_pix	t_pix;
 typedef struct s_mini	t_mini;
+typedef struct s_player	t_player;
 
 
 enum e_direction
@@ -54,10 +55,11 @@ enum e_movement
 
 struct s_data
 {
-	t_mlx	*mlx;
-	t_mini	*mini;
-	t_cam	*cam;
-	t_map	*map;
+	t_mlx		*mlx;
+	t_mini		*mini;
+	t_player	*player;
+	t_cam		*cam;
+	t_map		*map;
 };
 
 /*
@@ -131,6 +133,12 @@ struct s_mini
 	double	y1;
 	double	x_step;
 	double	y_step;
+};
+
+struct	s_player
+{
+	t_mlx	*mlx;
+	int		color;
 };
 
 
@@ -220,6 +228,7 @@ int		draw_frame(t_data *d);
 void	mlx_pixel_put_img(t_data *d, int x, int y, int color);
 
 int mini_map(t_data *d);
+int print_player(t_data *d);
 
 #endif
 
