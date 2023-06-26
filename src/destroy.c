@@ -22,6 +22,18 @@ void	data_destroy(t_data *d)
 		mlx_destroy(d->mlx);
 	if (d->cam)
 		free(d->cam);
+	if (d->mini)
+	{
+		if (d->mini->mlx)
+			free(d->mini->mlx);
+		free(d->mini);
+	}
+	if (d->player)
+	{
+		if (d->player->mlx)
+			free(d->player->mlx);
+		free(d->player);
+	}
 	free(d);
 }
 

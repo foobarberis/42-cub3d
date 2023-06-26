@@ -31,8 +31,8 @@ static t_data	*data_create(void)
 	d->mini = f_calloc(1, sizeof(t_mini));
 	if (!d->mini)
 		return (free(d->map), free(d->cam), free(d->mlx), free(d), NULL);
-	d->player = f_calloc(1, sizeof(t_player));
-	if (!d->mini)
+	d->player = f_calloc(1, sizeof(t_mlx));
+	if (!d->player)
 		return (free(d->mini), free(d->map), free(d->cam), free(d->mlx), free(d), NULL);
 	d->map->tex = f_calloc(4, sizeof(t_tex));
 	if (!d->map->tex)
@@ -75,17 +75,14 @@ static int minimap_setup(t_data *d)
 
 static int player_setup(t_data *d)
 {
-	d->player->mlx = f_calloc(1, sizeof(t_mlx));
-	if (!d->player->mlx)
-		return (free(d), NULL);
-	d->player->mlx->mlx = d->mlx->mlx;
-	d->player->mlx->win = d->mlx->win;
-	d->player->mlx->win_w = 5;
-	d->player->mlx->win_h = 5;
-	d->player->mlx->img = mlx_new_image(d->player->mlx->mlx, d->player->mlx->win_w, d->player->mlx->win_h);
-	if (!(d->player->mlx->win) || !(d->player->mlx->img))
+	d->player->mlx = d->mlx->mlx;
+	d->player->win = d->mlx->win;
+	d->player->win_w = 4;
+	d->player->win_h = 4;
+	d->player->img = mlx_new_image(d->player->mlx, d->player->win_w, d->player->win_h);
+	if (!(d->player->win) || !(d->player->img))
 		return (1);
-	d->player->mlx->addr = mlx_get_data_addr(d->player->mlx->img, &d->player->mlx->bpp, &d->player->mlx->llen, &d->player->mlx->end);
+	d->player->addr = mlx_get_data_addr(d->player->img, &d->player->bpp, &d->player->llen, &d->player->end);
 	return (0);
 }
 

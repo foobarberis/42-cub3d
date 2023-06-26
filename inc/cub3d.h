@@ -24,6 +24,7 @@
 # define WINDOW_WIDTH	800
 # define WINDOW_HEIGHT	600
 # define FILL 'x'
+# define R_MAP 5
 # define ERR_FORBID "cub3d: line %d: map contains forbidden character (`%c')\n"
 # define ERR_EMPTY "cub3d: line %d: map contains empty lines\n"
 # define ERR_DUPID "cub3d: duplicate identifier\n"
@@ -39,8 +40,6 @@ typedef struct s_cam	t_cam;
 typedef struct s_ray	t_ray;
 typedef struct s_pix	t_pix;
 typedef struct s_mini	t_mini;
-typedef struct s_player	t_player;
-
 
 enum e_direction
 {
@@ -72,11 +71,11 @@ enum e_movement
 
 struct s_data
 {
-	t_mlx		*mlx;
-	t_mini		*mini;
-	t_player	*player;
-	t_cam		*cam;
-	t_map		*map;
+	t_mlx	*mlx;
+	t_mlx	*player;
+	t_mini	*mini;
+	t_cam	*cam;
+	t_map	*map;
 };
 
 /*
@@ -138,6 +137,14 @@ struct s_map
 	uint32_t ceil;
 	uint32_t floor;
 	t_tex    *tex;
+};
+
+struct s_mini
+{
+	t_mlx	*mlx;
+	int		color;
+	double	x_step;
+	double	y_step;
 };
 
 struct s_tex

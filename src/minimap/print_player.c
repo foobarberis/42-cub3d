@@ -1,11 +1,11 @@
 #include "cub3d.h"
 
-void	my_pixel_put(t_player *player, double x, double y)
+void	my_pixel_put(t_mlx *player, double x, double y)
 {
 	int	*dst;
 
-	dst = (int *)player->mlx->addr;
-	dst[(int)y + (int)x] = 0xFF0000; //player->color;
+	dst = (int *)player->addr;
+	dst[(int)y + (int)x] = 0xFF0000;
 }
 
 int print_player(t_data *d)
@@ -16,8 +16,8 @@ int print_player(t_data *d)
 	double y;
 
 	i = 0;
-	x = d->cam->pos_x * d->mini->y_step - 5;
-	y = d->cam->pos_y * d->mini->x_step - 5;
+	x = d->cam->pos_y * d->mini->x_step - 2;
+	y = d->cam->pos_x * d->mini->y_step - 2;
 	while (i < 5 * (int)d->mini->x_step)
 	{
 		j = 0;
@@ -28,6 +28,6 @@ int print_player(t_data *d)
 		}
 		i += 1;
 	}
-	mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->player->mlx->img, (int)y, (int)x);
+	mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->player->img, (int)x, (int)y);
 	return (0);
 }
