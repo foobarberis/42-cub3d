@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:19:48 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/26 13:28:29 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/26 13:37:00 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define WINDOW_WIDTH	800
 # define WINDOW_HEIGHT	600
 # define FILL 'x'
+
 # define ERR_FORBID "cub3d: line %d: map contains forbidden character (`%c')\n"
 # define ERR_EMPTY "cub3d: line %d: map contains empty lines\n"
 # define ERR_DUPID "cub3d: duplicate identifier\n"
