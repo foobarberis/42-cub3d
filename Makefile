@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/06/27 10:53:36 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/06/27 11:47:30 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,6 @@ SRCS		:=	create.c \
 				parsing/player.c \
 				parsing/parsing.c \
 				minimap/minimap.c \
-				minimap/print_player.c \
 				rot.c \
 				utils.c
 

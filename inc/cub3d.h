@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:19:48 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/27 10:46:12 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/27 11:13:47 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ typedef struct s_tex	t_tex;
 typedef struct s_cam	t_cam;
 typedef struct s_ray	t_ray;
 typedef struct s_pix	t_pix;
-typedef struct s_mini	t_mini;
 
 enum e_direction
 {
@@ -73,10 +72,12 @@ enum e_movement
 struct s_data
 {
 	t_mlx	*mlx;
-	t_mlx	*player;
-	t_mini	*mini;
 	t_cam	*cam;
 	t_map	*map;
+	t_mlx	*minimap;
+	t_mlx	*player;
+	double	x_step;
+	double	y_step;
 };
 
 /*
@@ -138,14 +139,6 @@ struct s_map
 	uint32_t ceil;
 	uint32_t floor;
 	t_tex    *tex;
-};
-
-struct s_mini
-{
-	t_mlx	*mlx;
-	int		color;
-	double	x_step;
-	double	y_step;
 };
 
 struct s_tex

@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:29:38 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/26 13:29:52 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/27 12:00:31 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,25 +15,23 @@
 void	data_destroy(t_data *d)
 {
 	if (!d)
-		return ;
+		return;
 	if (d->map)
 		map_destroy(d, d->map);
+	if (d->minimap)
+	{
+		mlx_destroy_image(d->mlx->mlx, d->minimap->img);
+		free(d->minimap);
+	}
+	if (d->player)
+	{
+		mlx_destroy_image(d->mlx->mlx, d->player->img);
+		free(d->player);
+	}
 	if (d->mlx)
 		mlx_destroy(d->mlx);
 	if (d->cam)
 		free(d->cam);
-	if (d->mini)
-	{
-		if (d->mini->mlx)
-			free(d->mini->mlx);
-		free(d->mini);
-	}
-	if (d->player)
-	{
-		if (d->player->mlx)
-			free(d->player->mlx);
-		free(d->player);
-	}
 	free(d);
 }
 

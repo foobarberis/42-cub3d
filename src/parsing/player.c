@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:27:25 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/26 13:27:49 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/27 12:09:30 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,57 @@ void	get_player_dir(t_cam *cam, char c)
 {
 	cam->mospeed = 0.015; // (double)(WINDOW_HEIGHT * WINDOW_WIDTH) / 6400000.00;
 	cam->rospeed = 0.015; // (double)(WINDOW_HEIGHT * WINDOW_WIDTH) / 6400000.00;
+	if (c == 'E')
+	{
+		cam->dir_x = 0.0;
+		cam->dir_y = 1.0;
+		cam->plane_x = 0.66;
+		cam->plane_y = 0.0;
+		cam->rospeed = -cam->rospeed;
+	}
+	else if (c == 'W')
+	{
+		cam->dir_x = 0.0;
+		cam->dir_y = -1.0;
+		cam->plane_x = 0.66;
+		cam->plane_y = 0.0;
+	}
+	else if (c == 'S')
+	{
+		cam->dir_x = 1.0;
+		cam->dir_y = 0.0;
+		cam->plane_x = 0.0;
+		cam->plane_y = 0.66;
+	}
+	else if (c == 'N')
+	{
+		cam->dir_x = -1.0;
+		cam->dir_y = 0.0;
+		cam->plane_x = 0.0;
+		cam->plane_y = 0.66;
+		cam->rospeed = -cam->rospeed;
+	}
+}
+
+int	map_has_multiple_players(char **map, int x, int y)
+{
+	int	nx;
+	int	ny;
+
+	nx = x;
+	ny = y;
+	map[x][y] = FILL;
+	get_player_pos(map, &nx, &ny);
+	if (nx == -1)
+		return (0);
+	return (1);
+}
+
+
+/* void	get_player_dir(t_cam *cam, char c)
+{
+	cam->mospeed = 0.015; // (double)(WINDOW_HEIGHT * WINDOW_WIDTH) / 6400000.00;
+	cam->rospeed = 0.015; // (double)(WINDOW_HEIGHT * WINDOW_WIDTH) / 6400000.00;
 	if (c == 'N')
 	{
 		cam->dir_x = 0.0;
@@ -70,18 +121,4 @@ void	get_player_dir(t_cam *cam, char c)
 		cam->plane_y = 0.66;
 		cam->rospeed = -cam->rospeed;
 	}
-}
-
-int	map_has_multiple_players(char **map, int x, int y)
-{
-	int	nx;
-	int	ny;
-
-	nx = x;
-	ny = y;
-	map[x][y] = FILL;
-	get_player_pos(map, &nx, &ny);
-	if (nx == -1)
-		return (0);
-	return (1);
-}
+} */

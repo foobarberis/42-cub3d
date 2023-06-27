@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:28:50 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/27 10:46:34 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/27 12:01:33 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ static t_data	*data_create(void)
 	d->map = f_calloc(1, sizeof(t_map));
 	if (!d->map)
 		return (free(d->cam), free(d->mlx), free(d), NULL);
-	d->mini = f_calloc(1, sizeof(t_mini));
-	if (!d->mini)
+	d->minimap = f_calloc(1, sizeof(t_mlx));
+	if (!d->minimap)
 		return (free(d->map), free(d->cam), free(d->mlx), free(d), NULL);
 	d->player = f_calloc(1, sizeof(t_mlx));
 	if (!d->player)
-		return (free(d->mini), free(d->map), free(d->cam), free(d->mlx), free(d), NULL);
+		return (free(d->minimap), free(d->map), free(d->cam), free(d->mlx), free(d), NULL);
 	d->map->tex = f_calloc(4, sizeof(t_tex));
 	if (!d->map->tex)
 		return (free(d->cam), free(d->mlx), free(d->map), free(d), NULL);
@@ -57,32 +57,19 @@ static int	mlx_setup(t_data *d)
 	return (0);
 }
 
+ /* FIXME: Check for leaks */
 static int minimap_setup(t_data *d)
 {
-	d->mini->mlx = f_calloc(1, sizeof(t_mlx));
-	if (!d->mini->mlx)
-		return (free(d), 1);
-	d->mini->mlx->mlx = d->mlx->mlx;
-	d->mini->mlx->win = d->mlx->win;
-	d->mini->mlx->win_w = WINDOW_WIDTH / R_MAP;
-	d->mini->mlx->win_h = WINDOW_HEIGHT / R_MAP;
-	d->mini->mlx->img = mlx_new_image(d->mini->mlx->mlx, d->mini->mlx->win_w, d->mini->mlx->win_h);
-	if (!(d->mini->mlx->win) || !(d->mini->mlx->img))
-		return (1);
-	d->mini->mlx->addr = mlx_get_data_addr(d->mini->mlx->img, &d->mini->mlx->bpp, &d->mini->mlx->llen, &d->mini->mlx->end);
-	return (0);
-}
-
-static int player_setup(t_data *d)
-{
-	d->player->mlx = d->mlx->mlx;
-	d->player->win = d->mlx->win;
+	d->minimap->win_w = WINDOW_WIDTH / R_MAP;
+	d->minimap->win_h = WINDOW_HEIGHT / R_MAP;
 	d->player->win_w = 4;
 	d->player->win_h = 4;
-	d->player->img = mlx_new_image(d->player->mlx, d->player->win_w, d->player->win_h);
-	if (!(d->player->win) || !(d->player->img))
+	d->minimap->img = mlx_new_image(d->mlx->mlx, d->minimap->win_w, d->minimap->win_h);
+	d->player->img = mlx_new_image(d->mlx->mlx, d->player->win_w, d->player->win_h);
+	if (!(d->player->img) || !(d->minimap->img))
 		return (1);
 	d->player->addr = mlx_get_data_addr(d->player->img, &d->player->bpp, &d->player->llen, &d->player->end);
+	d->minimap->addr = mlx_get_data_addr(d->minimap->img, &d->minimap->bpp, &d->minimap->llen, &d->minimap->end);
 	return (0);
 }
 
@@ -115,8 +102,6 @@ t_data	*data_init(char *file)
 	if (mlx_setup(d))
 		return (data_destroy(d), NULL);
 	if (minimap_setup(d))
-		return (data_destroy(d), NULL);
-	if (player_setup(d))
 		return (data_destroy(d), NULL);
 	if (parsing(d, file))
 		return (data_destroy(d), NULL);

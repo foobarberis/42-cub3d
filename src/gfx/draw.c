@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:11:13 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/27 10:46:53 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/27 11:19:25 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	draw_frame(t_data *d)
 	}
 	mlx_clear_window(d->mlx->mlx, d->mlx->win);
 	mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->mlx->img, 0, 0);
-	mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->mini->mlx->img, 0, 0);
+	mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->minimap->img, 0, 0);
 	print_player(d);
 	return (0);
 }

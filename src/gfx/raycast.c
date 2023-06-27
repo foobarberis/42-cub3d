@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:12:32 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/26 13:25:58 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/27 12:13:07 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,16 @@ static void	pick_texture(t_ray *r)
 	if (r->side)
 	{
 		if (r->step_y > 0)
-			r->tex_n = N;
+			r->tex_n = E;
 		else if (r->step_y < 0)
-			r->tex_n = S;
+			r->tex_n = W;
 	}
 	else if (!r->side)
 	{
 		if (r->step_x > 0)
-			r->tex_n = E;
+			r->tex_n = S;
 		else if (r->step_x < 0)
-			r->tex_n = W;
+			r->tex_n = N;
 	}
 }
 
@@ -104,3 +104,23 @@ void	raycast(t_data *d, t_ray *r, int x)
 	init_step(d, r);
 	dda(d, r);
 }
+
+
+/* static void	pick_texture(t_ray *r)
+{
+	r->tex_n = 0;
+	if (r->side)
+	{
+		if (r->step_y > 0)
+			r->tex_n = N;
+		else if (r->step_y < 0)
+			r->tex_n = S;
+	}
+	else if (!r->side)
+	{
+		if (r->step_x > 0)
+			r->tex_n = E;
+		else if (r->step_x < 0)
+			r->tex_n = W;
+	}
+} */
