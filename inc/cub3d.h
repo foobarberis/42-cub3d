@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:19:48 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/27 11:13:47 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/27 12:42:11 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ struct s_ray
 
 struct s_pix
 {
-	int32_t		color;
+	uint32_t	color;
 	int			line_h;
 	int			pitch;
 	int			draw_start;

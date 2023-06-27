@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:28:50 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/27 12:01:33 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:34:29 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static t_data	*data_create(void)
 		return (free(d->map), free(d->cam), free(d->mlx), free(d), NULL);
 	d->player = f_calloc(1, sizeof(t_mlx));
 	if (!d->player)
-		return (free(d->minimap), free(d->map), free(d->cam), free(d->mlx), free(d), NULL);
+		return (free(d->minimap), free(d->map), free(d->cam),
+			free(d->mlx), free(d), NULL);
 	d->map->tex = f_calloc(4, sizeof(t_tex));
 	if (!d->map->tex)
 		return (free(d->cam), free(d->mlx), free(d->map), free(d), NULL);
@@ -57,19 +58,22 @@ static int	mlx_setup(t_data *d)
 	return (0);
 }
 
- /* FIXME: Check for leaks */
-static int minimap_setup(t_data *d)
+static int	minimap_setup(t_data *d)
 {
 	d->minimap->win_w = WINDOW_WIDTH / R_MAP;
 	d->minimap->win_h = WINDOW_HEIGHT / R_MAP;
 	d->player->win_w = 4;
 	d->player->win_h = 4;
-	d->minimap->img = mlx_new_image(d->mlx->mlx, d->minimap->win_w, d->minimap->win_h);
-	d->player->img = mlx_new_image(d->mlx->mlx, d->player->win_w, d->player->win_h);
+	d->minimap->img = mlx_new_image(d->mlx->mlx, d->minimap->win_w,
+			d->minimap->win_h);
+	d->player->img = mlx_new_image(d->mlx->mlx, d->player->win_w,
+			d->player->win_h);
 	if (!(d->player->img) || !(d->minimap->img))
 		return (1);
-	d->player->addr = mlx_get_data_addr(d->player->img, &d->player->bpp, &d->player->llen, &d->player->end);
-	d->minimap->addr = mlx_get_data_addr(d->minimap->img, &d->minimap->bpp, &d->minimap->llen, &d->minimap->end);
+	d->player->addr = mlx_get_data_addr(d->player->img, &d->player->bpp,
+			&d->player->llen, &d->player->end);
+	d->minimap->addr = mlx_get_data_addr(d->minimap->img, &d->minimap->bpp,
+			&d->minimap->llen, &d->minimap->end);
 	return (0);
 }
 

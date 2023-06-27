@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:27:25 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/27 12:09:30 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:34:47 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,10 @@ void	get_player_pos(char **map, int *x, int *y)
 	}
 }
 
-/* FIXME: Check if values are correct */
-/* FIXME: if dx == -1.0 the rotation control are reversed */
-/* FIXME: Find better formula */
-/* FIXME: Norme */
 void	get_player_dir(t_cam *cam, char c)
 {
-	cam->mospeed = 0.015; // (double)(WINDOW_HEIGHT * WINDOW_WIDTH) / 6400000.00;
-	cam->rospeed = 0.015; // (double)(WINDOW_HEIGHT * WINDOW_WIDTH) / 6400000.00;
+	cam->mospeed = 20000.0 / (WINDOW_HEIGHT * WINDOW_WIDTH);
+	cam->rospeed = 15000.0 / (WINDOW_HEIGHT * WINDOW_WIDTH);
 	if (c == 'E')
 	{
 		cam->dir_x = 0.0;
@@ -85,40 +81,3 @@ int	map_has_multiple_players(char **map, int x, int y)
 		return (0);
 	return (1);
 }
-
-
-/* void	get_player_dir(t_cam *cam, char c)
-{
-	cam->mospeed = 0.015; // (double)(WINDOW_HEIGHT * WINDOW_WIDTH) / 6400000.00;
-	cam->rospeed = 0.015; // (double)(WINDOW_HEIGHT * WINDOW_WIDTH) / 6400000.00;
-	if (c == 'N')
-	{
-		cam->dir_x = 0.0;
-		cam->dir_y = 1.0;
-		cam->plane_x = 0.66;
-		cam->plane_y = 0.0;
-		cam->rospeed = -cam->rospeed;
-	}
-	else if (c == 'S')
-	{
-		cam->dir_x = 0.0;
-		cam->dir_y = -1.0;
-		cam->plane_x = 0.66;
-		cam->plane_y = 0.0;
-	}
-	else if (c == 'E')
-	{
-		cam->dir_x = 1.0;
-		cam->dir_y = 0.0;
-		cam->plane_x = 0.0;
-		cam->plane_y = 0.66;
-	}
-	else if (c == 'W')
-	{
-		cam->dir_x = -1.0;
-		cam->dir_y = 0.0;
-		cam->plane_x = 0.0;
-		cam->plane_y = 0.66;
-		cam->rospeed = -cam->rospeed;
-	}
-} */

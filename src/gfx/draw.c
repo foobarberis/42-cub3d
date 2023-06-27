@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:11:13 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/27 11:19:25 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/27 13:08:02 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static uint32_t	get_color(char *addr)
 	uint32_t	color;
 
 	color = 0;
-	color = color | addr[2];
-	color = (color << 8) | addr[1];
-	color = (color << 8) | addr[0];
+	color = color | (uint8_t)addr[2];
+	color = (color << 8) | (uint8_t)addr[1];
+	color = (color << 8) | (uint8_t)addr[0];
 	return (color);
 }
 
@@ -88,7 +88,6 @@ int	draw_frame(t_data *d)
 		draw_pixel(d, &p, &r, x);
 		x++;
 	}
-	mlx_clear_window(d->mlx->mlx, d->mlx->win);
 	mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->mlx->img, 0, 0);
 	mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->minimap->img, 0, 0);
 	print_player(d);

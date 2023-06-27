@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minimap.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/27 13:32:11 by mbarberi          #+#    #+#             */
+/*   Updated: 2023/06/27 13:33:30 by mbarberi         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3d.h"
 
-static int  ft_color(t_data *d, double x, double y)
+static int	ft_color(t_data *d, double x, double y)
 {
-    if (d->map->map[(int)y][(int)x])
-        return (0x00000000);
-    else
-        return (0x00FFFFFF);
+	if (d->map->map[(int) y][(int) x])
+		return (0x00000000);
+	else
+		return (0x00FFFFFF);
 }
 
-int print_player(t_data *d)
+int	print_player(t_data *d)
 {
 	double	i;
 	double	j;
@@ -21,59 +33,61 @@ int print_player(t_data *d)
 	while (i < 5 * (int)d->x_step)
 	{
 		j = 0;
-		while(j < 5 * (int)d->y_step)
+		while (j < 5 * (int)d->y_step)
 		{
 			mlx_pixel_put_img(d->player, (int)i, (int)j, 0xFF0000);
 			j += 1;
 		}
 		i += 1;
 	}
-	mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->player->img, (int)x, (int)y);
+	mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->player->img,
+		(int)x, (int)y);
 	return (0);
 }
 
-static void algo_draw_line(t_data *d, double x, double y)
+static void	algo_draw_line(t_data *d, double x, double y)
 {
-	int	i;
-	int	j;
-	int color;
-	double mini_x;
-	double mini_y;
+	int		i;
+	int		j;
+	int		color;
+	double	mini_x;
+	double	mini_y;
 
 	i = 0;
 	mini_x = x * d->x_step;
 	mini_y = y * d->y_step;
 	color = ft_color(d, x, y);
-    while (i < d->x_step)
-    {
+	while (i < d->x_step)
+	{
 		j = 0;
-        while(j < d->y_step)
-        {
-            mlx_pixel_put_img(d->minimap, (int)(i + mini_x), (int)(j + mini_y), color);
-            j += 1;
-        }
-        i += 1;
-    }
+		while (j < d->y_step)
+		{
+			mlx_pixel_put_img(d->minimap, (int)(i + mini_x),
+				(int)(j + mini_y), color);
+			j += 1;
+		}
+		i += 1;
+	}
 }
 
-int mini_map(t_data *d)
+int	mini_map(t_data *d)
 {
-    double x;
-    double y;
+	double	x;
+	double	y;
 
-    x = 0;
-    d->x_step = (double)d->minimap->win_w / (double)d->map->map_w;
-    d->y_step = (double)d->minimap->win_h / (double)d->map->map_h;
-    while ((int)x < d->map->map_h)
-    {
-        y = 0;
-        while ((int)y < d->map->map_w)
-        {
-            if ((int)x < d->map->map_h)
-                algo_draw_line(d, y, x);
-            y++;
-        }
-        x++;
-    }
-    return (0);
+	x = 0;
+	d->x_step = (double) d->minimap->win_w / (double) d->map->map_w;
+	d->y_step = (double) d->minimap->win_h / (double) d->map->map_h;
+	while ((int) x < d->map->map_h)
+	{
+		y = 0;
+		while ((int) y < d->map->map_w)
+		{
+			if ((int) x < d->map->map_h)
+				algo_draw_line(d, y, x);
+			y++;
+		}
+		x++;
+	}
+	return (0);
 }
