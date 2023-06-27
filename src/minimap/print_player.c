@@ -1,13 +1,5 @@
 #include "cub3d.h"
 
-void	my_pixel_put(t_mlx *player, double x, double y)
-{
-	int	*dst;
-
-	dst = (int *)player->addr;
-	dst[(int)y + (int)x] = 0xFF0000;
-}
-
 int print_player(t_data *d)
 {
 	double	i;
@@ -23,7 +15,7 @@ int print_player(t_data *d)
 		j = 0;
 		while(j < 5 * (int)d->mini->y_step)
 		{
-			my_pixel_put(d->player, i, j);
+			mlx_pixel_put_img(d->player, (int)i, (int)j, 0xFF0000);
 			j += 1;
 		}
 		i += 1;

@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:19:48 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/27 10:34:16 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:46:12 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,7 +225,7 @@ void	rotate_right(t_data *d);
 void	raycast(t_data *d, t_ray *r, int x);
 
 int		draw_frame(t_data *d);
-void	mlx_pixel_put_img(t_data *d, int x, int y, int color);
+void	mlx_pixel_put_img(t_mlx *mlx, int x, int y, int color);
 
 int mini_map(t_data *d);
 int print_player(t_data *d);

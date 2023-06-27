@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:28:50 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/26 13:29:34 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:46:34 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int minimap_setup(t_data *d)
 {
 	d->mini->mlx = f_calloc(1, sizeof(t_mlx));
 	if (!d->mini->mlx)
-		return (free(d), NULL);
+		return (free(d), 1);
 	d->mini->mlx->mlx = d->mlx->mlx;
 	d->mini->mlx->win = d->mlx->win;
 	d->mini->mlx->win_w = WINDOW_WIDTH / R_MAP;

@@ -6,17 +6,17 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:32:52 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/26 13:32:53 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:44:57 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	mlx_pixel_put_img(t_data *d, int x, int y, int color)
+void	mlx_pixel_put_img(t_mlx *mlx, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = d->mlx->addr + (y * d->mlx->llen + (x << 2));
+	dst = mlx->addr + (y * mlx->llen + (x << 2));
 	*(unsigned int *)dst = color;
 }
 

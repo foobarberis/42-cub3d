@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:11:13 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/26 13:26:08 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:46:53 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ static void	draw_pixel(t_data *d, t_pix *p, t_ray *r, int x)
 				+ (p->tex_y * d->map->tex[p->tex_n].llen + (p->tex_x << 2)));
 		if (r->side == 1)
 			p->color = (p->color >> 1) & 0x7F7F7F;
-		mlx_pixel_put_img(d, x, y, p->color);
+		mlx_pixel_put_img(d->mlx, x, y, p->color);
 		y++;
 	}
 	y = 0;
 	while (y < p->draw_start)
-		mlx_pixel_put_img(d, x, y++, d->map->ceil);
+		mlx_pixel_put_img(d->mlx, x, y++, d->map->ceil);
 	y = d->mlx->win_h;
 	while (y > p->draw_end)
-		mlx_pixel_put_img(d, x, y--, d->map->floor);
+		mlx_pixel_put_img(d->mlx, x, y--, d->map->floor);
 }
 
 /* FIXME: Move pitch var out of pix struct ? */

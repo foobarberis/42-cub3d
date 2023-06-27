@@ -1,13 +1,5 @@
 #include "cub3d.h"
 
-static void my_pixel_put(t_mini *mini, double x, double y)
-{
-    int *dst;
-
-    dst = (int *)mini->mlx->addr;
-    dst[(int)y * WINDOW_WIDTH / R_MAP + (int)x] = mini->color;
-}
-
 static int  ft_color(t_data *d, double x, double y)
 {
     int     color;
@@ -34,7 +26,7 @@ static void algo_draw_line(t_data *d, double x, double y)
 		j = 0;
         while(j < d->mini->y_step)
         {
-            my_pixel_put(d->mini, i + mini_x, j + mini_y);
+            mlx_pixel_put_img(d->mini->mlx, (int)(i + mini_x), (int)(j + mini_y), d->mini->color);
             j += 1;
         }
         i += 1;
