@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:19:48 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/26 13:37:00 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/27 10:32:04 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define WINDOW_WIDTH	800
 # define WINDOW_HEIGHT	600
 # define FILL 'x'
-
+# define R_MAP 5
 # define ERR_FORBID "cub3d: line %d: map contains forbidden character (`%c')\n"
 # define ERR_EMPTY "cub3d: line %d: map contains empty lines\n"
 # define ERR_DUPID "cub3d: duplicate identifier\n"
@@ -39,6 +39,7 @@ typedef struct s_tex	t_tex;
 typedef struct s_cam	t_cam;
 typedef struct s_ray	t_ray;
 typedef struct s_pix	t_pix;
+typedef struct s_mini	t_mini;
 
 enum e_direction
 {
@@ -71,6 +72,8 @@ enum e_movement
 struct s_data
 {
 	t_mlx	*mlx;
+	t_mlx	*player;
+	t_mini	*mini;
 	t_cam	*cam;
 	t_map	*map;
 };
@@ -128,12 +131,20 @@ struct s_cam
 */
 struct s_map
 {
-	int			**map;
-	int			map_w;
-	int			map_h;
-	uint32_t	ceil;
-	uint32_t	floor;
-	t_tex		*tex;
+	int    **map;
+	int      map_w;
+	int      map_h;
+	uint32_t ceil;
+	uint32_t floor;
+	t_tex    *tex;
+};
+
+struct s_mini
+{
+	t_mlx	*mlx;
+	int		color;
+	double	x_step;
+	double	y_step;
 };
 
 struct s_tex
@@ -214,6 +225,9 @@ void	raycast(t_data *d, t_ray *r, int x);
 
 int		draw_frame(t_data *d);
 void	mlx_pixel_put_img(t_data *d, int x, int y, int color);
+
+int mini_map(t_data *d);
+int print_player(t_data *d);
 
 #endif
 

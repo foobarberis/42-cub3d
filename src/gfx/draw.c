@@ -90,5 +90,7 @@ int	draw_frame(t_data *d)
 	}
 	mlx_clear_window(d->mlx->mlx, d->mlx->win);
 	mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->mlx->img, 0, 0);
+	mlx_put_image_to_window(d->mlx->mlx, d->mlx->win, d->mini->mlx->img, 0, 0);
+	print_player(d);
 	return (0);
 }
