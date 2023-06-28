@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:27:52 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 11:22:35 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 13:48:42 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int	parse_color(char *s, int len, int32_t *color)
 		return (f_dprintf(2, "cub3d: missing RGB value\n"), 1);
 	if (rgb_check_overflow(s, len))
 		return (1);
+	if (*color != -1)
+		return (f_dprintf(2, ERR_DUPID), 1);
 	*color = rgb_extract_color(s);
 	return (0);
 }
