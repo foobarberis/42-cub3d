@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:13:23 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 14:25:36 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 14:26:38 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	parse_map(t_data *d, char **map)
 		return (f_dprintf(2, "cub3d: map is not closed\n"), 1);
 	if (map_to_matrix(d, map))
 		return (1);
-	d->cam->pos_x = (double)x;
-	d->cam->pos_y = (double)y;
+	d->cam->pos_x = (double)x + 0.5;
+	d->cam->pos_y = (double)y + 0.5;
 	return (0);
 }
