@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:11:13 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 14:33:14 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:09:24 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ static void	draw_pixel(t_data *d, t_pix *p, t_ray *r, int x)
 		mlx_pixel_put_img(d->mlx, x, y--, d->map->floor);
 }
 
-/* FIXME: Move pitch var out of pix struct ? */
-/* FIXME: Refactor this in smaller functions ? */
 static void	compute_texture(t_data *d, t_pix *p, t_ray *r)
 {
 	p->line_h = (int)(d->mlx->win_h / r->perp_wall_dist);

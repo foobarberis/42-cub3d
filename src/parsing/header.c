@@ -6,15 +6,16 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:12:57 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 11:22:26 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:10:18 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int check_null(t_map *m)
+static int	check_null(t_map *m)
 {
-	return (m->ceil == -1 || m->floor == -1 || !(m->tex[0].addr) || !(m->tex[1].addr) || !(m->tex[2].addr) || !(m->tex[3].addr));
+	return (m->ceil == -1 || m->floor == -1 || !(m->tex[0].addr)
+		|| !(m->tex[1].addr) || !(m->tex[2].addr) || !(m->tex[3].addr));
 }
 
 static void	remove_white_space(char *s)

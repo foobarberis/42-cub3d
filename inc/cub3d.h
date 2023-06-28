@@ -6,14 +6,12 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:19:48 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 14:33:39 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:09:13 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
-
-# include <stdio.h> /* DEBUG */
 
 # include "mlc.h"
 # include "mlx.h"

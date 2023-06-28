@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:27:52 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 13:48:42 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:12:57 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,18 +58,13 @@ static int	rgb_check_overflow(char *s, int len)
 	return (0);
 }
 
-/* check if the line represents a valid RGB value converts it to int if it is.*/
-int	parse_color(char *s, int len, int32_t *color)
+static int	count_commas(char *s, int len)
 {
 	int	i;
 	int	c;
 
 	i = 0;
 	c = 0;
-	if (len < 3)
-		return (1);
-	if (rgb_has_forbidden_char(s))
-		return (1);
 	while (i < len)
 	{
 		if (s[i] == ',')
@@ -79,7 +74,16 @@ int	parse_color(char *s, int len, int32_t *color)
 		}
 		i++;
 	}
-	if (c != 2)
+	return (c);
+}
+
+int	parse_color(char *s, int len, int32_t *color)
+{
+	if (len < 3)
+		return (1);
+	if (rgb_has_forbidden_char(s))
+		return (1);
+	if (count_commas(s, len) != 2)
 		return (f_dprintf(2, "cub3d: missing RGB value\n"), 1);
 	if (rgb_check_overflow(s, len))
 		return (1);

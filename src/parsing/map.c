@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:13:23 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 14:26:38 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 15:10:46 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 static void	dfs(char **m, int x, int y, int *error)
 {
 	m[x][y] = FILL;
-	if ((x && y > (int)f_strlen(m[x - 1])) || ((x + 1 < get_map_height(m)) && y > (int)f_strlen(m[x + 1])) || x <= 0 || y <= 0 ||!m[x][y + 1] || x >= get_map_height(m))
+	if ((x && y > (int)f_strlen(m[x - 1])) || ((x + 1 < get_map_height(m))
+			&& y > (int)f_strlen(m[x + 1])) || x <= 0
+		|| y <= 0 || !m[x][y + 1] || x >= get_map_height(m))
 		*error = 1;
 	if (*error)
 		return ;
