@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:11:13 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 12:58:04 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 14:33:14 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,11 @@ static void	draw_pixel(t_data *d, t_pix *p, t_ray *r, int x)
 /* FIXME: Refactor this in smaller functions ? */
 static void	compute_texture(t_data *d, t_pix *p, t_ray *r)
 {
-	p->pitch = 100;
 	p->line_h = (int)(d->mlx->win_h / r->perp_wall_dist);
-	p->draw_start = -p->line_h / 2 + d->mlx->win_h / 2 + p->pitch;
+	p->draw_start = -p->line_h / 2 + d->mlx->win_h / 2;
 	if (p->draw_start < 0)
 		p->draw_start = 0;
-	p->draw_end = p->line_h / 2 + d->mlx->win_h / 2 + p->pitch;
+	p->draw_end = p->line_h / 2 + d->mlx->win_h / 2;
 	if (p->draw_end >= d->mlx->win_h)
 		p->draw_end = d->mlx->win_h - 1;
 	p->tex_n = r->tex_n;
@@ -69,7 +68,7 @@ static void	compute_texture(t_data *d, t_pix *p, t_ray *r)
 	if ((!r->side && r->dir_x > 0) || (r->side && r->dir_y < 0))
 		p->tex_x = d->map->tex[p->tex_n].w - p->tex_x - 1;
 	p->step = 1.0 * d->map->tex[p->tex_n].h / p->line_h;
-	p->tex_pos = (p->draw_start - p->pitch - d->mlx->win_h / 2 + p->line_h / 2)
+	p->tex_pos = (p->draw_start - d->mlx->win_h / 2 + p->line_h / 2)
 		* p->step;
 }
 

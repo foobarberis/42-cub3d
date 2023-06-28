@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:19:48 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 11:23:01 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 14:33:39 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,6 @@ struct s_pix
 {
 	uint32_t	color;
 	int			line_h;
-	int			pitch;
 	int			draw_start;
 	int			draw_end;
 	int			tex_n;
