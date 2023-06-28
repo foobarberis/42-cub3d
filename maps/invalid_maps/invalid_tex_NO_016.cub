@@ -1,7 +1,7 @@
-R 100 720
-SO ./textures/redbrick.xpm
-EA ./textures/wood.xpm
-WE ./textures/wood.xpm
+
+SO ../../assets/redbrick.xpm
+EA ../../assets/wood.xpm
+WE ../../assets/wood.xpm
 
 C 255,200,160
 F 122,122,122
@@ -19,4 +19,4 @@ F 122,122,122
 10000000000000001
 10000000000000001
 11111111111111111
-NO ./textures/greystone.xpm
+NO ../../assets/greystone.xpm

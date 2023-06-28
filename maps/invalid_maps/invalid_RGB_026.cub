@@ -1,8 +1,8 @@
 
-NO ./textures/greystone.xpm
-SO ./textures/redbrick.xpm
-EA ./textures/wood.xpm
-WE ./textures/wood.xpm
+NO ../../assets/greystone.xpm
+SO ../../assets/redbrick.xpm
+EA ../../assets/wood.xpm
+WE ../../assets/wood.xpm
 
 C 255,200,200
 CF 122,122,122

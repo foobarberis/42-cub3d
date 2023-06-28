@@ -1,9 +1,9 @@
-R 100 720
+
 NO ./wolf
 tex/greystone.xpm
-SO ./textures/redbrick.xpm
-EA ./textures/wood.xpm
-WE ./textures/wood.xpm
+SO ../../assets/redbrick.xpm
+EA ../../assets/wood.xpm
+WE ../../assets/wood.xpm
 
 C 255,200,160
 F 122,122,122
