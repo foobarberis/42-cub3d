@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/06/28 11:14:56 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/06/28 13:34:22 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ INCFLAGS	:= -I$(INCDIR) -I$(SYSINC) -I$(MLXDIR) -I$(MLCDIR)/inc
 # Was -lmlx_Linux
 LIBFLAGS	:= -L$(MLXDIR) -L$(MLCDIR) -L$(SYSLIB) -lmlx -lft -lXext -lX11 -lm
 # CFLAGS		:=	-Wall -Wextra -Werror -O3 -Ofast -march=native -ffast-math $(INCFLAGS)
-CFLAGS		:= -g3 -fPIE -Wall -Wextra -Wconversion -Wdouble-promotion -Wno-unused-parameter -Wno-unused-function -Wno-sign-conversion # -fsanitize=undefined,address
+CFLAGS		:= -g3 -fPIE -Wall -Wextra -Wconversion -Wdouble-promotion -Wno-unused-parameter -Wno-unused-function -Wno-sign-conversion -fsanitize=undefined,address
 RMFLAGS		:=	-f
 
 # Edit the $(HEADERS) variable as necessary.
@@ -67,7 +67,7 @@ all: libft mlx $(NAME)
 $(OBJECTS): $(HEADERS) Makefile
 
 $(NAME): $(OBJECTS) $(MLCDIR)/libft.a $(MLXDIR)/libmlx.a
-	$(CC) $(OBJECTS) $(LIBFLAGS) -o $(NAME)
+	$(CC) $(OBJECTS) -fsanitize=undefined,address $(LIBFLAGS) -o $(NAME)
 
 libft:
 	make -C $(MLCDIR)

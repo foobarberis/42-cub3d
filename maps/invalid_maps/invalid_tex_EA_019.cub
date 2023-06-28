@@ -1,9 +1,9 @@
 
-S ../../assets/greystone.xpm
-EA ../../assets/greystone.xpm
-NO ../../assets/redbrick.xpm
-SO ../../assets/wood.xpm
-WE ../../assets/wood.xpm
+S assets/greystone.xpm
+EA assets/greystone.xpm
+NO assets/redbrick.xpm
+SO assets/wood.xpm
+WE assets/wood.xpm
 
 C 255,200,160
 F 122,122,122
