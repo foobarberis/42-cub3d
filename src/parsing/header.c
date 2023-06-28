@@ -6,11 +6,16 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:12:57 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 10:37:32 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 11:22:26 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static int check_null(t_map *m)
+{
+	return (m->ceil == -1 || m->floor == -1 || !(m->tex[0].addr) || !(m->tex[1].addr) || !(m->tex[2].addr) || !(m->tex[3].addr));
+}
 
 static void	remove_white_space(char *s)
 {
@@ -59,9 +64,9 @@ static int	parse_header_line(t_data *d, char *s)
 	else if (*s == 'W' && *(s + 1) == 'E' && f_isspace(*(s + 2)))
 		return (extract_texture(d, &d->map->tex[W], s + 3));
 	else if (*s == 'F' && f_isspace(*(s + 1)))
-		return (parse_color(s + 2, f_strlen(s + 2), &d->map->floor));
+		return (parse_color(s + 2, (int)f_strlen(s + 2), &d->map->floor));
 	else if (*s == 'C' && f_isspace(*(s + 1)))
-		return (parse_color(s + 2, f_strlen(s + 2), &d->map->ceil));
+		return (parse_color(s + 2, (int)f_strlen(s + 2), &d->map->ceil));
 	else
 		return (f_dprintf(2, ERR_UNREC_ID, s), 1);
 }
@@ -78,5 +83,7 @@ int	parse_header(t_data *d, char **head)
 		}
 		head++;
 	}
+	if (check_null(d->map))
+		return (f_dprintf(2, ERR_MISSHEAD), 1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:27:52 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 10:36:59 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 11:22:35 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static int	rgb_check_overflow(char *s, int len)
 }
 
 /* check if the line represents a valid RGB value converts it to int if it is.*/
-int	parse_color(char *s, int len, uint32_t *color)
+int	parse_color(char *s, int len, int32_t *color)
 {
 	int	i;
 	int	c;

@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:28:50 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/27 13:34:29 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 11:07:09 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ t_data	*data_init(char *file)
 	t_data	*d;
 
 	d = data_create();
+	d->map->ceil = -1;
+	d->map->floor = -1;
 	if (!d)
 		return (NULL);
 	if (mlx_setup(d))

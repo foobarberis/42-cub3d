@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:19:48 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 10:39:44 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 11:23:01 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define ERR_TEX "cub3d: %s: texture could not be loaded\n"
 # define ERR_UNREC_ID "cub3d: %s: unrecognized identifier\n"
 # define ERR_RGB_RANGE "cub3d: %s: RGB value is not in range 0-255\n"
+# define ERR_MISSHEAD "cub3d: incomplete or missing header\n"
 
 typedef struct s_data	t_data;
 typedef struct s_mlx	t_mlx;
@@ -136,8 +137,8 @@ struct s_map
 	int			**map;
 	int			map_w;
 	int			map_h;
-	uint32_t	ceil;
-	uint32_t	floor;
+	int32_t		ceil;
+	int32_t		floor;
 	t_tex		*tex;
 };
 
@@ -201,7 +202,7 @@ int		islegal(int c);
 int		get_map_width(char **map);
 int		get_map_height(char **map);
 
-int		parse_color(char *s, int len, uint32_t *color);
+int		parse_color(char *s, int len, int32_t *color);
 
 void	get_player_pos(char **map, int *x, int *y);
 void	get_player_dir(t_cam *cam, char c);

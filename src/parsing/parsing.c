@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:26:41 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/26 13:27:19 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 11:22:00 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	parsing(t_data *d, char *file)
 {
 	char	*map_1d;
 	char	**map;
-	char	**header;
+	char	**head;
 
 	map_1d = f_file_to_array(file);
 	if (!map_1d)
@@ -96,16 +96,16 @@ int	parsing(t_data *d, char *file)
 	map = f_calloc(count_lines(map_1d) + 1, sizeof(char *));
 	if (!map)
 		return (free(map_1d), 1);
-	header = f_calloc(count_lines(map_1d) + 1, sizeof(char *));
-	if (!header)
+	head = f_calloc(count_lines(map_1d) + 1, sizeof(char *));
+	if (!head)
 		return (free(map_1d), free(map), 1);
-	map_split(map_1d, map, header);
-	if (parse_header(d, header))
-		cub_exit(d, EXIT_SUCCESS);
+	map_split(map_1d, map, head);
+	if (parse_header(d, head))
+		return (free(map_1d), free(map), free(head), cub_exit(d, EXIT_SUCCESS));
 	if (parse_map(d, map))
-		cub_exit(d, EXIT_SUCCESS);
+		return (free(map_1d), free(map), free(head), cub_exit(d, EXIT_SUCCESS));
 	free(map_1d);
 	free(map);
-	free(header);
+	free(head);
 	return (0);
 }
