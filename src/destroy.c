@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:29:38 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/27 12:00:31 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 10:38:59 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	data_destroy(t_data *d)
 {
 	if (!d)
-		return;
+		return ;
 	if (d->map)
 		map_destroy(d, d->map);
 	if (d->minimap)

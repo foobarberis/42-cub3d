@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:13:23 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/26 13:23:52 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 10:35:25 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	ascii_to_int(int **mat, char **map, int nrows)
 			if (f_isspace(map[i][j]))
 				mat[i][j] = 1;
 			else if (map[i][j] == '0')
-				mat[i][j] = 1;
+				mat[i][j] = 0;
 			else if (map[i][j] == '1')
 				mat[i][j] = 1;
 			else if (map[i][j] == FILL)
@@ -80,6 +80,17 @@ static void	ascii_to_int(int **mat, char **map, int nrows)
 			mat[i][j++] = 1;
 	i++;
 	}
+}
+
+static int	map_to_matrix(t_data *d, char **map)
+{
+	d->map->map_w = get_map_width(map);
+	d->map->map_h = get_map_height(map);
+	d->map->map = matrix_create(d->map->map_w, d->map->map_h);
+	if (!d->map->map)
+		return (1);
+	ascii_to_int(d->map->map, map, d->map->map_w);
+	return (0);
 }
 
 int	parse_map(t_data *d, char **map)
@@ -102,12 +113,8 @@ int	parse_map(t_data *d, char **map)
 	dfs(map, x, y, &error);
 	if (error)
 		return (f_dprintf(2, "cub3d: map is not closed\n"), 1);
-	d->map->map_w = get_map_width(map);
-	d->map->map_h = get_map_height(map);
-	d->map->map = matrix_create(d->map->map_w, d->map->map_h);
-	if (!d->map->map)
+	if (map_to_matrix(d, map))
 		return (1);
-	ascii_to_int(d->map->map, map, d->map->map_w);
 	d->cam->pos_x = (double)x;
 	d->cam->pos_y = (double)y;
 	return (0);

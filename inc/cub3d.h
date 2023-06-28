@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:19:48 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/27 12:42:11 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 10:39:44 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <X11/X.h>			/* event masks */
 # include <X11/keysym.h>	/* keycodes */
 
-# define WINDOW_WIDTH	800
-# define WINDOW_HEIGHT	600
+# define WINDOW_WIDTH	1920
+# define WINDOW_HEIGHT	1440
 # define FILL 'x'
 
 # define R_MAP 5
@@ -133,12 +133,12 @@ struct s_cam
 */
 struct s_map
 {
-	int    **map;
-	int      map_w;
-	int      map_h;
-	uint32_t ceil;
-	uint32_t floor;
-	t_tex    *tex;
+	int			**map;
+	int			map_w;
+	int			map_h;
+	uint32_t	ceil;
+	uint32_t	floor;
+	t_tex		*tex;
 };
 
 struct s_tex
@@ -201,7 +201,7 @@ int		islegal(int c);
 int		get_map_width(char **map);
 int		get_map_height(char **map);
 
-int		parse_color(char *s, uint32_t *color);
+int		parse_color(char *s, int len, uint32_t *color);
 
 void	get_player_pos(char **map, int *x, int *y);
 void	get_player_dir(t_cam *cam, char c);
@@ -220,8 +220,6 @@ void	raycast(t_data *d, t_ray *r, int x);
 int		draw_frame(t_data *d);
 void	mlx_pixel_put_img(t_mlx *mlx, int x, int y, int color);
 
-int mini_map(t_data *d);
-int print_player(t_data *d);
-
+int		mini_map(t_data *d);
+int		print_player(t_data *d);
 #endif
-

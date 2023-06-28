@@ -6,14 +6,14 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:30:07 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/26 13:30:28 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 10:04:39 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
 /* FIXME: Remove this */
-static void print_debug_info(t_data *d)
+/* static void print_debug_info(t_data *d)
 {
 	printf("--- PLAYER ---\n");
 	printf("pos_x = %lf\npos_y = %lf\ndir_x = %lf\ndir_y = %lf\n\n",
@@ -31,7 +31,7 @@ static void print_debug_info(t_data *d)
 	printf("south : %p, %d, %d\n", d->map->tex[S].t, d->map->tex[S].w, d->map->tex[S].h);
 	printf("east : %p, %d, %d\n", d->map->tex[E].t, d->map->tex[E].w, d->map->tex[E].h);
 	printf("west : %p, %d, %d\n", d->map->tex[W].t, d->map->tex[W].w, d->map->tex[W].h);
-}
+} */
 
 int	main(int argc, char *argv[])
 {

@@ -6,11 +6,59 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:27:25 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/27 13:34:47 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 10:26:20 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	get_player_dir_ns(t_cam *cam, char c)
+{
+	if (c == 'N')
+	{
+		cam->dir_x = -1.0;
+		cam->dir_y = 0.0;
+		cam->plane_x = 0.0;
+		cam->plane_y = 0.66;
+		cam->rospeed = -cam->rospeed;
+	}
+	else if (c == 'S')
+	{
+		cam->dir_x = 1.0;
+		cam->dir_y = 0.0;
+		cam->plane_x = 0.0;
+		cam->plane_y = 0.66;
+	}
+}
+
+static void	get_player_dir_ew(t_cam *cam, char c)
+{
+	if (c == 'E')
+	{
+		cam->dir_x = 0.0;
+		cam->dir_y = 1.0;
+		cam->plane_x = 0.66;
+		cam->plane_y = 0.0;
+		cam->rospeed = -cam->rospeed;
+	}
+	else if (c == 'W')
+	{
+		cam->dir_x = 0.0;
+		cam->dir_y = -1.0;
+		cam->plane_x = 0.66;
+		cam->plane_y = 0.0;
+	}
+}
+
+void	get_player_dir(t_cam *cam, char c)
+{
+	cam->mospeed = 0.030;
+	cam->rospeed = 0.020;
+	if (c == 'N' || c == 'S')
+		return (get_player_dir_ns(cam, c));
+	else if (c == 'E' || c == 'W')
+		return (get_player_dir_ew(cam, c));
+}
 
 void	get_player_pos(char **map, int *x, int *y)
 {
@@ -29,42 +77,6 @@ void	get_player_pos(char **map, int *x, int *y)
 	{
 		*x = -1;
 		*y = -1;
-	}
-}
-
-void	get_player_dir(t_cam *cam, char c)
-{
-	cam->mospeed = 20000.0 / (WINDOW_HEIGHT * WINDOW_WIDTH);
-	cam->rospeed = 15000.0 / (WINDOW_HEIGHT * WINDOW_WIDTH);
-	if (c == 'E')
-	{
-		cam->dir_x = 0.0;
-		cam->dir_y = 1.0;
-		cam->plane_x = 0.66;
-		cam->plane_y = 0.0;
-		cam->rospeed = -cam->rospeed;
-	}
-	else if (c == 'W')
-	{
-		cam->dir_x = 0.0;
-		cam->dir_y = -1.0;
-		cam->plane_x = 0.66;
-		cam->plane_y = 0.0;
-	}
-	else if (c == 'S')
-	{
-		cam->dir_x = 1.0;
-		cam->dir_y = 0.0;
-		cam->plane_x = 0.0;
-		cam->plane_y = 0.66;
-	}
-	else if (c == 'N')
-	{
-		cam->dir_x = -1.0;
-		cam->dir_y = 0.0;
-		cam->plane_x = 0.0;
-		cam->plane_y = 0.66;
-		cam->rospeed = -cam->rospeed;
 	}
 }
 

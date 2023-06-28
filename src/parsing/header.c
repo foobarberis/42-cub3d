@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:12:57 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/26 13:25:34 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/28 10:37:32 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ static int	parse_header_line(t_data *d, char *s)
 	else if (*s == 'W' && *(s + 1) == 'E' && f_isspace(*(s + 2)))
 		return (extract_texture(d, &d->map->tex[W], s + 3));
 	else if (*s == 'F' && f_isspace(*(s + 1)))
-		return (parse_color(s + 2, &d->map->floor));
+		return (parse_color(s + 2, f_strlen(s + 2), &d->map->floor));
 	else if (*s == 'C' && f_isspace(*(s + 1)))
-		return (parse_color(s + 2, &d->map->ceil));
+		return (parse_color(s + 2, f_strlen(s + 2), &d->map->ceil));
 	else
 		return (f_dprintf(2, ERR_UNREC_ID, s), 1);
 }
