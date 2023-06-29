@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:28:50 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/29 08:44:25 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/29 10:31:29 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static t_data	*data_create(void)
 			free(d->mlx), free(d), NULL);
 	d->map->tex = f_calloc(4, sizeof(t_tex));
 	if (!d->map->tex)
-		return (free(d->cam), free(d->mlx), free(d->map), free(d), NULL);
+		return (free(d->player), free(d->minimap), free(d->map),
+			free(d->cam), free(d->mlx), free(d), NULL);
 	return (d);
 }
 
@@ -101,10 +102,10 @@ t_data	*data_init(char *file)
 	t_data	*d;
 
 	d = data_create();
-	d->map->ceil = -1;
-	d->map->floor = -1;
 	if (!d)
 		return (NULL);
+	d->map->floor = -1;
+	d->map->ceil = -1;
 	if (mlx_setup(d))
 		return (data_destroy(d), NULL);
 	if (minimap_setup(d))
