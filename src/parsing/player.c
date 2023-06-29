@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:27:25 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 10:26:20 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/29 08:44:46 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ static void	get_player_dir_ew(t_cam *cam, char c)
 
 void	get_player_dir(t_cam *cam, char c)
 {
-	cam->mospeed = 0.030;
-	cam->rospeed = 0.020;
+	cam->mospeed = 0.060;
+	cam->rospeed = 0.040;
 	if (c == 'N' || c == 'S')
 		return (get_player_dir_ns(cam, c));
 	else if (c == 'E' || c == 'W')

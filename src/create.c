@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:28:50 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 11:07:09 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/29 08:44:25 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ static int	minimap_setup(t_data *d)
 {
 	d->minimap->win_w = WINDOW_WIDTH / R_MAP;
 	d->minimap->win_h = WINDOW_HEIGHT / R_MAP;
-	d->player->win_w = 4;
-	d->player->win_h = 4;
+	d->player->win_w = 6;
+	d->player->win_h = 6;
 	d->minimap->img = mlx_new_image(d->mlx->mlx, d->minimap->win_w,
 			d->minimap->win_h);
 	d->player->img = mlx_new_image(d->mlx->mlx, d->player->win_w,

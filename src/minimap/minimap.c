@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 13:32:11 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/27 13:33:30 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/29 08:44:34 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	print_player(t_data *d)
 	double	y;
 
 	i = 0;
-	x = d->cam->pos_y * d->x_step - 2;
-	y = d->cam->pos_x * d->y_step - 2;
+	x = d->cam->pos_y * d->x_step - 3;
+	y = d->cam->pos_x * d->y_step - 3;
 	while (i < 5 * (int)d->x_step)
 	{
 		j = 0;
