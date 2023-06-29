@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:11:13 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 15:09:24 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:49:15 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	draw_pixel(t_data *d, t_pix *p, t_ray *r, int x)
 	int	y;
 
 	y = p->draw_start;
-	while (y < p->draw_end)
+	while (y <= p->draw_end)
 	{
 		p->tex_y = (int) p->tex_pos & (d->map->tex[p->tex_n].h - 1);
 		p->tex_pos += p->step;
