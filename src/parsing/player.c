@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:27:25 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/29 08:44:46 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:29:11 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static void	get_player_dir_ns(t_cam *cam, char c)
 		cam->dir_x = 1.0;
 		cam->dir_y = 0.0;
 		cam->plane_x = 0.0;
-		cam->plane_y = 0.66;
+		cam->plane_y = -0.66;
+		cam->rospeed = -cam->rospeed;
 	}
 }
 
@@ -45,8 +46,9 @@ static void	get_player_dir_ew(t_cam *cam, char c)
 	{
 		cam->dir_x = 0.0;
 		cam->dir_y = -1.0;
-		cam->plane_x = 0.66;
+		cam->plane_x = -0.66;
 		cam->plane_y = 0.0;
+		cam->rospeed = -cam->rospeed;
 	}
 }
 
