@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:28:50 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/29 10:31:29 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/29 10:48:37 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,7 @@ static t_data	*data_create(void)
 	d->minimap = f_calloc(1, sizeof(t_mlx));
 	if (!d->minimap)
 		return (free(d->map), free(d->cam), free(d->mlx), free(d), NULL);
-	d->player = f_calloc(1, sizeof(t_mlx));
-	if (!d->player)
-		return (free(d->minimap), free(d->map), free(d->cam),
-			free(d->mlx), free(d), NULL);
-	d->map->tex = f_calloc(4, sizeof(t_tex));
-	if (!d->map->tex)
-		return (free(d->player), free(d->minimap), free(d->map),
-			free(d->cam), free(d->mlx), free(d), NULL);
-	return (d);
+	return (data_create_next(d));
 }
 
 static int	mlx_setup(t_data *d)

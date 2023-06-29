@@ -6,32 +6,11 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:13:23 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/29 09:57:24 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/29 10:46:15 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static void	dfs(char **m, int x, int y, int *error)
-{
-	m[x][y] = FILL;
-	if ((x && y > (int)f_strlen(m[x - 1])) || ((x + 1 < get_map_height(m))
-			&& y > (int)f_strlen(m[x + 1])) || x <= 0
-		|| y <= 0 || !m[x][y + 1] || x >= get_map_height(m))
-		*error = 1;
-	if (*error)
-		return ;
-	if (y < (int)f_strlen(m[x - 1])
-		&& m[x - 1][y] != '1' && m[x - 1][y] != FILL)
-		dfs(m, x - 1, y, error);
-	if (y < (int)f_strlen(m[x + 1])
-		&& m[x + 1][y] != '1' && m[x + 1][y] != FILL)
-		dfs(m, x + 1, y, error);
-	if (m[x][y - 1] != '1' && m[x][y - 1] != FILL)
-		dfs(m, x, y - 1, error);
-	if (m[x][y + 1] != '1' && m[x][y + 1] != FILL)
-		dfs(m, x, y + 1, error);
-}
 
 static int	check_map(char **map)
 {

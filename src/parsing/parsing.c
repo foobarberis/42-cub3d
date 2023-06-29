@@ -6,28 +6,11 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:26:41 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 11:22:00 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/29 10:33:05 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-/*
-* Errors:
-*
-* Player is outside of the map.
-* No player is set.
-* Multiple players are set.
-* Map is not closed.
-* Map contains illegal characters.
-* Map is not after the header.
-* Map contains blank lines.
-* Header is incomplete.
-* Header contains unrecognized identifier.
-* Header contains multiple of the same identifier.
-* Colors are not in RGB format.
-* Colors are not in range 0-255.
-*/
 
 static int	count_lines(char *s)
 {
@@ -45,7 +28,6 @@ static int	count_lines(char *s)
 	return (lines);
 }
 
-/* returns 1 if the line qualifies to be the beginning of the map */
 static int	locate_map(char *s)
 {
 	while (f_isspace(*s))

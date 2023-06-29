@@ -6,7 +6,7 @@
 #    By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/23 21:40:52 by mbarberi          #+#    #+#              #
-#    Updated: 2023/06/28 15:14:07 by mbarberi         ###   ########.fr        #
+#    Updated: 2023/06/29 10:50:21 by mbarberi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@
 NAME		:=	cub3D
 SRCS		:=	create.c \
 				destroy.c \
+				ftn.c \
 				gfx/raycast.c \
 				gfx/draw.c \
 				hook.c \
@@ -45,8 +46,8 @@ MLCDIR		:=	mlc
 
 INCFLAGS	:= -I$(INCDIR) -I$(SYSINC) -I$(MLXDIR) -I$(MLCDIR)/inc
 LIBFLAGS	:= -L$(MLXDIR) -L$(MLCDIR) -L$(SYSLIB) -lmlx -lft -lXext -lX11 -lm
-CFLAGS		:=	-Wall -Wextra -Werror -O3 -ffast-math
-# CFLAGS		:= -g3 -fPIE -Wall -Wextra -Wconversion -Wdouble-promotion -Wno-unused-parameter -Wno-unused-function -Wno-sign-conversion -fsanitize=undefined,address
+# CFLAGS		:=	-Wall -Wextra -Werror -O3 -ffast-math
+CFLAGS		:= -g3 -fPIE -Wall -Wextra -Wconversion -Wdouble-promotion -Wno-unused-parameter -Wno-unused-function -Wno-sign-conversion # -fsanitize=undefined,address
 RMFLAGS		:=	-f
 
 # Edit the $(HEADERS) variable as necessary.

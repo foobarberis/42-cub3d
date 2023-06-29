@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:19:48 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 15:09:13 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/29 10:49:56 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,10 @@ struct s_pix
 	double		tex_pos;
 };
 
+void	dfs(char **m, int x, int y, int *error);
+
 t_data	*data_init(char *file);
+t_data	*data_create_next(t_data *d);
 int		**matrix_create(int w, int h);
 void	matrix_destroy(int **m, int h);
 void	data_destroy(t_data *d);
