@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:13:23 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 15:10:46 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/29 09:57:24 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	ascii_to_int(int **mat, char **map, int nrows)
 		while (map[i][j])
 		{
 			if (f_isspace(map[i][j]))
-				mat[i][j] = 0;
+				mat[i][j] = 1;
 			else if (map[i][j] == '0')
 				mat[i][j] = 0;
 			else if (map[i][j] == '1')
@@ -95,6 +95,30 @@ static int	map_to_matrix(t_data *d, char **map)
 	return (0);
 }
 
+static int	check_zero(char **map)
+{
+	int	i;
+	int	j;
+	int	error;
+
+	i = 0;
+	error = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == '0')
+				dfs(map, i, j, &error);
+			if (error)
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	parse_map(t_data *d, char **map)
 {
 	int	x;
@@ -113,7 +137,7 @@ int	parse_map(t_data *d, char **map)
 	if (map_has_multiple_players(map, x, y))
 		return (f_dprintf(2, "cub3d: multiple players found\n"), 1);
 	dfs(map, x, y, &error);
-	if (error)
+	if (error || check_zero(map))
 		return (f_dprintf(2, "cub3d: map is not closed\n"), 1);
 	if (map_to_matrix(d, map))
 		return (1);
