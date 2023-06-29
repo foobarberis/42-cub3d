@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:13:23 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/29 10:46:15 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/29 11:05:25 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	ascii_to_int(int **mat, char **map, int nrows)
 		}
 		while (j < nrows)
 			mat[i][j++] = 1;
-	i++;
+		i++;
 	}
 }
 
