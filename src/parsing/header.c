@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:12:57 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 15:10:18 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:29:28 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ static void	remove_white_space(char *s)
 static int	extract_texture(t_data *d, t_tex *tex, char *s)
 {
 	if (tex->t)
-		return (f_dprintf(2, ERR_DUPID), 1);
+		return (f_dprintf(2, ERR ERR_DUPID), 1);
 	tex->t = mlx_xpm_file_to_image(d->mlx->mlx, s, &tex->w, &tex->h);
 	if (!tex->t)
-		return (f_dprintf(2, ERR_TEX, s), 1);
+		return (f_dprintf(2, ERR ERR_TEX, s), 1);
 	tex->addr = mlx_get_data_addr(tex->t, &tex->bpp, &tex->llen, &tex->end);
 	return (0);
 }
@@ -69,7 +69,7 @@ static int	parse_header_line(t_data *d, char *s)
 	else if (*s == 'C' && f_isspace(*(s + 1)))
 		return (parse_color(s + 2, (int)f_strlen(s + 2), &d->map->ceil));
 	else
-		return (f_dprintf(2, ERR_UNREC_ID, s), 1);
+		return (f_dprintf(2, ERR ERR_UNREC_ID, s), 1);
 }
 
 int	parse_header(t_data *d, char **head)
@@ -85,6 +85,6 @@ int	parse_header(t_data *d, char **head)
 		head++;
 	}
 	if (check_null(d->map))
-		return (f_dprintf(2, ERR_MISSHEAD), 1);
+		return (f_dprintf(2, ERR ERR_MISSHEAD), 1);
 	return (0);
 }

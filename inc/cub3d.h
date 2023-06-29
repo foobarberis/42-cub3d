@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:19:48 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/29 10:49:56 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:22:56 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define FILL 'x'
 
 # define R_MAP 5
+# define ERR "Error\n"
 # define ERR_FORBID "cub3d: line %d: map contains forbidden character (`%c')\n"
 # define ERR_EMPTY "cub3d: line %d: map contains empty lines\n"
 # define ERR_DUPID "cub3d: duplicate identifier\n"

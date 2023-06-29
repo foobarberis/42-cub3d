@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:13:23 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/29 11:05:25 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:29:28 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ static int	check_map(char **map)
 	{
 		j = 0;
 		if (!map[i][j])
-			return (f_dprintf(2, ERR_EMPTY, i + 1), 1);
+			return (f_dprintf(2, ERR ERR_EMPTY, i + 1), 1);
 		while (map[i][j])
 		{
 			if (!islegal(map[i][j]))
-				return (f_dprintf(2, ERR_FORBID, i + 1, map[i][j]), 1);
+				return (f_dprintf(2, ERR ERR_FORBID, i + 1, map[i][j]), 1);
 			j++;
 		}
 		i++;
@@ -111,13 +111,13 @@ int	parse_map(t_data *d, char **map)
 		return (1);
 	get_player_pos(map, &x, &y);
 	if (x == -1)
-		return (f_dprintf(2, "cub3d: player not found\n"), 1);
+		return (f_dprintf(2, ERR "cub3d: player not found\n"), 1);
 	get_player_dir(d->cam, map[x][y]);
 	if (map_has_multiple_players(map, x, y))
-		return (f_dprintf(2, "cub3d: multiple players found\n"), 1);
+		return (f_dprintf(2, ERR "cub3d: multiple players found\n"), 1);
 	dfs(map, x, y, &error);
 	if (error || check_zero(map))
-		return (f_dprintf(2, "cub3d: map is not closed\n"), 1);
+		return (f_dprintf(2, ERR "cub3d: map is not closed\n"), 1);
 	if (map_to_matrix(d, map))
 		return (1);
 	d->cam->pos_x = (double)x + 0.5;

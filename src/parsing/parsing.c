@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:26:41 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/29 10:33:05 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:28:40 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,8 @@ int	parsing(t_data *d, char *file)
 
 	map_1d = f_file_to_array(file);
 	if (!map_1d)
-		return (1);
+		return (f_dprintf(2, ERR
+				"cub3d: file `%s' could not be opened\n", file), 1);
 	map = f_calloc(count_lines(map_1d) + 1, sizeof(char *));
 	if (!map)
 		return (free(map_1d), 1);

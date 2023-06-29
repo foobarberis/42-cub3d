@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:27:52 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/29 08:19:23 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:29:28 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	rgb_has_forbidden_char(char *s)
 	while (*s)
 	{
 		if (!(f_isdigit(*s) || *s == ','))
-			return (f_dprintf(2, "cub3d: %c: forbidden character\n", *s), 1);
+			return (f_dprintf(2, ERR "cub3d: %c: forbidden character\n", *s), 1);
 		s++;
 	}
 	return (0);
@@ -46,7 +46,7 @@ static int	rgb_check_overflow(char *s, int len)
 	{
 		l = (int)f_strlen(s);
 		if (l < 1 || l > 3 || f_atoi(s) > 255)
-			return (f_dprintf(2, ERR_RGB_RANGE, s), 1);
+			return (f_dprintf(2, ERR ERR_RGB_RANGE, s), 1);
 		while (*s)
 			s++;
 		if ((int)(s - p) >= len)
@@ -84,11 +84,11 @@ int	parse_color(char *s, int len, int32_t *color)
 	if (rgb_has_forbidden_char(s))
 		return (1);
 	if (count_commas(s, len) != 2)
-		return (f_dprintf(2, "cub3d: missing RGB value\n"), 1);
+		return (f_dprintf(2, "E cub3d: missing RGB value\n"), 1);
 	if (rgb_check_overflow(s, len))
 		return (1);
 	if (*color != -1)
-		return (f_dprintf(2, ERR_DUPID), 1);
+		return (f_dprintf(2, ERR ERR_DUPID), 1);
 	*color = rgb_extract_color(s);
 	return (0);
 }
