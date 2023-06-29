@@ -6,7 +6,7 @@
 /*   By: mbarberi <mbarberi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 13:27:52 by mbarberi          #+#    #+#             */
-/*   Updated: 2023/06/28 15:12:57 by mbarberi         ###   ########.fr       */
+/*   Updated: 2023/06/29 08:19:23 by mbarberi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	rgb_check_overflow(char *s, int len)
 	{
 		l = (int)f_strlen(s);
 		if (l < 1 || l > 3 || f_atoi(s) > 255)
-			return (f_dprintf(2, ERR_RGB_RANGE), 1);
+			return (f_dprintf(2, ERR_RGB_RANGE, s), 1);
 		while (*s)
 			s++;
 		if ((int)(s - p) >= len)
